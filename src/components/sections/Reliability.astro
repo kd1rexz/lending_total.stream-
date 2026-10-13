@@ -1,0 +1,106 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { ProcessStep } from '../../types/content';
+interface Props {
+  items: ProcessStep[];
+}
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="section reliability" aria-labelledby="reliability-title">
+    <Container>
+      <div class="reliability__layout">
+        <div class="reliability__intro">
+          <SectionHeading
+            eyebrow="За кадром"
+            title="Эфир начинается с подготовки"
+            id="reliability-title"
+          />
+          <div class="reliability__signal" aria-hidden="true">
+            {[28, 52, 76, 38, 88, 60, 100, 68, 42, 82, 54, 30].map((height) => (
+              <span style={`--signal-height: ${height}%`}></span>
+            ))}
+          </div>
+        </div>
+        <div class="reliability__items">
+          {items.map((item, index) => (
+            <article class="reliability__item">
+              <span class="reliability__index eyebrow" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+)}
+
+<style>
+  .reliability__layout {
+    display: grid;
+    gap: var(--space-7);
+  }
+  .reliability__intro {
+    min-width: 0;
+  }
+  .reliability__signal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    width: min(100%, 20rem);
+    height: 6rem;
+    pointer-events: none;
+  }
+  .reliability__signal span {
+    flex: 1;
+    height: var(--signal-height);
+    background: var(--color-violet);
+  }
+  .reliability__signal span:nth-child(3n) {
+    background: var(--color-lime);
+  }
+  .reliability__items {
+    min-width: 0;
+  }
+  .reliability__item {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+  .reliability__item:last-child {
+    padding-bottom: 0;
+  }
+  .reliability__index {
+    color: var(--color-violet-text);
+    padding-top: var(--space-1);
+  }
+  .reliability__item h3 {
+    margin-bottom: var(--space-4);
+  }
+  .reliability__item p {
+    max-width: 40rem;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 64rem) {
+    .reliability__layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-9);
+    }
+    .reliability__item {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      column-gap: var(--space-5);
+    }
+  }
+</style>

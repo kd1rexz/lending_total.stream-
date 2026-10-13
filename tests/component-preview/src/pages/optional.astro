@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../../../src/layouts/BaseLayout.astro';
+import Hero from '../../../../src/components/sections/Hero.astro';
+import Trust from '../../../../src/components/sections/Trust.astro';
+import Reviews from '../../../../src/components/sections/Reviews.astro';
+import Container from '../../../../src/components/ui/Container.astro';
+
+const clients = [
+  { name: 'Синтетический клиент А' },
+  { name: 'Очень длинное название тестовой организации для проверки переноса' },
+];
+const reviews = [
+  {
+    quote:
+      'Синтетический отзыв для проверки карточки. Эти слова описывают только изолированный тест интерфейса и не являются рекомендацией реального клиента.',
+    author: 'Тестовый автор А',
+    company: 'Синтетическая организация А',
+  },
+  {
+    quote:
+      'Длинный синтетический отзыв проверяет читаемость, расстояния между абзацами и подписью, поведение двух колонок и перенос русского текста на узком экране. Это исключительно fixture; он не подтверждает опыт, качество или результат работы Total Stream.',
+    author: 'Тестовый автор с длинной подписью для проверки переноса',
+    company: 'Синтетическое объединение с очень длинным названием',
+  },
+];
+---
+
+<BaseLayout title="COMPONENT_FIXTURE_ONLY — необязательные секции" noindex>
+  <main id="main" tabindex="-1">
+    <p class="fixture-label">
+      COMPONENT_FIXTURE_ONLY · Изолированный стенд. Все организации, авторы и отзывы ниже
+      синтетические.
+    </p>
+    <Hero isPreview />
+    <Trust items={clients} />
+    <Reviews items={reviews} />
+    <section class="fixture-target" id="services" aria-labelledby="fixture-services-title">
+      <Container>
+        <h2 id="fixture-services-title">Тестовая цель ссылки «Услуги»</h2>
+        <p>COMPONENT_FIXTURE_ONLY · Отдельная цель для навигации Hero.</p>
+      </Container>
+    </section>
+    <section class="fixture-target" id="cases" aria-labelledby="fixture-cases-title">
+      <Container>
+        <h2 id="fixture-cases-title">Тестовая цель ссылки «Кейсы»</h2>
+        <p>COMPONENT_FIXTURE_ONLY · Здесь нет реальных проектов.</p>
+      </Container>
+    </section>
+    <section class="fixture-target" id="contacts" aria-labelledby="fixture-contacts-title">
+      <Container>
+        <h2 id="fixture-contacts-title">Тестовая цель ссылки «Контакты»</h2>
+        <p>COMPONENT_FIXTURE_ONLY · Контакты не заданы.</p>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .fixture-label {
+    padding: var(--space-4) var(--page-gutter);
+    color: var(--color-lime);
+    background: var(--color-surface);
+    font-size: var(--text-xs);
+  }
+  .fixture-target {
+    padding-block: var(--space-7);
+  }
+  .fixture-target h2 {
+    margin-bottom: var(--space-4);
+  }
+</style>

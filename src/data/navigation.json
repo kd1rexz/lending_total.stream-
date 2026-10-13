@@ -1,0 +1,6 @@
+[
+  { "label": "Услуги", "href": "#services" },
+  { "label": "Кейсы", "href": "#cases" },
+  { "label": "Как работаем", "href": "#process" },
+  { "label": "Контакты", "href": "#contacts" }
+]

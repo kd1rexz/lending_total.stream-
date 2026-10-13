@@ -1,0 +1,37 @@
+---
+interface Props {
+  class?: string;
+  color?: 'lime' | 'violet';
+  size?: number;
+}
+
+const { class: className, color = 'lime', size = 120 } = Astro.props;
+---
+
+<svg
+  class:list={['brand-star', `brand-star--${color}`, className]}
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  aria-hidden="true"
+>
+  <path
+    d="m50 0 10 26 25-11-11 25 26 10-26 10 11 25-25-11-10 26-10-26-25 11 11-25L0 50l26-10-11-25 25 11Z"
+    fill="currentColor"
+  />
+</svg>
+
+<style>
+  .brand-star {
+    flex: 0 0 auto;
+    pointer-events: none;
+  }
+
+  .brand-star--lime {
+    color: var(--color-lime);
+  }
+
+  .brand-star--violet {
+    color: var(--color-violet);
+  }
+</style>

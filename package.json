@@ -1,0 +1,38 @@
+{
+  "name": "total-stream-landing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "check": "astro check",
+    "build": "node scripts/validate-release.mjs && astro build && node scripts/verify-dist.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "dev:components": "astro dev --root tests/component-preview --host 127.0.0.1 --port 4322",
+    "build:components": "astro build --root tests/component-preview",
+    "test:validation": "node --test tests/validation/*.test.mjs",
+    "test:e2e": "playwright test",
+    "format:check": "prettier --check --ignore-unknown src scripts tests infra astro.config.mjs playwright.config.ts package.json tsconfig.json README.md",
+    "format": "prettier --write --ignore-unknown src scripts tests infra astro.config.mjs playwright.config.ts package.json tsconfig.json README.md",
+    "check:budgets": "node scripts/check-budgets.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/unbounded": "5.3.0",
+    "astro": "7.3.8",
+    "sharp": "0.35.5",
+    "zod": "4.6.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
+    "lighthouse": "13.5.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "6.0.3"
+  }
+}

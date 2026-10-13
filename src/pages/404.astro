@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Страница не найдена — Total Stream" noindex>
+  <main id="main" class="not-found">
+    <span class="error-code" aria-hidden="true">
+      404
+    </span>
+    <p class="eyebrow">Сигнал не найден</p>
+    <h1>
+      Здесь пока
+      <br />
+      нет эфира.
+    </h1>
+    <p>Возможно, адрес изменился. Вернитесь на главную — там всё на своих местах.</p>
+    <a href="/">
+      На главную <span aria-hidden="true">↗</span>
+    </a>
+  </main>
+</BaseLayout>
+<style>
+  .not-found {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: max(32px, 8vw);
+    position: relative;
+    overflow: hidden;
+  }
+  .error-code {
+    position: absolute;
+    right: 3vw;
+    top: 10vh;
+    color: var(--color-lime);
+    opacity: 0.08;
+    font-family: var(--font-heading);
+    font-size: clamp(8rem, 30vw, 28rem);
+    pointer-events: none;
+  }
+  .not-found h1 {
+    font: 600 clamp(2rem, 6vw, 5rem)/1.15 var(--font-heading);
+    position: relative;
+    margin: 1rem 0;
+  }
+  .not-found p:not(.eyebrow) {
+    max-width: 430px;
+    color: var(--color-muted);
+  }
+  .not-found a {
+    display: inline-flex;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 16px 28px;
+    background: var(--color-lime);
+    color: var(--color-bg);
+    border-radius: 999px;
+    font-weight: 700;
+  }
+</style>

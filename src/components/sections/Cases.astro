@@ -1,0 +1,254 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Star from '../brand/Star.astro';
+import type { CaseStudy } from '../../types/content';
+
+interface Props {
+  items: CaseStudy[];
+  isPreview: boolean;
+}
+const { items, isPreview } = Astro.props;
+---
+
+{(items.length > 0 || isPreview) && (
+  <section class="section cases" id="cases" aria-labelledby="cases-title">
+    <Container>
+      <SectionHeading number="02" eyebrow="Кейсы" title="События в деталях" id="cases-title" />
+      {items.length > 0 ? (
+        <div class="cases__grid">
+          {items.map((item) => (
+            <article class="case">
+              <div class="case__image">
+                <Image
+                  src={item.cover}
+                  alt={item.coverAlt}
+                  widths={[360, 640, 960]}
+                  sizes="(min-width: 1024px) 30vw, (min-width: 768px) 46vw, 100vw"
+                  loading="lazy"
+                  decoding="async"
+                  format="webp"
+                />
+              </div>
+              <div class="case__body">
+                <p class="case__type eyebrow">{item.eventType}</p>
+                <h3>{item.title}</h3>
+                {(item.client || item.location || item.date) && (
+                  <p class="case__meta">
+                    {[item.client, item.location, item.date].filter(Boolean).join(' · ')}
+                  </p>
+                )}
+                <dl class="case__details">
+                  <div>
+                    <dt>Задача</dt>
+                    <dd>{item.task}</dd>
+                  </div>
+                  <div>
+                    <dt>Что сделали</dt>
+                    <dd>{item.solution}</dd>
+                  </div>
+                  <div>
+                    <dt>Результат</dt>
+                    <dd>{item.result}</dd>
+                  </div>
+                </dl>
+                {item.videoUrl && (
+                  <a
+                    class="case__video"
+                    href={item.videoUrl}
+                    aria-label={`Смотреть запись: ${item.title}`}
+                  >
+                    Смотреть запись <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="cases__empty">
+          <div class="cases__empty-graphic" aria-hidden="true">
+            <div class="cases__viewfinder">
+              <Star size={112} />
+            </div>
+            <span class="cases__frame-caption eyebrow">Total Stream / проекты</span>
+          </div>
+          <div class="cases__empty-copy">
+            <p class="cases__empty-label eyebrow">Материалы в подготовке</p>
+            <h3>
+              За каждым эфиром —<br />
+              своя история.
+            </h3>
+            <p>
+              Здесь появятся реальные проекты: задача, ход работы и результат. Материалы для этого
+              раздела ещё не добавлены.
+            </p>
+          </div>
+        </div>
+      )}
+    </Container>
+  </section>
+)}
+
+<style>
+  .cases {
+    background: var(--color-surface);
+  }
+  .cases__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7) var(--grid-gap);
+  }
+  .case {
+    min-width: 0;
+    background: var(--color-bg);
+    border-radius: var(--radius-card);
+  }
+  .case__image {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    background: var(--color-surface-raised);
+  }
+  .case__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .case__body {
+    padding: var(--space-5);
+  }
+  .case__type {
+    margin-bottom: var(--space-4);
+    color: var(--color-lime);
+    overflow-wrap: anywhere;
+  }
+  .case h3 {
+    margin-bottom: var(--space-4);
+  }
+  .case__meta {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    overflow-wrap: anywhere;
+  }
+  .case__details {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+  }
+  .case__details > div {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+  .case__details dt {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+  .case__details dd {
+    margin: 0;
+    color: var(--color-muted);
+    overflow-wrap: anywhere;
+  }
+  .case__video {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 2.75rem;
+    margin-top: var(--space-5);
+    color: var(--color-lime);
+    font-size: var(--text-xs);
+  }
+  .cases__empty {
+    position: relative;
+    display: grid;
+    gap: var(--space-7);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-card);
+    background: var(--color-bg);
+  }
+  .cases__empty-graphic {
+    min-width: 0;
+  }
+  .cases__viewfinder {
+    display: grid;
+    place-items: center;
+    position: relative;
+    aspect-ratio: 1.8;
+    max-height: 18rem;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+  }
+  .cases__viewfinder::before,
+  .cases__viewfinder::after {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    content: '';
+    pointer-events: none;
+  }
+  .cases__viewfinder::before {
+    inset: 0 auto auto 0;
+    border-top: 2px solid var(--color-lime);
+    border-left: 2px solid var(--color-lime);
+  }
+  .cases__viewfinder::after {
+    inset: auto 0 0 auto;
+    border-right: 2px solid var(--color-lime);
+    border-bottom: 2px solid var(--color-lime);
+  }
+  .cases__viewfinder :global(svg) {
+    max-width: 32%;
+    transform: rotate(12deg);
+  }
+  .cases__frame-caption {
+    display: block;
+    margin-top: var(--space-4);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+  }
+  .cases__empty-copy {
+    min-width: 0;
+    align-self: center;
+  }
+  .cases__empty-label {
+    margin-bottom: var(--space-5);
+    color: var(--color-lime);
+  }
+  .cases__empty-copy h3 {
+    font-size: var(--text-h3);
+    margin-bottom: var(--space-5);
+  }
+  .cases__empty-copy > p:last-child {
+    max-width: 32rem;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+  }
+  @media (min-width: 48rem) {
+    .cases__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .cases__empty {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      align-items: center;
+      gap: var(--space-7);
+      padding: var(--space-7);
+    }
+  }
+  @media (min-width: 64rem) {
+    .cases__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .cases__empty {
+      padding: var(--space-8);
+      gap: var(--space-8);
+    }
+    .cases__empty-copy h3 {
+      font-size: var(--text-h2);
+    }
+  }
+</style>

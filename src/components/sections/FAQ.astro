@@ -1,0 +1,112 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { FAQItem } from '../../types/content';
+interface Props {
+  items: FAQItem[];
+}
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="section faq" aria-labelledby="faq-title">
+    <Container>
+      <div class="faq__layout">
+        <SectionHeading number="04" eyebrow="Есть вопрос?" title="До начала эфира" id="faq-title" />
+        <div class="faq__items">
+          {items.map((item) => (
+            <details class="faq__item">
+              <summary>
+                <span>{item.question}</span>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <p>{item.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+)}
+
+<style>
+  .faq__layout {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .faq__items {
+    min-width: 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: 5.5rem;
+    padding-block: var(--space-5);
+    list-style: none;
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color var(--duration-fast) ease;
+  }
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__item summary > span:first-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .faq__icon {
+    display: block;
+    position: relative;
+    flex: 0 0 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-lime);
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    display: block;
+    background: currentColor;
+    pointer-events: none;
+  }
+  .faq__icon::before {
+    inset: calc(50% - 1px) 0 auto;
+    height: 2px;
+  }
+  .faq__icon::after {
+    inset: 0 auto 0 calc(50% - 1px);
+    width: 2px;
+    transition: transform var(--duration-fast) ease;
+  }
+  .faq__item[open] .faq__icon::after {
+    transform: scaleY(0);
+  }
+  .faq__answer {
+    max-width: 43rem;
+    padding: 0 2.75rem var(--space-6) 0;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+    overflow-wrap: anywhere;
+  }
+  @media (hover: hover) {
+    .faq__item summary:hover {
+      color: var(--color-lime);
+    }
+  }
+  @media (min-width: 64rem) {
+    .faq__layout {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
+      gap: var(--space-9);
+    }
+  }
+</style>

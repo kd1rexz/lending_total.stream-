@@ -1,0 +1,13 @@
+{
+  "productionReady": false,
+  "items": [
+    {
+      "path": "src/assets/images/brand-reference-hero.jpg",
+      "source": "Пользовательский PDF «total stream айдентика.pdf», страница 4; извлечённое изображение первого концепта.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Визуальный референс для локального макета. Не подтверждает выполненный Total Stream проект. Для публикации заменить фотографией с подтверждёнными правами."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+---
+import { resolveBuildContext } from '../lib/build-context.mjs';
+import '../styles/tokens.css';
+import '../styles/typography.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'Total Stream — видеотрансляции под ключ',
+  description = 'Видеотрансляции мероприятий для государства и бизнеса по всей России. Обсудите формат события с Total Stream.',
+  noindex = false,
+} = Astro.props;
+const { isPreview, siteUrl } = resolveBuildContext();
+const canonical = siteUrl ? new URL(Astro.url.pathname, siteUrl).href : undefined;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#141517" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {(isPreview || noindex) && <meta name="robots" content="noindex,nofollow" />}
+    {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Total Stream" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && !noindex && <meta property="og:url" content={canonical} />}
+    {siteUrl && <meta property="og:image" content={new URL('/og.png', siteUrl).href} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Перейти к содержанию
+    </a>
+    <slot />
+  </body>
+</html>

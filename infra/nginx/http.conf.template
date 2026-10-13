@@ -1,0 +1,16 @@
+# Include in nginx.conf's http {} via sites-enabled. Bootstrap ACME first.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name @@NAMES@@;
+    server_tokens off;
+    add_header X-Content-Type-Options nosniff always;
+    @@ROBOTS@@
+    add_header Cache-Control no-store always;
+    location ^~ /.well-known/acme-challenge/ {
+        root @@ACME_ROOT@@;
+        default_type text/plain;
+        try_files $uri =404;
+    }
+    location / { return 308 https://@@DOMAIN@@$request_uri; }
+}

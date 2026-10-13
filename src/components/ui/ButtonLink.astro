@@ -1,0 +1,95 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'text';
+  class?: string;
+  arrow?: boolean;
+}
+
+const { href, variant = 'primary', class: className, arrow = true } = Astro.props;
+---
+
+<a href={href} class:list={['button-link', `button-link--${variant}`, className]}>
+  <span class="button-link__label">
+    <slot />
+  </span>
+  {arrow && (
+    <svg class="button-link__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M5 19 19 5M5 5h14v14" fill="none" stroke="currentColor" stroke-width="1.7" />
+    </svg>
+  )}
+</a>
+
+<style>
+  .button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    min-height: 3.5rem;
+    max-width: 100%;
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+    transition:
+      background-color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      color var(--duration-fast) ease;
+  }
+
+  .button-link__label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .button-link__arrow {
+    flex: 0 0 auto;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .button-link--primary {
+    color: var(--color-on-lime);
+    background: var(--color-lime);
+  }
+
+  .button-link--secondary {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+    background: transparent;
+  }
+
+  .button-link--text {
+    justify-content: flex-start;
+    min-height: 2.75rem;
+    padding: var(--space-2) 0;
+    border-radius: 0;
+    color: var(--color-text);
+  }
+
+  .button-link:active .button-link__arrow {
+    transform: translate(1px, -1px);
+  }
+
+  @media (hover: hover) {
+    .button-link--primary:hover {
+      background: var(--color-lime-hover);
+    }
+
+    .button-link--secondary:hover {
+      border-color: var(--color-text);
+      background: var(--color-surface);
+    }
+
+    .button-link--text:hover {
+      color: var(--color-lime);
+    }
+
+    .button-link:hover .button-link__arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../../src/layouts/BaseLayout.astro';
+import SiteHeader from '../../../../src/components/sections/SiteHeader.astro';
+import Hero from '../../../../src/components/sections/Hero.astro';
+import Services from '../../../../src/components/sections/Services.astro';
+import Cases from '../../../../src/components/sections/Cases.astro';
+import Reliability from '../../../../src/components/sections/Reliability.astro';
+import Process from '../../../../src/components/sections/Process.astro';
+import FAQ from '../../../../src/components/sections/FAQ.astro';
+import Trust from '../../../../src/components/sections/Trust.astro';
+import Reviews from '../../../../src/components/sections/Reviews.astro';
+import Contacts from '../../../../src/components/sections/Contacts.astro';
+import SiteFooter from '../../../../src/components/sections/SiteFooter.astro';
+import poster from '../../../../src/assets/images/brand-reference-hero.jpg';
+import editorial from '../../../../src/data/editorial.json';
+import navigation from '../../../../src/data/navigation.json';
+import services from '../../../../src/content/services.json';
+import { contacts, cases } from '../fixtures';
+---
+
+<BaseLayout title="Стенд секций" noindex>
+  <SiteHeader navigation={navigation} />
+  <main id="main">
+    <p class="fixture-label">
+      COMPONENT_FIXTURE_ONLY · Все кейсы и контакты на этом стенде — тестовые
+    </p>
+    <Hero isPreview poster={poster} />
+    <Trust items={[]} />
+    <Services items={services} />
+    <Cases items={cases} isPreview />
+    <Reliability items={editorial.reliability} />
+    <Process items={editorial.process} />
+    <Reviews items={[]} />
+    <FAQ items={editorial.faq} />
+    <Contacts contacts={contacts} isPreview />
+  </main>
+  <SiteFooter contacts={contacts} />
+</BaseLayout>
+<style>
+  .fixture-label {
+    padding: 16px 20px;
+    background: var(--color-surface);
+    color: var(--color-lime);
+    font-size: 14px;
+  }
+</style>

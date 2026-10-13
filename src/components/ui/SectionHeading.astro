@@ -1,0 +1,65 @@
+---
+interface Props {
+  number?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  id?: string;
+  align?: 'left' | 'center';
+}
+
+const { number, eyebrow, title, description, id, align = 'left' } = Astro.props;
+---
+
+<div class:list={['section-heading', { 'section-heading--center': align === 'center' }]}>
+  {(number || eyebrow) && (
+    <p class="section-heading__meta eyebrow">
+      {number && (
+        <span class="section-heading__number" aria-hidden="true">
+          /{number}
+        </span>
+      )}
+      {eyebrow && <span>{eyebrow}</span>}
+    </p>
+  )}
+  <h2 id={id} class="section-heading__title">
+    {title}
+  </h2>
+  {description && <p class="section-heading__description">{description}</p>}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+    margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+
+  .section-heading__meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-5);
+    color: var(--color-muted);
+  }
+
+  .section-heading__number {
+    color: var(--color-lime);
+  }
+
+  .section-heading__title {
+    max-width: 24ch;
+  }
+
+  .section-heading__description {
+    max-width: 40rem;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+  }
+
+  .section-heading--center {
+    align-items: center;
+    text-align: center;
+  }
+</style>

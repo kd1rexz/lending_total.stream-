@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../../../src/layouts/BaseLayout.astro';
+import Container from '../../../../src/components/ui/Container.astro';
+import ButtonLink from '../../../../src/components/ui/ButtonLink.astro';
+import SectionHeading from '../../../../src/components/ui/SectionHeading.astro';
+import Logo from '../../../../src/components/brand/Logo.astro';
+import Star from '../../../../src/components/brand/Star.astro';
+import CheckerPattern from '../../../../src/components/brand/CheckerPattern.astro';
+---
+
+<BaseLayout title="Стенд компонентов" noindex>
+  <main id="main">
+    <Container as="section" class="section">
+      <p class="eyebrow">COMPONENT_FIXTURE_ONLY · Стенд</p>
+      <Logo />
+      <h1>
+        Видео&shy;трансляции
+        <br />
+        под ключ
+      </h1>
+      <SectionHeading
+        number="01"
+        eyebrow="Направления"
+        title="Ваше событие. Наш эфир."
+        description="Проверка кириллицы, компонентов и состояний на разных ширинах."
+      />
+      <div class="buttons">
+        <ButtonLink href="#samples">Обсудить проект</ButtonLink>
+        <ButtonLink href="#samples" variant="secondary">
+          Смотреть кейсы
+        </ButtonLink>
+        <ButtonLink href="#samples" variant="text">
+          Подробнее
+        </ButtonLink>
+      </div>
+      <div id="samples" class="samples">
+        <Star size={90} />
+        <Star size={90} color="violet" />
+        <Logo compact />
+        <Logo dark />
+      </div>
+    </Container>
+    <CheckerPattern />
+  </main>
+</BaseLayout>
+<style>
+  h1 {
+    font: 600 clamp(2rem, 6vw, 5rem)/1.1 var(--font-heading);
+    margin-block: 60px;
+  }
+  .buttons,
+  .samples {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    margin-block: 40px;
+  }
+</style>

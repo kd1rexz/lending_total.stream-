@@ -1,0 +1,70 @@
+:root {
+  /* Working palette from the first identity concept; final brand source is pending. */
+  --color-bg: #141517;
+  --color-surface: #202124;
+  --color-surface-raised: #292a2d;
+  --color-text: #f5f5f1;
+  --color-muted: #b7b8bc;
+  --color-lime: #a4ff82;
+  --color-lime-hover: #bcffa2;
+  --color-on-lime: #141517;
+  --color-violet: #620dff;
+  --color-violet-text: #b895ff;
+  --color-on-violet: #f5f5f1;
+  --color-border: #393a3e;
+  --color-border-strong: #77797e;
+  --color-focus: #f5f5f1;
+
+  --font-heading: 'Unbounded Variable', 'Arial Black', sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
+  --text-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-h1: clamp(1.875rem, 1rem + 3.5vw, 4.5rem);
+  --text-h2: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  --text-h3: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --section-space: clamp(4.5rem, 3rem + 4vw, 8rem);
+  --container-max: 80rem;
+  --page-gutter: 1.25rem;
+  --grid-columns: 4;
+  --grid-gap: 1rem;
+  --header-height: 6rem;
+  --anchor-offset: calc(var(--header-height) + 1.5rem);
+
+  --radius-sm: 0.75rem;
+  --radius-card: 1.5rem;
+  --radius-pill: 999px;
+  --duration-fast: 180ms;
+  --duration-base: 240ms;
+  --duration-reveal: 500ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-gutter: 2rem;
+    --grid-columns: 6;
+    --grid-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --page-gutter: 3rem;
+    --grid-columns: 12;
+    --grid-gap: 2rem;
+  }
+}

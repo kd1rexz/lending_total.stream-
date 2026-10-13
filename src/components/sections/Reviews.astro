@@ -1,0 +1,88 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { Review } from '../../types/content';
+interface Props {
+  items: Review[];
+}
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="section reviews" aria-labelledby="reviews-title">
+    <Container>
+      <SectionHeading eyebrow="Обратная связь" title="После финальных титров" id="reviews-title" />
+      <div class="reviews__grid">
+        {items.map((item) => (
+          <figure class="review">
+            <span class="review__mark" aria-hidden="true">
+              “
+            </span>
+            <blockquote>
+              <p>{item.quote}</p>
+            </blockquote>
+            <figcaption>
+              <span class="review__author">{item.author}</span>
+              <span class="review__company">{item.company}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}
+
+<style>
+  .reviews {
+    background: var(--color-surface);
+  }
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+  .review {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border-strong);
+  }
+  .review__mark {
+    height: 3.5rem;
+    color: var(--color-lime);
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    line-height: 1;
+  }
+  .review blockquote {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-lg);
+    overflow-wrap: anywhere;
+  }
+  .review figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: auto;
+    overflow-wrap: anywhere;
+  }
+  .review__author {
+    font-weight: 700;
+  }
+  .review__company {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+  }
+  @media (min-width: 48rem) {
+    .reviews__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64rem) {
+    .reviews__grid {
+      column-gap: var(--space-9);
+    }
+  }
+</style>

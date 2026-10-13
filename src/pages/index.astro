@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import Cases from '../components/sections/Cases.astro';
+import Reliability from '../components/sections/Reliability.astro';
+import Process from '../components/sections/Process.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Trust from '../components/sections/Trust.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import Contacts from '../components/sections/Contacts.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import { getPageContent } from '../lib/content';
+import { resolveBuildContext } from '../lib/build-context.mjs';
+import referencePoster from '../assets/images/brand-reference-hero.jpg';
+
+const { isPreview } = resolveBuildContext();
+const content = await getPageContent();
+---
+
+<BaseLayout description={content.site.description}>
+  <SiteHeader navigation={content.navigation} />
+  <main id="main">
+    <Hero isPreview={isPreview} poster={isPreview ? referencePoster : undefined} />
+    <Trust items={content.clients} />
+    <Services items={content.services} />
+    <Cases items={content.cases} isPreview={isPreview} />
+    <Reliability items={content.reliability} />
+    <Process items={content.process} />
+    <Reviews items={content.reviews} />
+    <FAQ items={content.faq} />
+    <Contacts contacts={content.site.contacts} isPreview={isPreview} />
+  </main>
+  <SiteFooter contacts={content.site.contacts} />
+</BaseLayout>
+<script>
+  import '../scripts/reveal';
+</script>

@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Total Stream: локальный сайт",
+      "type": "shell",
+      "command": "pnpm dev",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Total Stream: проверить и собрать",
+      "type": "shell",
+      "command": "pnpm check && pnpm build",
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}
