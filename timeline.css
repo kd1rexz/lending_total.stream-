@@ -1,0 +1,122 @@
+/* Connected project timeline */
+.process-grid {
+  position: relative;
+  gap: 0;
+  border-top: 0;
+}
+
+.process-grid::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), #86a8ff 72%, var(--line));
+}
+
+.process-item {
+  position: relative;
+  z-index: 1;
+  margin-right: 18px;
+  padding: 0 36px 0 0;
+  border-right: 0;
+}
+
+.process-item:last-child {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.process-item span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 0 0 8px var(--paper);
+  color: var(--blue);
+  font: 800 11px Manrope;
+}
+
+.process-item:last-child span {
+  background: var(--blue);
+  color: #fff;
+}
+
+.process-item h3 {
+  margin: 30px 0 10px;
+}
+
+@media (max-width: 900px) and (min-width: 561px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 44px;
+  }
+
+  .process-grid::before {
+    display: none;
+  }
+
+  .process-item::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 20px;
+    left: 42px;
+    right: -18px;
+    height: 2px;
+    background: var(--line);
+  }
+
+  .process-item:nth-child(even)::after {
+    display: none;
+  }
+
+  .process-item:nth-child(2) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .process-grid::before {
+    display: block;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, var(--blue), #86a8ff 72%, var(--line));
+  }
+
+  .process-item {
+    min-height: 150px;
+    margin: 0;
+    padding: 0 0 30px 66px;
+    border: 0;
+  }
+
+  .process-item span {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .process-item h3 {
+    margin: 7px 0 10px;
+  }
+
+  .process-item:last-child {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+}
