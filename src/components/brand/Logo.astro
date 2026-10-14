@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../../assets/brand/logo-variant-3.png';
+
 interface Props {
   class?: string;
   compact?: boolean;
@@ -13,12 +16,19 @@ const { class: className, compact = false, dark = false } = Astro.props;
   role="img"
   aria-label="Total Stream"
 >
-  <svg class="brand-logo__mark" width="46" height="46" viewBox="0 0 64 64" aria-hidden="true">
-    <path class="brand-logo__ring" d="m32 3 25 14v30L32 61 7 47V17Z" fill="none" stroke-width="5" />
-    <path d="m32 3 25 14-8 5-25-14ZM7 47l8-5 25 14-8 5Z" class="brand-logo__facet" />
-    <path d="m21 15 30 17-30 17Z" class="brand-logo__play" />
-    <path d="m29 26 11 6-11 6Z" class="brand-logo__cutout" />
-  </svg>
+  <Image
+    src={logo}
+    width={48}
+    height={48}
+    widths={[48, 96, 144]}
+    sizes="48px"
+    format="webp"
+    quality={100}
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    class="brand-logo__mark"
+  />
   {!compact && (
     <span class="brand-logo__wordmark" aria-hidden="true">
       TOTAL
@@ -37,29 +47,17 @@ const { class: className, compact = false, dark = false } = Astro.props;
     line-height: 0.98;
   }
 
-  .brand-logo__mark {
+  .brand-logo :global(.brand-logo__mark) {
     flex: 0 0 auto;
-    overflow: visible;
-  }
-
-  .brand-logo__ring {
-    stroke: currentColor;
-    opacity: 0.8;
-  }
-
-  .brand-logo__facet,
-  .brand-logo__play {
-    fill: var(--color-violet);
-  }
-
-  .brand-logo__cutout {
-    fill: var(--color-text);
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
   }
 
   .brand-logo__wordmark {
-    font-family: var(--font-body);
-    font-size: 1.375rem;
-    font-weight: 800;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
     letter-spacing: -0.045em;
   }
 

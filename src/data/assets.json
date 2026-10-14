@@ -2,6 +2,14 @@
   "productionReady": false,
   "items": [
     {
+      "path": "src/assets/brand/logo-variant-3.png",
+      "source": "Пользовательский PDF «total stream айдентика.pdf», страница 1, «вариант 3», встроенное RGBA-изображение Im2.",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Вариант выбран пользователем 14 октября 2026 года. Сохранены оригинальные видимые пиксели, удалены только прозрачные поля. Используется в шапке, подвале и favicon."
+    },
+    {
       "path": "src/assets/images/brand-reference-hero.jpg",
       "source": "Пользовательский PDF «total stream айдентика.pdf», страница 4; извлечённое изображение первого концепта.",
       "rights": "unconfirmed",
