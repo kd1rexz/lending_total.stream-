@@ -222,3 +222,22 @@ test('draft selection and deterministic sorting are shared with the page', () =>
     ['b', 'draft', 'a'],
   );
 });
+
+test('service examples reject broken references and unpublished-only production examples', () => {
+  const unknown = approvedSource();
+  unknown.cases[0].serviceIds = ['missing-service'];
+  assert.throws(() => validateContentSource(unknown, {}), /unknown service missing-service/);
+
+  const duplicate = approvedSource();
+  duplicate.cases[0].serviceIds.push(duplicate.cases[0].serviceIds[0]);
+  assert.throws(() => validateContentSource(duplicate, {}), /Service ids must be unique/);
+
+  const draft = approvedSource();
+  draft.cases.push({ ...draft.cases[0], id: 'unrelated-published-case', serviceIds: [] });
+  draft.cases[0].published = false;
+  assert.throws(
+    () => validateContentSource(draft, production),
+    /service-1: production requires at least one published example/,
+  );
+  assert.doesNotThrow(() => validateContentSource(draft, {}));
+});

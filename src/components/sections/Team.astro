@@ -1,0 +1,102 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { EditorialItem } from '../../types/content';
+
+interface Props {
+  items: EditorialItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="section team" id="team" aria-labelledby="team-title">
+  <Container>
+    <div class="team__layout">
+      <div class="team__intro">
+        <SectionHeading
+          number="03"
+          eyebrow="О команде"
+          title="Люди за каждым кадром"
+          description="В эфире виден результат общей работы. За кадром — люди, которые отвечают за изображение, звук и связь между площадкой и зрителем."
+          id="team-title"
+        />
+      </div>
+      <ul class="team__roles" role="list" aria-label="Роли в команде">
+        {items.map((item) => (
+          <li class="team__role">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .team {
+    --color-muted: var(--color-on-violet);
+    background: var(--color-violet);
+    color: var(--color-on-violet);
+  }
+
+  .team__layout,
+  .team__roles {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team__intro {
+    min-width: 0;
+    max-width: 43rem;
+  }
+
+  .team__roles {
+    gap: var(--space-7);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .team__role {
+    min-width: 0;
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--color-on-violet) 40%, transparent);
+  }
+
+  .team__role h3 {
+    margin-bottom: var(--space-4);
+    color: var(--color-lime);
+    font-size: clamp(1.125rem, 1rem + 0.35vw, 1.375rem);
+    line-height: 1.4;
+  }
+
+  .team__role p {
+    max-width: 40ch;
+    font-size: var(--text-base);
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 48rem) {
+    .team__roles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .team__layout {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+      gap: var(--space-8);
+    }
+
+    .team__intro {
+      padding-right: var(--space-5);
+    }
+
+    .team__roles {
+      column-gap: var(--space-6);
+    }
+  }
+</style>

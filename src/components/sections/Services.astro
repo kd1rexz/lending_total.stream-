@@ -2,10 +2,11 @@
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Star from '../brand/Star.astro';
-import type { Service } from '../../types/content';
+import ServiceExamples from '../ui/ServiceExamples.astro';
+import type { ServiceWithExamples } from '../../types/content';
 
 interface Props {
-  items: Service[];
+  items: ServiceWithExamples[];
 }
 const { items } = Astro.props;
 ---
@@ -35,21 +36,7 @@ const { items } = Astro.props;
           </div>
           <div class="service__body">
             <p>{service.description}</p>
-            <a
-              class="service__link"
-              href="#contacts"
-              aria-label={`Обсудить услугу: ${service.title}`}
-            >
-              <span>Обсудить услугу</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M5 19 19 5M5 5h14v14"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                />
-              </svg>
-            </a>
+            <ServiceExamples service={service} />
           </div>
         </article>
       ))}
@@ -102,28 +89,9 @@ const { items } = Astro.props;
     font-size: var(--text-base);
     overflow-wrap: anywhere;
   }
-  .service__link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-5);
-    min-height: 2.75rem;
-    margin-top: var(--space-5);
-    padding-block: var(--space-2);
-    font-size: var(--text-xs);
-    text-decoration: none;
-    transition: color var(--duration-fast) ease;
-  }
-  .service__link > span {
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
-  .service__link > svg {
-    flex: 0 0 auto;
-  }
-  @media (hover: hover) {
-    .service__link:hover {
-      color: var(--color-lime);
+  @media (max-width: 47.999rem) {
+    .service:has(:global([data-examples-fallback][open])) .service__body {
+      grid-column: 1 / -1;
     }
   }
   @media (min-width: 48rem) {

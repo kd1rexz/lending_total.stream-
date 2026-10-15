@@ -53,6 +53,10 @@ export const serviceSchema = z
 export const caseSchema = z
   .object({
     id,
+    serviceIds: z
+      .array(id)
+      .refine((ids) => new Set(ids).size === ids.length, 'Service ids must be unique.')
+      .default([]),
     title: text,
     eventType: text,
     cover: text.regex(
@@ -75,7 +79,7 @@ export const caseSchema = z
 const stepSchema = z.object({ title: text, description: text }).strict();
 export const editorialSchema = z
   .object({
-    process: z.array(stepSchema),
+    team: z.array(stepSchema),
     reliability: z.array(stepSchema),
     faq: z.array(z.object({ question: text, answer: text }).strict()),
     reviews: z.array(z.object({ quote: text, author: text, company: text }).strict()),
@@ -84,9 +88,7 @@ export const editorialSchema = z
   .strict();
 
 export const navigationSchema = z.array(
-  z
-    .object({ label: text, href: z.enum(['#services', '#cases', '#process', '#contacts']) })
-    .strict(),
+  z.object({ label: text, href: z.enum(['#services', '#cases', '#team', '#contacts']) }).strict(),
 );
 
 export const assetsSchema = z

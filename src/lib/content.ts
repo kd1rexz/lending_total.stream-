@@ -34,7 +34,10 @@ export async function getPageContent(): Promise<PageContent> {
   return {
     site: source.site,
     navigation: source.navigation,
-    services,
+    services: services.map((service) => ({
+      ...service,
+      examples: cases.filter((entry) => entry.serviceIds.includes(service.id)),
+    })),
     cases,
     ...source.editorial,
   };

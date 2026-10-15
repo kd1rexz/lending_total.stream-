@@ -12,6 +12,7 @@ export type Service = {
 };
 export type CaseStudy = {
   id: string;
+  serviceIds: string[];
   title: string;
   eventType: string;
   cover: ImageMetadata;
@@ -26,7 +27,8 @@ export type CaseStudy = {
   date?: string;
   videoUrl?: string;
 };
-export type ProcessStep = { title: string; description: string };
+export type ServiceWithExamples = Service & { examples: CaseStudy[] };
+export type EditorialItem = { title: string; description: string };
 export type FAQItem = { question: string; answer: string };
 export type Review = { quote: string; author: string; company: string };
 export type TrustItem = { name: string };
@@ -40,10 +42,10 @@ export type SiteSettings = {
 export type PageContent = {
   site: SiteSettings;
   navigation: NavItem[];
-  services: Service[];
+  services: ServiceWithExamples[];
   cases: CaseStudy[];
-  process: ProcessStep[];
-  reliability: ProcessStep[];
+  team: EditorialItem[];
+  reliability: EditorialItem[];
   faq: FAQItem[];
   reviews: Review[];
   clients: TrustItem[];

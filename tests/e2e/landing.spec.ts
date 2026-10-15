@@ -199,13 +199,13 @@ test('keyboard skip link and FAQ remain operable', async ({ page, browserName })
     page.locator('main :focus'),
     'Next Tab must skip the header and enter main',
   ).toHaveCount(1);
-  const firstQuestion = page.locator('summary').first();
+  const firstQuestion = page.locator('.faq summary').first();
   await firstQuestion.focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('details').first()).toHaveAttribute('open', '');
-  await expect(page.locator('details').first().locator('p')).toBeVisible();
+  await expect(page.locator('.faq details').first()).toHaveAttribute('open', '');
+  await expect(page.locator('.faq details').first().locator('p')).toBeVisible();
   await page.keyboard.press('Space');
-  await expect(page.locator('details').first()).not.toHaveAttribute('open', '');
+  await expect(page.locator('.faq details').first()).not.toHaveAttribute('open', '');
 });
 
 test('reduced motion avoids reveal animation and smooth scrolling', async ({ page }) => {
@@ -230,7 +230,7 @@ for (const width of [390, 1440]) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await ready(page);
     if (width === 390) await page.getByRole('button', { name: 'Меню', exact: true }).click();
-    await page.locator('summary').first().click();
+    await page.locator('.faq summary').first().click();
     const result = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
@@ -291,11 +291,11 @@ test.describe('without JavaScript', () => {
     await navigation.getByRole('link', { name: 'Контакты', exact: true }).click();
     await expect(page).toHaveURL(/#contacts$/);
     await expect(page.locator('#contacts')).toContainText('Контакты будут добавлены');
-    const question = page.locator('summary').first();
+    const question = page.locator('.faq summary').first();
     await question.focus();
     await page.keyboard.press('Enter');
-    await expect(page.locator('details').first()).toHaveAttribute('open', '');
-    await expect(page.locator('details').first().locator('p')).toBeVisible();
+    await expect(page.locator('.faq details').first()).toHaveAttribute('open', '');
+    await expect(page.locator('.faq details').first().locator('p')).toBeVisible();
     await checkReflow(page);
     await mkdir(evidence, { recursive: true });
     await page.screenshot({

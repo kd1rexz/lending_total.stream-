@@ -10,6 +10,7 @@ export const contacts: Contact[] = [
 ];
 export const cases: CaseStudy[] = Array.from({ length: 3 }, (_, i) => ({
   id: `fixture-${i}`,
+  serviceIds: [i === 1 ? 'hybrid-events' : 'live-production'],
   title: [
     'Тестовая конференция',
     'Очень длинное название демонстрационного мероприятия',

@@ -79,6 +79,13 @@ export function validateContentSource(rawSource, env = process.env) {
   }
   const paths = source.assets.items.map((asset) => asset.path);
   if (new Set(paths).size !== paths.length) issues.push('Asset paths must be unique.');
+  const serviceIds = new Set(source.services.map((service) => service.id));
+  for (const entry of source.cases) {
+    for (const serviceId of entry.serviceIds) {
+      if (!serviceIds.has(serviceId))
+        issues.push(`Case ${entry.id}: unknown service ${serviceId}.`);
+    }
+  }
 
   if (!build.isPreview) {
     if (isReservedHost(new URL(build.siteUrl).hostname))
@@ -103,7 +110,11 @@ export function validateContentSource(rawSource, env = process.env) {
     const services = visibleEntries(source.services, false);
     if (services.length < 3 || services.length > 4)
       issues.push('Production requires 3–4 approved, published services.');
-    for (const key of ['process', 'reliability', 'faq']) {
+    for (const service of services) {
+      if (!cases.some((entry) => entry.serviceIds.includes(service.id)))
+        issues.push(`Service ${service.id}: production requires at least one published example.`);
+    }
+    for (const key of ['team', 'reliability', 'faq']) {
       if (!source.editorial[key].length)
         issues.push(`Production requires approved ${key} content.`);
     }

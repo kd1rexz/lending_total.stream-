@@ -27,7 +27,7 @@ export function approvedSource() {
     },
     navigation: [{ label: 'Контакты', href: '#contacts' }],
     editorial: {
-      process: [{ title: 'Тестовый этап', description: 'Описание этапа в fixture.' }],
+      team: [{ title: 'Тестовая роль', description: 'Описание роли в fixture.' }],
       reliability: [{ title: 'Тестовая проверка', description: 'Описание проверки в fixture.' }],
       faq: [{ question: 'Тестовый вопрос?', answer: 'Тестовый ответ.' }],
       reviews: [],
@@ -43,6 +43,7 @@ export function approvedSource() {
     })),
     cases: Array.from({ length: 3 }, (_, index) => ({
       id: `case-${index + 1}`,
+      serviceIds: [`service-${index + 1}`],
       title: `Тестовый кейс ${index + 1}`,
       eventType: 'Fixture',
       cover: '../assets/images/fixture.png',

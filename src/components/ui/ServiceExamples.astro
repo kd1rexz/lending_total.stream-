@@ -1,0 +1,350 @@
+---
+import { Image } from 'astro:assets';
+import Star from '../brand/Star.astro';
+import type { ServiceWithExamples } from '../../types/content';
+
+interface Props {
+  service: ServiceWithExamples;
+}
+const { service } = Astro.props;
+const dialogId = `examples-${service.id}`;
+const titleId = `${dialogId}-title`;
+---
+
+<div class="examples" data-service-examples>
+  <button
+    class="examples__trigger"
+    type="button"
+    aria-label={`Смотреть примеры: ${service.title}`}
+    aria-haspopup="dialog"
+    aria-controls={dialogId}
+    data-examples-open
+    hidden
+  >
+    <span>Смотреть примеры</span>
+    <span class="examples__arrow" aria-hidden="true">
+      ↗
+    </span>
+  </button>
+  <details data-examples-fallback>
+    <summary class="examples__trigger" aria-label={`Смотреть примеры: ${service.title}`}>
+      <span>Смотреть примеры</span>
+      <span class="examples__arrow" aria-hidden="true">
+        ↗
+      </span>
+    </summary>
+    <div class="examples__content" data-examples-content>
+      <div class="examples__intro">
+        <p class="examples__tag eyebrow">{service.tag} / примеры</p>
+        <h3 id={titleId}>{service.title}</h3>
+        <p class="examples__description">{service.description}</p>
+      </div>
+      {service.examples.length > 0 ? (
+        <div class="examples__projects">
+          {service.examples.map((item) => (
+            <article class="example">
+              <div class="example__image">
+                <Image
+                  src={item.cover}
+                  alt={item.coverAlt}
+                  widths={[360, 640, 960]}
+                  sizes="(min-width: 1024px) 900px, 90vw"
+                  loading="lazy"
+                  decoding="async"
+                  format="webp"
+                />
+              </div>
+              <div class="example__body">
+                <p class="eyebrow">{item.eventType}</p>
+                <h4>{item.title}</h4>
+                {(item.client || item.location || item.date) && (
+                  <p class="example__meta">
+                    {[item.client, item.location, item.date].filter(Boolean).join(' · ')}
+                  </p>
+                )}
+                <dl class="example__details">
+                  <div>
+                    <dt>Задача</dt>
+                    <dd>{item.task}</dd>
+                  </div>
+                  <div>
+                    <dt>Что сделали</dt>
+                    <dd>{item.solution}</dd>
+                  </div>
+                  <div>
+                    <dt>Результат</dt>
+                    <dd>{item.result}</dd>
+                  </div>
+                </dl>
+                {item.videoUrl && (
+                  <a
+                    class="example__video"
+                    href={item.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Смотреть запись <span aria-hidden="true">↗</span>
+                    <span class="sr-only">: {item.title} (в новой вкладке)</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="examples__empty">
+          <div class="examples__frame" aria-hidden="true">
+            <Star color="lime" size={80} />
+          </div>
+          <div>
+            <p class="examples__empty-title">Примеры скоро появятся</p>
+            <p>
+              Здесь будут проекты в этом формате: кадры с площадки, задачи и записи эфиров.
+              Материалы пока готовятся.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  </details>
+  <dialog class="examples__dialog" id={dialogId} aria-labelledby={titleId} data-examples-dialog>
+    <div class="examples__toolbar">
+      <span class="eyebrow">Total Stream / проекты</span>
+      <button
+        class="examples__close"
+        type="button"
+        aria-label="Закрыть примеры"
+        data-examples-close
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  import '../../scripts/service-examples';
+</script>
+
+<style>
+  .examples {
+    margin-top: var(--space-5);
+  }
+  .examples__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-5);
+    min-height: 2.75rem;
+    padding: var(--space-2) 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    text-align: left;
+    list-style: none;
+    transition: color var(--duration-fast) ease;
+  }
+  .examples__trigger::-webkit-details-marker {
+    display: none;
+  }
+  .examples__trigger > span:first-child {
+    overflow-wrap: anywhere;
+  }
+  .examples__arrow {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .examples__dialog {
+    width: min(64rem, calc(100% - 2rem));
+    max-width: none;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-card);
+    background: var(--color-bg);
+    color: var(--color-text);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  .examples__dialog::backdrop {
+    background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .examples__toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-muted);
+  }
+  .examples__close {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition:
+      color var(--duration-fast) ease,
+      background var(--duration-fast) ease;
+  }
+  .examples__content {
+    padding: var(--page-gutter);
+  }
+  .examples__intro {
+    margin-bottom: var(--space-7);
+  }
+  .examples__tag {
+    color: var(--color-lime);
+    margin-bottom: var(--space-5);
+  }
+  .examples__intro h3 {
+    font-size: 1.5rem;
+    max-width: 24ch;
+  }
+  .examples__description {
+    color: var(--color-muted);
+    max-width: 44rem;
+    margin-top: var(--space-5);
+    font-size: var(--text-base);
+  }
+  .examples__projects {
+    display: grid;
+    gap: var(--space-7);
+  }
+  .example {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .example__image {
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+  }
+  .example__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .example__body {
+    padding: var(--space-5);
+  }
+  .example__body > .eyebrow {
+    color: var(--color-lime);
+    margin-bottom: var(--space-4);
+  }
+  .example h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: var(--text-h3);
+    line-height: 1.35;
+  }
+  .example__meta {
+    color: var(--color-muted);
+    margin-top: var(--space-3);
+  }
+  .example__details {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+  }
+  .example__details > div {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+  .example__details dt {
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .example__details dd {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .example__video {
+    display: inline-flex;
+    gap: var(--space-4);
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-lime);
+    margin-top: var(--space-5);
+  }
+  .examples__empty {
+    display: grid;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+  }
+  .examples__frame {
+    display: grid;
+    place-items: center;
+    width: 8rem;
+    max-width: 100%;
+    aspect-ratio: 1.6;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-bg);
+  }
+  .examples__empty-title {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    line-height: 1.4;
+  }
+  .examples__empty p:last-child {
+    color: var(--color-muted);
+  }
+  .examples__content :is(h4, p, dt, dd, a) {
+    overflow-wrap: anywhere;
+  }
+  details > .examples__content {
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+  details .example__body {
+    padding: var(--space-4);
+  }
+  @media (hover: hover) {
+    .examples__trigger:hover {
+      color: var(--color-lime);
+    }
+    .examples__close:hover {
+      background: var(--color-lime);
+      color: var(--color-on-lime);
+    }
+  }
+  @media (min-width: 48rem) {
+    .examples__intro h3 {
+      font-size: var(--text-h2);
+    }
+    .examples__dialog .examples__frame {
+      width: 100%;
+    }
+    .examples__dialog .examples__content {
+      padding: var(--space-7);
+    }
+    .examples__dialog .examples__empty {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+    }
+    .examples__dialog .example__details {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

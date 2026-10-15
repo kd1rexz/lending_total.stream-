@@ -5,7 +5,7 @@ import Hero from '../../../../src/components/sections/Hero.astro';
 import Services from '../../../../src/components/sections/Services.astro';
 import Cases from '../../../../src/components/sections/Cases.astro';
 import Reliability from '../../../../src/components/sections/Reliability.astro';
-import Process from '../../../../src/components/sections/Process.astro';
+import Team from '../../../../src/components/sections/Team.astro';
 import FAQ from '../../../../src/components/sections/FAQ.astro';
 import Trust from '../../../../src/components/sections/Trust.astro';
 import Reviews from '../../../../src/components/sections/Reviews.astro';
@@ -26,10 +26,15 @@ import { contacts, cases } from '../fixtures';
     </p>
     <Hero isPreview poster={poster} />
     <Trust items={[]} />
-    <Services items={services} />
+    <Services
+      items={services.map((service) => ({
+        ...service,
+        examples: cases.filter((entry) => entry.serviceIds.includes(service.id)),
+      }))}
+    />
     <Cases items={cases} isPreview />
     <Reliability items={editorial.reliability} />
-    <Process items={editorial.process} />
+    <Team items={editorial.team} />
     <Reviews items={[]} />
     <FAQ items={editorial.faq} />
     <Contacts contacts={contacts} isPreview />
