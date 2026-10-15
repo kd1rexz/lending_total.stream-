@@ -13,8 +13,8 @@
 
 ## Props секций
 
-- SiteHeader: `navigation: NavItem[]`.
-- Hero: `poster?: ImageMetadata`. Сам владеет id="top". По правке пользователя от 15 октября верхняя строка и бейдж preview удалены.
+- SiteHeader: `navigation: NavItem[]`. Закрытая шапка 64/72 px (порог 1024 px), высота хранится в `--header-height`. Локальные стили уменьшают знак до 40 px и надпись до 14 px, футер прежний.
+- Hero: `poster?: ImageMetadata`. Сам владеет id="top". По правкам пользователя от 15 октября верхняя строка и бейдж preview удалены; высота основной части учитывает `100svh`, шапку и полосу 24/32 px. Минимальная высота не фиксирует максимум содержимого: увеличенный текст свободно растягивает блок.
 - Contacts: `contacts: Contact[]`, `isPreview: boolean`. id="contacts".
 - SiteFooter: `contacts: Contact[]`.
 - Services: `items: ServiceWithExamples[]`. id="services". `ServiceWithExamples` дополняет услугу массивом `examples: CaseStudy[]`, уже отфильтрованным слоем данных.

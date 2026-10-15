@@ -41,7 +41,7 @@
   --page-gutter: 1.25rem;
   --grid-columns: 4;
   --grid-gap: 1rem;
-  --header-height: 6rem;
+  --header-height: 4rem;
   --anchor-offset: calc(var(--header-height) + 1.5rem);
 
   --radius-sm: 0.75rem;
@@ -63,6 +63,7 @@
 
 @media (min-width: 64rem) {
   :root {
+    --header-height: 4.5rem;
     --page-gutter: 3rem;
     --grid-columns: 12;
     --grid-gap: 2rem;
