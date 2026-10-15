@@ -30,6 +30,7 @@
 | T21 | Плавное вращение звёзд при прокрутке | T20, правка пользователя | done | root | [Отчёт](reports/T21.md), сглаживание, обратное вращение, reduced motion; 12 E2E и 6 проверок движения |
 | T22 | Разделитель в стиле съёмки и эфира | T21, правка пользователя | done | root | [Отчёт](reports/T22.md), монтажная шкала; 27 браузерных проверок |
 | T23 | Новый разделитель ниже Hero и блок клиентов | T22, правка пользователя | done | root | [Отчёт](reports/T23.md), первый экран без разделителя; PIMS, Apple, Google; 33 браузерные проверки |
+| T24 | Настоящие логотипы компаний ниже кейсов | T23, правка пользователя | done | root | [Отчёт](reports/T24.md): 8 логотипов, 5 явно демонстрационных; полоса удалена; 33/33 E2E |
 
 `queued` означает, что задача ещё не назначена, а не что её зависимости уже выполнены. Следующий этап — T10/T11 после получения предусмотренных материалов и инфраструктуры.
 
@@ -58,6 +59,8 @@ Workspace: `/Users/daniil/Desktop/total stream`, ветка `codex/total-stream-
 - T22 root завершён, владение закрыто: `src/components/brand/{CheckerPattern,BroadcastDivider}.astro`, `src/components/sections/Hero.astro`, `tests/component-preview/src/pages/index.astro`, `docs/{technical-spec,contracts,task-board}.md`, `docs/reports/T22.md`, `output/qa/T22/`. Замена разделителя и учёт его высоты в Hero.
 
 - T23 root завершён, владение закрыто: `src/components/brand/BroadcastDivider.astro`, `src/components/sections/{Hero,Trust}.astro`, `src/pages/index.astro`, `src/data/editorial.json`, `docs/{technical-spec,contracts,content-register,task-board}.md`, `docs/reports/T23.md`, `output/qa/T23/`. Компании — только названные пользователем: PIMS, Apple, Google.
+
+- T24 root завершён, владение закрыто: `src/assets/clients/*`, `src/components/sections/Trust.astro`, `src/pages/index.astro`, `src/lib/content.ts`, `src/types/content.ts`, `src/data/{assets,editorial}.json`, `docs/{technical-spec,contracts,content-register,task-board}.md`, `docs/reports/T24.md`, `output/qa/T24/`. Официальные файлы логотипов и нормализация данных; изменения `src/lib/content-schema.mjs`, `tests/component-preview/src/pages/optional.astro` и индекса стенда также принадлежат root. По последнему указанию удалить `src/components/brand/BroadcastDivider.astro` и все подключения. Пользователь подтвердил дополнительные бренды как примеры для макета: Nike, Samsung, Sony, NVIDIA, Spotify. Они отмечаются previewOnly и не выводятся в production. Также разрешено добавить нейтральный SVG в tests/component-preview/src/assets/ для проверки контракта Trust.
 
 T02, T03 и T06 завершены; владение их файлами возвращено root. Плановая карта владения находится в разделе 5 плана. Одни и те же пути нельзя одновременно выдавать двум исполнителям.
 
@@ -91,5 +94,6 @@ T02, T03 и T06 завершены; владение их файлами воз�
 | 15 октября 2026 | Декоративные звёзды плавно вращаются вслед за прокруткой. Логотип неподвижен; reduced motion отключает вращение |
 | 15 октября 2026 | Шахматный разделитель заменён декоративной монтажной шкалой «Съёмка → Эфир»: таймкод, клипы камер и звуковая волна; высота учтена в Hero |
 | 15 октября 2026 | Монтажная шкала отклонена пользователем. Новый разделитель — тонкая полоса кинохлопушки после услуг, вне первого экрана. Под Hero добавлен блок «Нам доверяют» с указанными пользователем PIMS, Apple и Google |
+| 15 октября 2026 | По правке пользователя удалена диагональная полоса. Блок компаний перенесён после кейсов, названия заменены локальными изображениями логотипов. Пользователь разрешил дополнительные крупные бренды как примеры для макета: пять записей previewOnly с явной подписью |
 
 При смене статуса добавлять ссылку на реальный отчёт, версию проверенных файлов и краткое основание. Отсутствующий отчёт не заменяется обещанием выполнить проверку позже.

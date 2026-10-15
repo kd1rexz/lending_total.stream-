@@ -41,5 +41,54 @@
     }
   ],
   "reviews": [],
-  "clients": [{ "name": "PIMS" }, { "name": "Apple" }, { "name": "Google" }]
+  "clients": [
+    {
+      "name": "PIMS",
+      "logo": "pims.png",
+      "displayWidth": 126,
+      "previewOnly": false
+    },
+    {
+      "name": "Apple",
+      "logo": "apple.svg",
+      "displayWidth": 38,
+      "previewOnly": false
+    },
+    {
+      "name": "Google",
+      "logo": "google.png",
+      "displayWidth": 128,
+      "previewOnly": false
+    },
+    {
+      "name": "Sony",
+      "logo": "sony.svg",
+      "displayWidth": 132,
+      "previewOnly": true
+    },
+    {
+      "name": "Nike",
+      "logo": "nike.svg",
+      "displayWidth": 112,
+      "previewOnly": true
+    },
+    {
+      "name": "Samsung",
+      "logo": "samsung.svg",
+      "displayWidth": 142,
+      "previewOnly": true
+    },
+    {
+      "name": "NVIDIA",
+      "logo": "nvidia.svg",
+      "displayWidth": 64,
+      "previewOnly": true
+    },
+    {
+      "name": "Spotify",
+      "logo": "spotify.svg",
+      "displayWidth": 46,
+      "previewOnly": true
+    }
+  ]
 }

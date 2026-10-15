@@ -1,8 +1,12 @@
 import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
-import type { CaseStudy, PageContent } from '../types/content';
+import type { CaseStudy, PageContent, TrustItem } from '../types/content';
 import { loadValidatedContent, visibleEntries } from './content-source.mjs';
 import teamPortrait from '../assets/images/yuri-mineev.png';
+
+const clientLogos = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/clients/*.{svg,png,webp}',
+);
 
 // Lazy imports keep unused reference images out of case media in production.
 const caseImages = import.meta.glob<{ default: ImageMetadata }>([
@@ -33,6 +37,16 @@ export async function getPageContent(): Promise<PageContent> {
     }),
   );
 
+  const clients: TrustItem[] = await Promise.all(
+    source.editorial.clients
+      .filter((item) => build.isPreview || !item.previewOnly)
+      .map(async (item) => {
+        const loadLogo = clientLogos[`../assets/clients/${item.logo}`];
+        if (!loadLogo) throw new Error(`Client ${item.name}: logo not found (${item.logo}).`);
+        return { ...item, logo: (await loadLogo()).default };
+      }),
+  );
+
   return {
     site: source.site,
     navigation: source.navigation,
@@ -42,6 +56,7 @@ export async function getPageContent(): Promise<PageContent> {
     })),
     cases,
     ...source.editorial,
+    clients,
     team: { ...source.editorial.team, portrait: teamPortrait },
   };
 }

@@ -37,7 +37,12 @@ export type TeamProfile = {
 };
 export type FAQItem = { question: string; answer: string };
 export type Review = { quote: string; author: string; company: string };
-export type TrustItem = { name: string };
+export type TrustItem = {
+  name: string;
+  logo: ImageMetadata;
+  displayWidth: number;
+  previewOnly: boolean;
+};
 export type SiteSettings = {
   name: string;
   description: string;

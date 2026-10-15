@@ -24,6 +24,70 @@
       "status": "approved",
       "scope": "production",
       "note": "Исходный PNG сохранён без изменений. Отображается в блоке О команде через Astro Image; имя и роль CEO подтверждены пользователем. Финальная проверка прав перед публичным выпуском остаётся в T10."
+    },
+    {
+      "path": "src/assets/clients/pims.png",
+      "source": "https://pimstea.world/ → https://img1.creatium.ru/7f/07/91/60d999fa013ed46cf0d0df862774c89f52/PIMS_logo3.png",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. Оригинальный PNG без изменений; Astro оптимизирует размер, CSS задаёт монохромное отображение."
+    },
+    {
+      "path": "src/assets/clients/apple.svg",
+      "source": "https://www.apple.com/ — SVG знака из globalnav-link-apple, 15 октября 2026.",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/clients/google.png",
+      "source": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. Оригинальный PNG без изменений; Astro оптимизирует размер, CSS задаёт монохромное отображение."
+    },
+    {
+      "path": "src/assets/clients/nike.svg",
+      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/nike.svg",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/clients/samsung.svg",
+      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/samsung.svg",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/clients/sony.svg",
+      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/sony.svg",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/clients/nvidia.svg",
+      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/nvidia.svg",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/clients/spotify.svg",
+      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/spotify.svg",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
     }
   ]
 }

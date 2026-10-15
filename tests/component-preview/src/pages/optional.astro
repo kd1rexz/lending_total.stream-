@@ -4,10 +4,16 @@ import Hero from '../../../../src/components/sections/Hero.astro';
 import Trust from '../../../../src/components/sections/Trust.astro';
 import Reviews from '../../../../src/components/sections/Reviews.astro';
 import Container from '../../../../src/components/ui/Container.astro';
+import sampleLogo from '../assets/sample-logo.svg';
 
 const clients = [
-  { name: 'Синтетический клиент А' },
-  { name: 'Очень длинное название тестовой организации для проверки переноса' },
+  { name: 'Синтетический клиент А', logo: sampleLogo, displayWidth: 120, previewOnly: true },
+  {
+    name: 'Очень длинное название тестовой организации для проверки переноса',
+    logo: sampleLogo,
+    displayWidth: 150,
+    previewOnly: true,
+  },
 ];
 const reviews = [
   {

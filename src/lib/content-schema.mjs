@@ -83,7 +83,16 @@ export const editorialSchema = z
     reliability: z.array(stepSchema),
     faq: z.array(z.object({ question: text, answer: text }).strict()),
     reviews: z.array(z.object({ quote: text, author: text, company: text }).strict()),
-    clients: z.array(z.object({ name: text }).strict()),
+    clients: z.array(
+      z
+        .object({
+          name: text,
+          logo: text.regex(/^[a-z0-9-]+\.(?:svg|png|webp)$/),
+          displayWidth: z.number().int().min(24).max(180),
+          previewOnly: z.boolean(),
+        })
+        .strict(),
+    ),
   })
   .strict();
 
