@@ -1,5 +1,5 @@
 :root {
-  /* Most frequent opaque violet in the supplied logo PNG; lime retained per user direction. */
+  /* Designer PDF violet converted from Display P3 to sRGB; lime retained per user choice. */
   --color-bg: #141517;
   --color-surface: #202124;
   --color-surface-raised: #292a2d;
@@ -8,7 +8,7 @@
   --color-lime: #a4ff82;
   --color-lime-hover: #bcffa2;
   --color-on-lime: #141517;
-  --color-violet: #4b0df8;
+  --color-violet: #3509ae;
   --color-violet-text: #b69aff;
   --color-on-violet: #f5f5f1;
   --color-border: #393a3e;
