@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import Container from '../ui/Container.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
 import Star from '../brand/Star.astro';
 
 interface Props {
@@ -42,36 +43,17 @@ const { poster } = Astro.props;
           Ваше событие — в прямом эфире.
         </p>
         <div class="hero__actions">
-          <a href="#contacts" class="hero__action hero__action--primary">
-            <span class="hero__action-label">Обсудить проект</span>
-            <span class="hero__action-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path
-                  d="M6 18 18 6M6 6h12v12"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </span>
-          </a>
-          <a href="#cases" class="hero__action hero__action--secondary">
-            <span class="hero__action-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path d="M9 6.5v11L18 12Z" fill="currentColor" />
-              </svg>
-            </span>
-            <span class="hero__action-label">Смотреть кейсы</span>
-          </a>
+          <ButtonLink href="#contacts">Обсудить проект</ButtonLink>
+          <ButtonLink href="#cases" variant="secondary" arrow={false}>
+            Смотреть кейсы
+          </ButtonLink>
         </div>
-      </div>
-      <div class="hero__decor hero__decor--large">
-        <Star size={146} />
-      </div>
-      <div class="hero__decor hero__decor--small">
-        <Star size={74} color="violet" />
+        <div class="hero__decor hero__decor--large">
+          <Star size={146} />
+        </div>
+        <div class="hero__decor hero__decor--small">
+          <Star size={74} color="violet" />
+        </div>
       </div>
       <div class="hero__bottomline">
         <a href="#services" class="hero__explore">
@@ -170,7 +152,7 @@ const { poster } = Astro.props;
     position: relative;
     z-index: 1;
     align-self: center;
-    padding-block: clamp(1.5rem, 5svh, 3.5rem);
+    padding-block: clamp(3rem, 6svh, 4rem);
   }
 
   .hero__title {
@@ -206,88 +188,15 @@ const { poster } = Astro.props;
 
   .hero__actions {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-5);
-  }
-
-  .hero__action {
-    display: inline-flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: var(--space-4);
-    min-height: 3.5rem;
-    max-width: 100%;
-    padding: var(--space-2);
-    border: 1px solid transparent;
-    border-radius: var(--radius-pill);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    line-height: 1.4;
-    text-decoration: none;
-    transition:
-      background-color var(--duration-fast) ease,
-      border-color var(--duration-fast) ease,
-      transform var(--duration-fast) var(--ease-out);
+    max-width: 25rem;
+    margin-top: clamp(2.5rem, 6svh, 4rem);
   }
 
-  .hero__action-label {
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
-
-  .hero__action-icon {
-    display: grid;
-    place-items: center;
-    flex: 0 0 auto;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: var(--radius-pill);
-  }
-
-  .hero__action-icon svg {
-    transition: transform var(--duration-fast) var(--ease-out);
-  }
-
-  .hero__action--primary {
-    padding-left: var(--space-5);
-    color: var(--color-on-lime);
-    background: var(--color-lime);
-  }
-
-  .hero__action--primary .hero__action-icon {
-    background: var(--color-on-lime);
-    color: var(--color-lime);
-  }
-
-  .hero__action--secondary {
-    padding-right: var(--space-5);
-    color: var(--color-text);
-    border-color: var(--color-border-strong);
-    background: var(--color-bg);
-  }
-
-  .hero__action--secondary .hero__action-icon {
-    background: var(--color-surface-raised);
-  }
-
-  .hero__action:active {
-    transform: translateY(1px);
-  }
-
-  @media (hover: hover) {
-    .hero__action--primary:hover {
-      background: var(--color-lime-hover);
-    }
-
-    .hero__action--primary:hover svg {
-      transform: translate(1px, -1px);
-    }
-
-    .hero__action--secondary:hover {
-      border-color: var(--color-text);
-      background: var(--color-surface);
-    }
+  .hero__actions :global(.button-link--secondary) {
+    background: color-mix(in srgb, var(--color-bg) 40%, transparent);
   }
 
   .hero__decor {
@@ -301,7 +210,7 @@ const { poster } = Astro.props;
   }
 
   .hero__decor--large {
-    top: var(--space-4);
+    top: 0;
     right: 0;
     width: 2rem;
     transform: rotate(12deg);
@@ -332,19 +241,22 @@ const { poster } = Astro.props;
     }
 
     .hero__actions {
-      margin-top: clamp(1.5rem, 4svh, 2.5rem);
+      flex-direction: row;
+      flex-wrap: wrap;
+      max-width: none;
+      margin-top: clamp(3rem, 7svh, 4.5rem);
     }
 
     .hero__decor--large {
-      top: var(--space-5);
+      top: 0;
       right: 0;
       width: 3rem;
     }
 
     .hero__decor--small {
       display: block;
-      bottom: 7rem;
-      right: 9%;
+      bottom: clamp(3rem, 6svh, 4rem);
+      right: 8%;
       width: 3.5rem;
       transform: rotate(-8deg);
     }
@@ -360,13 +272,12 @@ const { poster } = Astro.props;
 
   @media (min-width: 80rem) {
     .hero__decor--large {
-      top: 22%;
+      top: clamp(3rem, 6svh, 4rem);
       width: clamp(6rem, 12svh, 8rem);
     }
 
     .hero__decor--small {
-      bottom: 7rem;
-      right: 27%;
+      right: 22%;
     }
   }
 </style>
