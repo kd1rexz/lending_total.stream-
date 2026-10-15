@@ -1,5 +1,5 @@
 :root {
-  /* Working palette from the first identity concept; final brand source is pending. */
+  /* Violet sampled from the supplied logo; lime retained per user direction. */
   --color-bg: #141517;
   --color-surface: #202124;
   --color-surface-raised: #292a2d;
@@ -8,8 +8,8 @@
   --color-lime: #a4ff82;
   --color-lime-hover: #bcffa2;
   --color-on-lime: #141517;
-  --color-violet: #620dff;
-  --color-violet-text: #b895ff;
+  --color-violet: #4c0ef8;
+  --color-violet-text: #b69aff;
   --color-on-violet: #f5f5f1;
   --color-border: #393a3e;
   --color-border-strong: #77797e;
