@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CaseStudy, PageContent, TrustItem } from '../types/content';
 import { loadValidatedContent, visibleEntries } from './content-source.mjs';
-import teamPortrait from '../assets/images/yuri-mineev.png';
+import teamPortrait from '../assets/images/yuri-mineev.jpg';
 
 const clientLogos = import.meta.glob<{ default: ImageMetadata }>(
   '../assets/clients/*.{svg,png,webp}',
@@ -12,7 +12,7 @@ const clientLogos = import.meta.glob<{ default: ImageMetadata }>(
 const caseImages = import.meta.glob<{ default: ImageMetadata }>([
   '../assets/images/*.{avif,jpg,jpeg,png,webp}',
   '!../assets/images/brand-reference-*',
-  '!../assets/images/yuri-mineev.png',
+  '!../assets/images/yuri-mineev.*',
 ]);
 
 export async function getPageContent(): Promise<PageContent> {
