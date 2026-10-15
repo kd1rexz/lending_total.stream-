@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Container from '../ui/Container.astro';
 import ButtonLink from '../ui/ButtonLink.astro';
 import Star from '../brand/Star.astro';
-import CheckerPattern from '../brand/CheckerPattern.astro';
+import BroadcastDivider from '../brand/BroadcastDivider.astro';
 
 interface Props {
   poster?: ImageMetadata;
@@ -67,12 +67,12 @@ const { poster } = Astro.props;
       </div>
     </Container>
   </div>
-  <CheckerPattern class="hero__checker" />
+  <BroadcastDivider />
 </section>
 
 <style>
   .hero {
-    --hero-divider-height: 1.5rem;
+    --hero-divider-height: 3.5rem;
     position: relative;
     isolation: isolate;
     scroll-margin-top: 0;
@@ -249,14 +249,9 @@ const { poster } = Astro.props;
     text-decoration: none;
   }
 
-  .hero :global(.hero__checker) {
-    --checker-size: calc(var(--hero-divider-height) / 2);
-    height: var(--hero-divider-height);
-  }
-
   @media (min-width: 48rem) {
     .hero {
-      --hero-divider-height: 2rem;
+      --hero-divider-height: 4.5rem;
     }
 
     .hero__title {
