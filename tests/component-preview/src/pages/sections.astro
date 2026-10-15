@@ -13,6 +13,7 @@ import Contacts from '../../../../src/components/sections/Contacts.astro';
 import SiteFooter from '../../../../src/components/sections/SiteFooter.astro';
 import poster from '../../../../src/assets/images/brand-reference-hero.jpg';
 import editorial from '../../../../src/data/editorial.json';
+import teamPortrait from '../../../../src/assets/images/yuri-mineev.png';
 import navigation from '../../../../src/data/navigation.json';
 import services from '../../../../src/content/services.json';
 import { contacts, cases } from '../fixtures';
@@ -34,7 +35,7 @@ import { contacts, cases } from '../fixtures';
     />
     <Cases items={cases} isPreview />
     <Reliability items={editorial.reliability} />
-    <Team items={editorial.team} />
+    <Team profile={{ ...editorial.team, portrait: teamPortrait }} />
     <Reviews items={[]} />
     <FAQ items={editorial.faq} />
     <Contacts contacts={contacts} isPreview />

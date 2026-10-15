@@ -27,7 +27,7 @@ const content = await getPageContent();
     <Services items={content.services} />
     <Cases items={content.cases} isPreview={isPreview} />
     <Reliability items={content.reliability} />
-    <Team items={content.team} />
+    <Team profile={content.team} />
     <Reviews items={content.reviews} />
     <FAQ items={content.faq} />
     <Contacts contacts={content.site.contacts} isPreview={isPreview} />

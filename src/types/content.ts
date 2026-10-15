@@ -29,6 +29,12 @@ export type CaseStudy = {
 };
 export type ServiceWithExamples = Service & { examples: CaseStudy[] };
 export type EditorialItem = { title: string; description: string };
+export type TeamProfile = {
+  name: string;
+  role: string;
+  description: string;
+  portrait: ImageMetadata;
+};
 export type FAQItem = { question: string; answer: string };
 export type Review = { quote: string; author: string; company: string };
 export type TrustItem = { name: string };
@@ -44,7 +50,7 @@ export type PageContent = {
   navigation: NavItem[];
   services: ServiceWithExamples[];
   cases: CaseStudy[];
-  team: EditorialItem[];
+  team: TeamProfile;
   reliability: EditorialItem[];
   faq: FAQItem[];
   reviews: Review[];

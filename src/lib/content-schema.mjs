@@ -79,7 +79,7 @@ export const caseSchema = z
 const stepSchema = z.object({ title: text, description: text }).strict();
 export const editorialSchema = z
   .object({
-    team: z.array(stepSchema),
+    team: z.object({ name: text, role: text, description: text }).strict(),
     reliability: z.array(stepSchema),
     faq: z.array(z.object({ question: text, answer: text }).strict()),
     reviews: z.array(z.object({ quote: text, author: text, company: text }).strict()),

@@ -19,7 +19,7 @@
 - SiteFooter: `contacts: Contact[]`.
 - Services: `items: ServiceWithExamples[]`. id="services". `ServiceWithExamples` дополняет услугу массивом `examples: CaseStudy[]`, уже отфильтрованным слоем данных.
 - Cases: `items: CaseStudy[]`, `isPreview: boolean`. id="cases". Preview без данных сохраняет якорь и нейтральное пустое состояние.
-- Team: `items: EditorialItem[]`. id="team". С 15 октября заменяет Process по указанию пользователя.
+- Team: `profile: TeamProfile` с `name`, `role`, `description`, `portrait: ImageMetadata`. id="team". Показывает Юрия Минеева, CEO команды Total Stream, с предоставленным портретом и текстом. Профиль собирает слой content; карточки ролей удалены по последующей правке пользователя.
 - Reliability: `items: EditorialItem[]`.
 - FAQ: `items: FAQItem[]`.
 - Trust: `items: TrustItem[]`; Reviews: `items: Review[]`. Пустые полностью скрыты.

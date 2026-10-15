@@ -2,11 +2,13 @@ import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CaseStudy, PageContent } from '../types/content';
 import { loadValidatedContent, visibleEntries } from './content-source.mjs';
+import teamPortrait from '../assets/images/yuri-mineev.png';
 
 // Lazy imports keep unused reference images out of case media in production.
 const caseImages = import.meta.glob<{ default: ImageMetadata }>([
   '../assets/images/*.{avif,jpg,jpeg,png,webp}',
   '!../assets/images/brand-reference-*',
+  '!../assets/images/yuri-mineev.png',
 ]);
 
 export async function getPageContent(): Promise<PageContent> {
@@ -40,5 +42,6 @@ export async function getPageContent(): Promise<PageContent> {
     })),
     cases,
     ...source.editorial,
+    team: { ...source.editorial.team, portrait: teamPortrait },
   };
 }

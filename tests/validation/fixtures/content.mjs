@@ -27,7 +27,11 @@ export function approvedSource() {
     },
     navigation: [{ label: 'Контакты', href: '#contacts' }],
     editorial: {
-      team: [{ title: 'Тестовая роль', description: 'Описание роли в fixture.' }],
+      team: {
+        name: 'Тестовый участник',
+        role: 'Тестовая роль',
+        description: 'Описание в fixture.',
+      },
       reliability: [{ title: 'Тестовая проверка', description: 'Описание проверки в fixture.' }],
       faq: [{ question: 'Тестовый вопрос?', answer: 'Тестовый ответ.' }],
       reviews: [],

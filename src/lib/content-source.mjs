@@ -114,7 +114,7 @@ export function validateContentSource(rawSource, env = process.env) {
       if (!cases.some((entry) => entry.serviceIds.includes(service.id)))
         issues.push(`Service ${service.id}: production requires at least one published example.`);
     }
-    for (const key of ['team', 'reliability', 'faq']) {
+    for (const key of ['reliability', 'faq']) {
       if (!source.editorial[key].length)
         issues.push(`Production requires approved ${key} content.`);
     }
