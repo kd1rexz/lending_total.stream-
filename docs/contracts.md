@@ -8,7 +8,7 @@
 - ButtonLink.astro: `href: string`, `variant?: 'primary' | 'secondary' | 'text'`, `class?: string`, `arrow?: boolean` (по умолчанию true), default slot. Всегда ссылка.
 - SectionHeading.astro: `number?: string`, `eyebrow?: string`, `title: string`, `description?: string`, `id?: string`, `align?: 'left' | 'center'`. Один h2.
 - Logo.astro: `class?: string`, `compact?: boolean`, `dark?: boolean`; SVG + wordmark, без своей ссылки.
-- Star.astro: `class?: string`, `color?: 'lime' | 'violet'`, `size?: number`; декоративный SVG.
+- Star.astro: `class?: string`, `color?: 'lime' | 'violet'`, `size?: number`; декоративный SVG. Общий модуль `src/scripts/scroll-stars.ts` плавно вращает звёзды по вертикальной прокрутке, сохраняя исходные трансформации секций. Без JavaScript и при reduced motion звёзды статичны.
 - CheckerPattern.astro: `class?: string`; декоративный паттерн.
 
 ## Props секций
