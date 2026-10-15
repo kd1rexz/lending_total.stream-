@@ -3,11 +3,11 @@
   "items": [
     {
       "path": "src/assets/brand/logo-variant-3.png",
-      "source": "Пользовательский PDF «total stream айдентика.pdf», страница 1, «вариант 3», встроенное RGBA-изображение Im2.",
+      "source": "PNG, присланный пользователем 15 октября 2026 года. Неизменённый оригинал: src/assets/brand/logo-source.png.",
       "rights": "unconfirmed",
       "status": "approved",
       "scope": "production",
-      "note": "Вариант выбран пользователем 14 октября 2026 года. Сохранены оригинальные видимые пиксели, удалены только прозрачные поля. Используется в шапке, подвале и favicon."
+      "note": "Присланный PNG — основной источник логотипа. scripts/prepare-logo.mjs удаляет только прозрачные поля и готовит favicon; форма, пропорции, цвета и прозрачность сохранены. Используется в шапке и подвале через Logo.astro."
     },
     {
       "path": "src/assets/images/brand-reference-hero.jpg",
