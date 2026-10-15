@@ -22,7 +22,7 @@ const content = await getPageContent();
 <BaseLayout description={content.site.description}>
   <SiteHeader navigation={content.navigation} />
   <main id="main">
-    <Hero isPreview={isPreview} poster={isPreview ? referencePoster : undefined} />
+    <Hero poster={isPreview ? referencePoster : undefined} />
     <Trust items={content.clients} />
     <Services items={content.services} />
     <Cases items={content.cases} isPreview={isPreview} />

@@ -7,11 +7,10 @@ import Star from '../brand/Star.astro';
 import CheckerPattern from '../brand/CheckerPattern.astro';
 
 interface Props {
-  isPreview: boolean;
   poster?: ImageMetadata;
 }
 
-const { isPreview, poster } = Astro.props;
+const { poster } = Astro.props;
 ---
 
 <section id="top" class="hero" aria-labelledby="hero-title">
@@ -32,12 +31,6 @@ const { isPreview, poster } = Astro.props;
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__grid" aria-hidden="true"></div>
     <Container class="hero__inner">
-      <div class="hero__topline">
-        <p class="hero__eyebrow eyebrow">
-          <span aria-hidden="true"></span>Видеопродакшн / прямой эфир
-        </p>
-        {isPreview && <p class="hero__preview">Рабочий макет</p>}
-      </div>
       <div class="hero__content">
         <h1 id="hero-title" class="hero__title">
           <span class="hero__title-first">Видео&shy;трансляции</span>
@@ -147,11 +140,10 @@ const { isPreview, poster } = Astro.props;
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 43rem;
+    min-height: 35rem;
     padding-block: var(--space-6) var(--space-5);
   }
 
-  .hero__topline,
   .hero__bottomline {
     display: flex;
     align-items: center;
@@ -159,41 +151,10 @@ const { isPreview, poster } = Astro.props;
     gap: var(--space-5);
   }
 
-  .hero__topline {
-    align-items: flex-start;
-  }
-
-  .hero__eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-    max-width: 14rem;
-    color: var(--color-muted);
-    font-size: var(--text-xs);
-  }
-
-  .hero__eyebrow > span {
-    flex: 0 0 auto;
-    width: 0.4375rem;
-    height: 0.4375rem;
-    background: var(--color-lime);
-  }
-
-  .hero__preview {
-    flex-shrink: 0;
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-bg);
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-pill);
-    color: var(--color-muted);
-    font-size: var(--text-xs);
-    line-height: 1.5;
-  }
-
   .hero__content {
     position: relative;
     z-index: 1;
-    margin-block: 5rem 3rem;
+    margin-block: var(--space-7);
   }
 
   .hero__title {
@@ -251,9 +212,9 @@ const { isPreview, poster } = Astro.props;
   }
 
   .hero__decor--large {
-    top: 5rem;
+    top: var(--space-3);
     right: 0;
-    width: 4rem;
+    width: 3rem;
     transform: rotate(12deg);
   }
 
@@ -290,22 +251,12 @@ const { isPreview, poster } = Astro.props;
 
   @media (min-width: 48rem) {
     .hero :global(.hero__inner) {
-      min-height: 43.75rem;
+      min-height: 39rem;
       padding-block: var(--space-6) var(--space-5);
     }
 
-    .hero__eyebrow {
-      max-width: none;
-      font-size: var(--text-xs);
-    }
-
-    .hero__preview {
-      font-size: var(--text-xs);
-      padding-inline: var(--space-3);
-    }
-
     .hero__content {
-      margin-block: 7rem 5rem;
+      margin-block: var(--space-8);
     }
 
     .hero__actions {
@@ -316,9 +267,9 @@ const { isPreview, poster } = Astro.props;
     }
 
     .hero__decor--large {
-      top: 4.5rem;
+      top: var(--space-3);
       right: 0;
-      width: 6.25rem;
+      width: 4rem;
     }
 
     .hero__decor--small {
@@ -344,15 +295,15 @@ const { isPreview, poster } = Astro.props;
 
   @media (min-width: 80rem) {
     .hero :global(.hero__inner) {
-      min-height: 45rem;
+      min-height: 40rem;
     }
 
     .hero__content {
-      margin-block: 8rem 5rem;
+      margin-block: 5rem var(--space-8);
     }
 
     .hero__decor--large {
-      top: 13rem;
+      top: 8rem;
       width: 9.125rem;
     }
 

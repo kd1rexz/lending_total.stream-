@@ -79,7 +79,7 @@ test('preview semantics, metadata, anchors and resource loading', async ({ page 
     /Total Stream/,
   );
   await expect(page.locator('link[rel="canonical"], meta[property="og:url"]')).toHaveCount(0);
-  await expect(page.getByText('Рабочий макет', { exact: true })).toBeVisible();
+  await expect(page.getByText('Рабочий макет', { exact: true })).toHaveCount(0);
   const brokenAnchors = await page
     .locator('a[href^="#"]')
     .evaluateAll((links) =>
