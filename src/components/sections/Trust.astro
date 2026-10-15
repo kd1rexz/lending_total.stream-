@@ -8,15 +8,15 @@ const { items } = Astro.props;
 ---
 
 {items.length > 0 && (
-  <section class="trust" aria-labelledby="trust-title">
+  <section class="trust" id="clients" aria-labelledby="trust-title">
     <Container>
       <div class="trust__layout">
         <h2 class="eyebrow" id="trust-title">
-          С нами работают
+          Нам доверяют
         </h2>
         <ul class="trust__names" role="list">
           {items.map((item) => (
-            <li>{item.name}</li>
+            <li data-client={item.name}>{item.name}</li>
           ))}
         </ul>
       </div>
@@ -26,7 +26,8 @@ const { items } = Astro.props;
 
 <style>
   .trust {
-    padding-block: var(--space-7);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
   }
   .trust__layout {
@@ -40,11 +41,12 @@ const { items } = Astro.props;
     font-weight: 400;
     letter-spacing: 0.08em;
     line-height: 1.5;
+    text-align: center;
   }
   .trust__names {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-5) var(--space-7);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 5rem), 1fr));
+    gap: var(--space-4);
     align-items: center;
     margin: 0;
     padding: 0;
@@ -53,16 +55,37 @@ const { items } = Astro.props;
   .trust__names li {
     min-width: 0;
     max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
     font-family: var(--font-heading);
-    font-size: var(--text-lg);
-    font-weight: 400;
+    font-size: clamp(1.375rem, 3vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
     overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .trust__names li + li {
+    border-left: 1px solid var(--color-border);
+    padding-left: var(--space-4);
+  }
+  .trust__names [data-client='Apple'],
+  .trust__names [data-client='Google'] {
+    font-family: var(--font-body);
+  }
+  .trust__names [data-client='Google'] {
+    font-weight: 500;
   }
   @media (min-width: 64rem) {
     .trust__layout {
       grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
       gap: var(--space-7);
       align-items: center;
+    }
+    .trust h2 {
+      text-align: left;
     }
   }
 </style>

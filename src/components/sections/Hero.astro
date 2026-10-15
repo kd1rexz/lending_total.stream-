@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import Container from '../ui/Container.astro';
 import ButtonLink from '../ui/ButtonLink.astro';
 import Star from '../brand/Star.astro';
-import BroadcastDivider from '../brand/BroadcastDivider.astro';
 
 interface Props {
   poster?: ImageMetadata;
@@ -67,12 +66,10 @@ const { poster } = Astro.props;
       </div>
     </Container>
   </div>
-  <BroadcastDivider />
 </section>
 
 <style>
   .hero {
-    --hero-divider-height: 3.5rem;
     position: relative;
     isolation: isolate;
     scroll-margin-top: 0;
@@ -141,11 +138,7 @@ const { poster } = Astro.props;
     position: relative;
     display: grid;
     grid-template-rows: 1fr auto;
-    min-height: clamp(
-      30rem,
-      calc(100svh - var(--header-height) - var(--hero-divider-height)),
-      48rem
-    );
+    min-height: max(30rem, calc(100svh - var(--header-height)));
     padding-block: 0 var(--space-4);
   }
 
@@ -250,10 +243,6 @@ const { poster } = Astro.props;
   }
 
   @media (min-width: 48rem) {
-    .hero {
-      --hero-divider-height: 4.5rem;
-    }
-
     .hero__title {
       font-size: clamp(2.5rem, min(5.3vw, 8svh), 4.5rem);
     }

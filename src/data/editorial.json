@@ -41,5 +41,5 @@
     }
   ],
   "reviews": [],
-  "clients": []
+  "clients": [{ "name": "PIMS" }, { "name": "Apple" }, { "name": "Google" }]
 }

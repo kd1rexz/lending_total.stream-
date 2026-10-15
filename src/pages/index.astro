@@ -11,6 +11,7 @@ import Trust from '../components/sections/Trust.astro';
 import Reviews from '../components/sections/Reviews.astro';
 import Contacts from '../components/sections/Contacts.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
+import BroadcastDivider from '../components/brand/BroadcastDivider.astro';
 import { getPageContent } from '../lib/content';
 import { resolveBuildContext } from '../lib/build-context.mjs';
 import referencePoster from '../assets/images/brand-reference-hero.jpg';
@@ -25,6 +26,7 @@ const content = await getPageContent();
     <Hero poster={isPreview ? referencePoster : undefined} />
     <Trust items={content.clients} />
     <Services items={content.services} />
+    <BroadcastDivider />
     <Cases items={content.cases} isPreview={isPreview} />
     <Reliability items={content.reliability} />
     <Team profile={content.team} />
