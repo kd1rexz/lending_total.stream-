@@ -28,7 +28,34 @@ const { poster } = Astro.props;
       />
     )}
     <div class="hero__shade" aria-hidden="true"></div>
-    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__lines" aria-hidden="true">
+      <svg
+        class="hero__lines-wide"
+        viewBox="0 0 1920 1080"
+        preserveAspectRatio="none"
+        focusable="false"
+      >
+        <g class="hero__lines-soft">
+          <path d="M760 136V1080M952 0V1080M1054 0V1080M1636 0V1080" />
+          <path d="M0 316H1920M0 550H1920" />
+        </g>
+        <path d="M0 714H518C580 714 610 744 610 806V1080" />
+        <path d="M0 974H740C805 974 842 937 842 872V228C842 175 865 144 910 119L1030 51C1062 33 1080 14 1094 0" />
+        <path d="M658 1080V238C658 173 695 136 760 136H1410C1492 136 1544 101 1606 0" />
+        <path d="M1920 702H1500C1410 702 1360 752 1360 842V1080" />
+        <path d="M1920 432H1332C1268 432 1232 468 1232 532V1080" />
+      </svg>
+      <svg
+        class="hero__lines-narrow"
+        viewBox="0 0 390 780"
+        preserveAspectRatio="none"
+        focusable="false"
+      >
+        <path d="M290 0V108C290 148 314 172 354 172H390" />
+        <path d="M390 574H310C264 574 240 598 240 644V780" />
+        <path class="hero__lines-soft" d="M342 0V780M0 686H390" />
+      </svg>
+    </div>
     <Container class="hero__inner">
       <div class="hero__content">
         <h1 id="hero-title" class="hero__title">
@@ -43,7 +70,9 @@ const { poster } = Astro.props;
           Ваше событие — в прямом эфире.
         </p>
         <div class="hero__actions">
-          <ButtonLink href="#contacts">Обсудить проект</ButtonLink>
+          <ButtonLink href="#contacts" arrow={false}>
+            Обсудить проект
+          </ButtonLink>
           <ButtonLink href="#cases" variant="secondary" arrow={false}>
             Смотреть кейсы
           </ButtonLink>
@@ -83,7 +112,7 @@ const { poster } = Astro.props;
 
   .hero :global(.hero__poster),
   .hero__shade,
-  .hero__grid {
+  .hero__lines {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -114,23 +143,31 @@ const { poster } = Astro.props;
       );
   }
 
-  .hero__grid {
+  .hero__lines {
     z-index: -1;
-    background-image:
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--color-text) 8%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color-text) 8%, transparent) 1px,
-        transparent 1px
-      );
-    background-size:
-      25% 100%,
-      100% 25%;
-    mask-image: linear-gradient(110deg, transparent 10%, black);
+    color: var(--color-text);
+    opacity: 0.2;
+    mask-image: linear-gradient(110deg, rgb(0 0 0 / 25%), black 75%);
+  }
+
+  .hero__lines svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+  }
+
+  .hero__lines path {
+    stroke: currentColor;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .hero__lines-soft {
+    opacity: 0.35;
+  }
+
+  .hero__lines-wide {
+    display: none;
   }
 
   .hero :global(.hero__inner) {
@@ -195,8 +232,51 @@ const { poster } = Astro.props;
     margin-top: clamp(2.5rem, 6svh, 4rem);
   }
 
+  .hero__actions :global(.button-link) {
+    min-height: 3.5rem;
+    padding: var(--space-4) var(--space-5);
+    border-color: transparent;
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    transition:
+      background-color var(--duration-fast) ease,
+      box-shadow var(--duration-fast) ease;
+  }
+
+  .hero__actions :global(.button-link--primary) {
+    box-shadow: 0 0 1.75rem color-mix(in srgb, var(--color-lime) 20%, transparent);
+  }
+
   .hero__actions :global(.button-link--secondary) {
-    background: color-mix(in srgb, var(--color-bg) 40%, transparent);
+    color: var(--color-bg);
+    background: var(--color-text);
+    box-shadow: 0 0 1.75rem color-mix(in srgb, var(--color-text) 16%, transparent);
+  }
+
+  .hero__actions :global(.button-link:focus-visible) {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px var(--color-bg);
+  }
+
+  @media (hover: hover) {
+    .hero__actions :global(.button-link--primary:hover) {
+      box-shadow: 0 0 2rem color-mix(in srgb, var(--color-lime) 32%, transparent);
+    }
+
+    .hero__actions :global(.button-link--secondary:hover) {
+      background: var(--color-muted);
+      box-shadow: 0 0 2rem color-mix(in srgb, var(--color-text) 24%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__actions :global(.button-link) {
+      transition: none;
+    }
   }
 
   .hero__decor {
@@ -236,6 +316,14 @@ const { poster } = Astro.props;
   }
 
   @media (min-width: 48rem) {
+    .hero__lines-wide {
+      display: block;
+    }
+
+    .hero__lines-narrow {
+      display: none;
+    }
+
     .hero__title {
       font-size: clamp(2.5rem, min(5.3vw, 8svh), 4.5rem);
     }
@@ -245,6 +333,10 @@ const { poster } = Astro.props;
       flex-wrap: wrap;
       max-width: none;
       margin-top: clamp(3rem, 7svh, 4.5rem);
+    }
+
+    .hero__actions :global(.button-link) {
+      flex: 0 1 16.5rem;
     }
 
     .hero__decor--large {
