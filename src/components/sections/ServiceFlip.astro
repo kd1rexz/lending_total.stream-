@@ -1,0 +1,226 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { Image } from 'astro:assets';
+import multicamera from '../../assets/images/service-multicamera-generated.png';
+import hybrid from '../../assets/images/service-hybrid-generated.png';
+import remote from '../../assets/images/service-remote-generated.png';
+import recording from '../../assets/images/service-recording-generated.png';
+import type { ImageMetadata } from 'astro';
+const images: Record<string, ImageMetadata> = {
+  'live-production': multicamera,
+  'hybrid-events': hybrid,
+  'remote-connections': remote,
+  'event-recording': recording,
+};
+import type { ServiceWithExamples } from '../../types/content';
+interface Props {
+  items: ServiceWithExamples[];
+  isPreview: boolean;
+}
+const { items, isPreview } = Astro.props;
+---
+
+<section id="services" class="section services" aria-labelledby="services-title">
+  <Container>
+    <SectionHeading title="Форматы под вашу задачу" id="services-title" />
+    <div class="service-grid">
+      {items.map((service, index) => (
+        <article
+          class:list={['service-card', { 'service-card--preview': isPreview }]}
+          aria-labelledby={`service-title-${service.id}`}
+        >
+          {isPreview && (
+            <div class="service-card__image" aria-hidden="true">
+              <Image
+                src={images[service.id]}
+                alt=""
+                widths={[360, 640, 960]}
+                sizes="(min-width:768px) 50vw,90vw"
+                format="webp"
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div class="service-card__shade" aria-hidden="true"></div>
+          <div class="service-card__intro">
+            <svg
+              class="format-symbol"
+              viewBox="0 0 64 64"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              {index === 0 && (
+                <>
+                  <rect x="8" y="17" width="32" height="30" rx="5" />
+                  <path d="m40 27 15-9v28l-15-9" />
+                  <circle cx="24" cy="32" r="7" />
+                </>
+              )}
+              {index === 1 && (
+                <>
+                  <rect x="6" y="10" width="52" height="34" rx="4" />
+                  <path d="M20 54h24M32 44v10" />
+                  <circle cx="24" cy="25" r="5" />
+                  <path d="M15 38c0-10 18-10 18 0M40 22h10M40 29h10" />
+                </>
+              )}
+              {index === 2 && (
+                <>
+                  <circle cx="32" cy="32" r="23" />
+                  <path d="M9 32h46M32 9c-16 12-16 34 0 46 16-12 16-34 0-46M13 19h38M13 45h38" />
+                </>
+              )}
+              {index === 3 && (
+                <>
+                  <circle cx="32" cy="32" r="23" />
+                  <circle cx="32" cy="32" r="10" />
+                  <path d="M32 3v5M32 56v5M3 32h5M56 32h5" />
+                </>
+              )}
+            </svg>
+            <h3 id={`service-title-${service.id}`}>{service.title}</h3>
+            <p class="service-card__description">{service.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>
+<style>
+  .services { padding-block: clamp(4.5rem, 6vw, 5.5rem); }
+  .service-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .service-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-width: 0;
+    min-height: 21rem;
+    padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: var(--color-bg);
+    cursor: default;
+    transition: border-color 420ms ease;
+  }
+  .service-card * {
+    cursor: inherit;
+  }
+  .service-card__intro {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    opacity: 1;
+  }
+  .service-card__image {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+  }
+  .service-card__image :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: scale(1.005);
+    filter: saturate(0.65);
+    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .service-card__shade {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: rgb(14 15 17 / 82%);
+    transition: background 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgb(14 15 17 / 92%) 0%, rgb(14 15 17 / 65%) 40%, transparent 100%);
+  }
+  .format-symbol {
+    display: block;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--space-5);
+    color: var(--color-violet-text);
+  }
+  .service-card h3 {
+    max-width: 25ch;
+    font-size: clamp(1.25rem, 1rem + 0.6vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+  }
+  .service-card__description {
+    max-width: 44ch;
+    margin-top: auto;
+    padding-top: 2rem;
+    color: var(--color-muted);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  @media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+    .service-card:hover {
+      border-color: color-mix(in srgb, var(--color-violet-text) 50%, var(--color-border));
+    }
+    .service-card:hover .service-card__image :global(img) {
+      transform: scale(1.035);
+    }
+    .service-card:hover .service-card__shade {
+      background: rgb(14 15 17 / 65%);
+    }
+  }
+  @media (max-width: 63.999rem), (hover: none), (pointer: coarse) {
+    .service-card__shade { background: rgb(14 15 17 / 67%); }
+    .service-card__image :global(img) { transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-card__shade,
+    .service-card__intro,
+    .service-card__image :global(img) {
+      transition: none !important;
+    }
+    .service-card__image :global(img) {
+      transform: none !important;
+    }
+  }
+  @media (min-width: 48rem) {
+    .service-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 47.999rem) {
+    .services { padding-block: 3.5rem; }
+    .services :global(.section-heading) { margin-bottom: 2rem; }
+    .service-grid { gap: 1rem; }
+    .service-card {
+      min-height: 17rem;
+      padding: 1.5rem;
+    }
+    .format-symbol {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 1rem;
+    }
+    .service-card__description {
+      font-size: 1rem;
+      line-height: 1.55;
+      padding-top: 1.5rem;
+    }
+  }
+</style>

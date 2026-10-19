@@ -1,7 +1,6 @@
 ---
 import type { Contact } from '../../types/content';
 import Container from '../ui/Container.astro';
-import Star from '../brand/Star.astro';
 
 interface Props {
   contacts: Contact[];
@@ -18,18 +17,12 @@ const kindLabels: Record<Contact['kind'], string> = {
 
 <section id="contacts" class="contacts section" aria-labelledby="contacts-title">
   <Container>
-    <div class="contacts__topline">
-      <p class="eyebrow">На связи</p>
-      <span aria-hidden="true" class="contacts__small-mark">
-        ↗
-      </span>
-    </div>
     <div class="contacts__layout">
       <div class="contacts__intro">
         <h2 id="contacts-title">
           Давайте
           <br />
-          выйдем <span>в эфир.</span>
+          выйдем <span>в эфир</span>
         </h2>
         <p class="contacts__description">
           Расскажите о событии.
@@ -44,7 +37,7 @@ const kindLabels: Record<Contact['kind'], string> = {
               <li>
                 <a href={contact.href} class="contacts__link">
                   <span class="contacts__channel-content">
-                    <span class="contacts__channel-kind">{kindLabels[contact.kind]}</span>
+                    <span class="sr-only">{kindLabels[contact.kind]}</span>
                     <span class="contacts__channel-label">{contact.label}</span>
                   </span>
                   <svg
@@ -67,10 +60,22 @@ const kindLabels: Record<Contact['kind'], string> = {
           </ul>
         ) : (
           isPreview && (
-            <div class="contacts__empty">
-              <Star size={72} />
-              <p>Контакты будут добавлены</p>
-            </div>
+            <ul class="contacts__list" aria-label="Контакты — временные заглушки">
+              {[
+                { kind: 'Telegram', label: '@username' },
+                { kind: 'Телефон', label: '+7 (XXX) XXX-XX-XX' },
+                { kind: 'Почта', label: 'name@example.com' },
+              ].map((item) => (
+                <li>
+                  <div class="contacts__link contacts__placeholder">
+                    <span class="contacts__channel-content">
+                      <span class="sr-only">{item.kind}</span>
+                      <span class="contacts__channel-label">{item.label}</span>
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           )
         )}
       </div>
@@ -80,127 +85,82 @@ const kindLabels: Record<Contact['kind'], string> = {
 
 <style>
   .contacts {
-    color: var(--color-on-violet);
-    background: var(--color-violet);
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+    color: var(--color-text);
+    background: var(--color-surface);
   }
-
-  .contacts__topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--space-7);
-    padding-bottom: var(--space-5);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-on-violet) 35%, transparent);
-  }
-
-  .contacts__small-mark {
-    font-family: var(--font-body);
-    font-size: 2rem;
-    line-height: 1;
-  }
-
   .contacts__layout {
     display: grid;
-    gap: var(--space-7);
+    gap: var(--space-6);
   }
-
+  .contacts__intro {
+    min-width: 0;
+  }
   .contacts__intro h2 {
-    font-size: clamp(1.75rem, 3.3vw, 3rem);
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
     font-weight: 500;
     line-height: 1.3;
   }
-
   .contacts__intro h2 span {
     color: var(--color-lime);
   }
-
   .contacts__description {
-    margin-top: var(--space-5);
+    margin-top: var(--space-4);
     font-size: var(--text-base);
     line-height: 1.55;
   }
-
   .contacts__channels {
-    align-self: end;
+    align-self: center;
     min-width: 0;
   }
-
   .contacts__list {
     margin: 0;
     padding: 0;
     list-style: none;
   }
-
   .contacts__list li {
-    border-bottom: 1px solid color-mix(in srgb, var(--color-on-violet) 45%, transparent);
+    border-bottom: 1px solid var(--color-border);
   }
-
   .contacts__link {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-5);
-    min-height: 5.5rem;
-    padding-block: var(--space-5);
+    min-height: 4rem;
+    padding-block: var(--space-4);
     text-decoration: none;
   }
-
   .contacts__channel-content {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
     min-width: 0;
   }
-
-  .contacts__channel-kind {
-    font-size: var(--text-xs);
-  }
-
   .contacts__channel-label {
-    font-size: clamp(1.125rem, 1rem + 0.7vw, 1.625rem);
+    font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
     font-weight: 600;
     line-height: 1.35;
     overflow-wrap: anywhere;
   }
-
   .contacts__arrow {
+    color: var(--color-lime);
     flex: 0 0 auto;
     transition: transform var(--duration-base) var(--ease-out);
   }
-
-  .contacts__empty {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    padding-block: var(--space-5);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-on-violet) 45%, transparent);
-  }
-
-  .contacts__empty > p {
-    max-width: 13rem;
-    font-size: var(--text-base);
-  }
-
   @media (hover: hover) {
-    .contacts__link:hover .contacts__channel-label {
+    a.contacts__link:hover .contacts__channel-label {
       text-decoration: underline;
       text-underline-offset: 0.22em;
     }
-
-    .contacts__link:hover .contacts__arrow {
+    a.contacts__link:hover .contacts__arrow {
       transform: translate(2px, -2px);
     }
   }
-
   @media (min-width: 64rem) {
     .contacts__layout {
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: var(--space-9);
-    }
-
-    .contacts__topline {
-      margin-bottom: var(--space-8);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      gap: var(--section-column-gap);
     }
   }
 </style>

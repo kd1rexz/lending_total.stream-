@@ -1,34 +1,13 @@
 ---
-import type { Contact } from '../../types/content';
 import Container from '../ui/Container.astro';
 import Logo from '../brand/Logo.astro';
-
-interface Props {
-  contacts: Contact[];
-}
-
-const { contacts } = Astro.props;
 const year = new Date().getUTCFullYear();
 ---
 
 <footer class="site-footer">
   <Container>
-    <div class="site-footer__top">
-      <a href="#top" class="site-footer__brand" aria-label="Total Stream — к началу страницы">
-        <Logo />
-      </a>
-      {contacts.length > 0 && (
-        <ul class="site-footer__contacts">
-          {contacts.map((contact) => (
-            <li>
-              <a href={contact.href}>{contact.label}</a>
-            </li>
-          ))}
-        </ul>
-      )}
-      <a href="#top" class="site-footer__top-link">
-        Наверх<span aria-hidden="true">↑</span>
-      </a>
+    <div class="site-footer__brand">
+      <a class="site-footer__home" href="#top" aria-label="Total Stream — к началу страницы"><Logo /></a>
     </div>
     <div class="site-footer__bottom">
       <p>© {year} Total Stream</p>
@@ -39,88 +18,22 @@ const year = new Date().getUTCFullYear();
 
 <style>
   .site-footer {
-    padding-block: var(--space-7) var(--space-5);
+    padding-block: var(--space-6) var(--space-5);
     background: var(--color-bg);
   }
-
-  .site-footer__top {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    padding-bottom: var(--space-7);
-  }
-
   .site-footer__brand {
-    display: inline-flex;
-    min-height: 2.75rem;
-    text-decoration: none;
+    padding-bottom: var(--space-6);
   }
-
-  .site-footer__contacts {
-    display: flex;
-    flex-basis: 100%;
-    flex-wrap: wrap;
-    order: 3;
-    gap: var(--space-3) var(--space-6);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .site-footer__contacts li {
-    min-width: 0;
-  }
-
-  .site-footer__contacts a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    color: var(--color-muted);
-    font-size: var(--text-xs);
-    text-decoration: none;
-    overflow-wrap: anywhere;
-  }
-
-  .site-footer__top-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-5);
-    min-height: 2.75rem;
-    font-size: var(--text-xs);
-    text-decoration: none;
-  }
-
-  .site-footer__top-link span {
-    color: var(--color-lime);
-    font-size: 1.5rem;
-  }
-
+  .site-footer__home { display: inline-flex; align-items: center; max-width: 100%; min-height: 2.75rem; text-decoration: none; }
   .site-footer__bottom {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-3) var(--space-6);
     padding-top: var(--space-5);
     border-top: 1px solid var(--color-border);
     color: var(--color-muted);
     font-size: var(--text-xs);
-  }
-
-  @media (hover: hover) {
-    .site-footer__contacts a:hover,
-    .site-footer__top-link:hover {
-      color: var(--color-lime);
-    }
-  }
-
-  @media (min-width: 64rem) {
-    .site-footer__contacts {
-      flex-basis: auto;
-      order: 0;
-      margin-left: auto;
-      margin-right: var(--space-6);
-    }
   }
 </style>

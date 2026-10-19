@@ -2,14 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/sections/SiteHeader.astro';
 import Hero from '../components/sections/Hero.astro';
-import Services from '../components/sections/Services.astro';
+import ServiceFlip from '../components/sections/ServiceFlip.astro';
 import Cases from '../components/sections/Cases.astro';
 import Reliability from '../components/sections/Reliability.astro';
-import Team from '../components/sections/Team.astro';
+import TeamVariants from '../components/sections/TeamVariants.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import Trust from '../components/sections/Trust.astro';
 import Reviews from '../components/sections/Reviews.astro';
 import Contacts from '../components/sections/Contacts.astro';
+import ContactVariants from '../components/sections/ContactVariants.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import { getPageContent } from '../lib/content';
 import { resolveBuildContext } from '../lib/build-context.mjs';
@@ -23,17 +24,22 @@ const content = await getPageContent();
   <SiteHeader navigation={content.navigation} />
   <main id="main">
     <Hero poster={isPreview ? referencePoster : undefined} />
-    <Services items={content.services} />
+    <ServiceFlip items={content.services} isPreview={isPreview} />
     <Cases items={content.cases} isPreview={isPreview} />
     <Trust items={content.clients} />
     <Reliability items={content.reliability} />
-    <Team profile={content.team} />
+    <TeamVariants profile={content.team} />
     <Reviews items={content.reviews} />
     <FAQ items={content.faq} />
-    <Contacts contacts={content.site.contacts} isPreview={isPreview} />
+    {isPreview ? (
+      <ContactVariants contacts={content.site.contacts} />
+    ) : (
+      <Contacts contacts={content.site.contacts} isPreview={isPreview} />
+    )}
   </main>
-  <SiteFooter contacts={content.site.contacts} />
+  <SiteFooter />
 </BaseLayout>
 <script>
   import '../scripts/reveal';
+  import '../scripts/press-feedback';
 </script>

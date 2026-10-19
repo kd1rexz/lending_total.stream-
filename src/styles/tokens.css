@@ -1,15 +1,18 @@
 :root {
-  /* Designer PDF violet converted from Display P3 to sRGB; lime retained per user choice. */
+  /* Restore the approved landing palette; contact experiments are scoped locally. */
   --color-bg: #141517;
   --color-surface: #202124;
   --color-surface-raised: #292a2d;
+  --color-button-gray: #afafaf;
   --color-text: #f5f5f1;
   --color-muted: #b7b8bc;
   --color-lime: #a4ff82;
   --color-lime-hover: #bcffa2;
   --color-on-lime: #141517;
-  --color-violet: #3509ae;
+  --color-violet: #4b0df8;
+  --color-violet-accent: var(--color-violet);
   --color-violet-text: #b69aff;
+  --color-violet-surface: #3509ae;
   --color-on-violet: #f5f5f1;
   --color-border: #393a3e;
   --color-border-strong: #77797e;
@@ -41,7 +44,8 @@
   --page-gutter: 1.25rem;
   --grid-columns: 4;
   --grid-gap: 1rem;
-  --header-height: 4rem;
+  --section-column-gap: clamp(2rem, 5vw, 5rem);
+  --header-height: 5.5rem;
   --anchor-offset: calc(var(--header-height) + 1.5rem);
 
   --radius-sm: 0.75rem;
@@ -63,7 +67,7 @@
 
 @media (min-width: 64rem) {
   :root {
-    --header-height: 4.5rem;
+    --header-height: 6.5rem;
     --page-gutter: 3rem;
     --grid-columns: 12;
     --grid-gap: 2rem;

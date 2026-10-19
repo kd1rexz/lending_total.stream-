@@ -6,7 +6,6 @@ interface Props {
   items: TrustItem[];
 }
 const { items } = Astro.props;
-const demoNames = items.filter((item) => item.previewOnly).map((item) => item.name);
 ---
 
 {items.length > 0 && (
@@ -27,9 +26,6 @@ const demoNames = items.filter((item) => item.previewOnly).map((item) => item.na
             </li>
           ))}
         </ul>
-        {demoNames.length > 0 && (
-          <p class="trust__note">{demoNames.join(', ')} — демонстрационные логотипы для макета.</p>
-        )}
       </div>
     </Container>
   </section>
@@ -72,14 +68,6 @@ const demoNames = items.filter((item) => item.previewOnly).map((item) => item.na
     object-fit: contain;
     filter: grayscale(1) brightness(0) invert(1);
     opacity: 0.8;
-  }
-  .trust__note {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: var(--text-xs);
-    line-height: 1.6;
-    text-align: center;
-    text-wrap: balance;
   }
   @media (min-width: 48rem) {
     .trust__logos {

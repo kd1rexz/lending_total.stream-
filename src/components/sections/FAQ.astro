@@ -12,7 +12,7 @@ const { items } = Astro.props;
   <section class="section faq" aria-labelledby="faq-title">
     <Container>
       <div class="faq__layout">
-        <SectionHeading number="04" eyebrow="Есть вопрос?" title="До начала эфира" id="faq-title" />
+        <SectionHeading title="До начала эфира" id="faq-title" />
         <div class="faq__items">
           {items.map((item) => (
             <details class="faq__item">
@@ -31,11 +31,20 @@ const { items } = Astro.props;
   </section>
 )}
 
+<script>
+  import '../../scripts/faq';
+</script>
+
 <style>
+  .faq { padding-block: clamp(3.5rem, 6vw, 5rem); }
   .faq__layout {
     display: grid;
-    gap: var(--space-2);
+    gap: 0;
+    max-width: 64rem;
+    margin-inline: auto;
   }
+  .faq :global(.section-heading) { margin-bottom: 2rem; }
+  .faq :global(.section-heading__title) { font-size: clamp(2rem, 3vw, 2.75rem); }
   .faq__items {
     min-width: 0;
     border-top: 1px solid var(--color-border);
@@ -48,10 +57,10 @@ const { items } = Astro.props;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-5);
-    min-height: 5.5rem;
-    padding-block: var(--space-5);
+    min-height: 4.5rem;
+    padding-block: 1.25rem;
     list-style: none;
-    font-size: var(--text-lg);
+    font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.4;
     transition: color var(--duration-fast) ease;
@@ -70,6 +79,7 @@ const { items } = Astro.props;
     width: 1.5rem;
     height: 1.5rem;
     color: var(--color-lime);
+    transition: transform 460ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .faq__icon::before,
   .faq__icon::after {
@@ -86,27 +96,31 @@ const { items } = Astro.props;
   .faq__icon::after {
     inset: 0 auto 0 calc(50% - 1px);
     width: 2px;
-    transition: transform var(--duration-fast) ease;
   }
-  .faq__item[open] .faq__icon::after {
-    transform: scaleY(0);
+  .faq__item[open]:not([data-closing]) .faq__icon {
+    transform: rotate(45deg);
   }
   .faq__answer {
-    max-width: 43rem;
+    max-width: 56rem;
     padding: 0 2.75rem var(--space-6) 0;
     color: var(--color-muted);
-    font-size: var(--text-base);
+    font-size: 1.0625rem;
     overflow-wrap: anywhere;
+  }
+  .faq__item summary > span:first-child { transition: transform 460ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .faq__item[open]:not([data-closing]) summary > span:first-child { transform: translateX(6px); }
+  @media (prefers-reduced-motion: reduce) {
+    .faq__icon, .faq__item summary > span:first-child { transition: none !important; }
+    .faq__item[open] summary > span:first-child { transform: none; }
   }
   @media (hover: hover) {
     .faq__item summary:hover {
-      color: var(--color-lime);
+      color: var(--color-text);
     }
   }
-  @media (min-width: 64rem) {
-    .faq__layout {
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
-      gap: var(--space-9);
-    }
+  @media (max-width: 47.999rem) {
+    .faq__item summary { font-size: 1.125rem; gap: 1rem; }
+    .faq__icon { width: 1.25rem; height: 1.25rem; flex-basis: 1.25rem; }
+    .faq__answer { font-size: 1rem; padding-right: 2rem; }
   }
 </style>

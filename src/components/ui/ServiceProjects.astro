@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import Star from '../brand/Star.astro';
+import type { ServiceWithExamples } from '../../types/content';
+interface Props {
+  service: ServiceWithExamples;
+}
+const { service } = Astro.props;
+---
+
+<div class="service-projects">
+  {service.examples.length > 0 ? (
+    <div class="examples__projects">
+      {service.examples.map((item) => (
+        <article class="example">
+          <div class="example__image">
+            <Image
+              src={item.cover}
+              alt={item.coverAlt}
+              widths={[360, 640, 960]}
+              sizes="(min-width: 1024px) 900px, 90vw"
+              loading="lazy"
+              decoding="async"
+              format="webp"
+            />
+          </div>
+          <div class="example__body">
+            <p class="eyebrow">{item.eventType}</p>
+            <h4>{item.title}</h4>
+            {(item.client || item.location || item.date) && (
+              <p class="example__meta">
+                {[item.client, item.location, item.date].filter(Boolean).join(' · ')}
+              </p>
+            )}
+            <dl class="example__details">
+              <div>
+                <dt>Задача</dt>
+                <dd>{item.task}</dd>
+              </div>
+              <div>
+                <dt>Что сделали</dt>
+                <dd>{item.solution}</dd>
+              </div>
+              <div>
+                <dt>Результат</dt>
+                <dd>{item.result}</dd>
+              </div>
+            </dl>
+            {item.videoUrl && (
+              <a
+                class="example__video"
+                href={item.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Смотреть запись <span aria-hidden="true">↗</span>
+                <span class="sr-only">: {item.title} (в новой вкладке)</span>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <div class="examples__empty">
+      <div class="examples__frame" aria-hidden="true">
+        <Star color="violet" size={80} />
+      </div>
+      <div>
+        <p class="examples__empty-title">Примеры скоро появятся</p>
+        <p>
+          Здесь будут проекты в этом формате: кадры с площадки, задачи и записи эфиров. Материалы
+          пока готовятся.
+        </p>
+      </div>
+    </div>
+  )}
+</div>
+<style>
+  .examples__projects {
+    display: grid;
+    gap: var(--space-7);
+  }
+  .example {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .example__image {
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+  }
+  .example__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .example__body {
+    padding: var(--space-5);
+  }
+  .example__body > .eyebrow {
+    color: var(--color-muted);
+    margin-bottom: var(--space-4);
+  }
+  .example h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: var(--text-h3);
+    line-height: 1.35;
+  }
+  .example__meta {
+    color: var(--color-muted);
+    margin-top: var(--space-3);
+  }
+  .example__details {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+  }
+  .example__details > div {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+  .example__details dt {
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .example__details dd {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .example__video {
+    display: inline-flex;
+    gap: var(--space-4);
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-muted);
+    margin-top: var(--space-5);
+  }
+  .examples__empty {
+    display: grid;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+  }
+  .examples__frame {
+    display: grid;
+    place-items: center;
+    width: 8rem;
+    max-width: 100%;
+    aspect-ratio: 1.6;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-bg);
+  }
+  .examples__empty-title {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    line-height: 1.4;
+  }
+  .examples__empty p:last-child {
+    color: var(--color-muted);
+  }
+
+  .service-projects {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 48rem) {
+    .examples__empty {
+      grid-template-columns: minmax(6rem, 0.6fr) minmax(0, 1.4fr);
+    }
+    .examples__frame {
+      width: 100%;
+    }
+  }
+</style>

@@ -11,7 +11,7 @@ const { items } = Astro.props;
 {items.length > 0 && (
   <section class="section reviews" aria-labelledby="reviews-title">
     <Container>
-      <SectionHeading eyebrow="Обратная связь" title="После финальных титров" id="reviews-title" />
+      <SectionHeading title="После финальных титров" id="reviews-title" />
       <div class="reviews__grid">
         {items.map((item) => (
           <figure class="review">
@@ -51,7 +51,7 @@ const { items } = Astro.props;
   }
   .review__mark {
     height: 3.5rem;
-    color: var(--color-lime);
+    color: var(--color-violet-text);
     font-family: var(--font-heading);
     font-size: 5rem;
     line-height: 1;

@@ -1,0 +1,46 @@
+---
+import type { Contact } from '../../types/content';
+import filledPhone from '../../assets/icons/contact/bootstrap/phone.svg?raw';
+import filledEmail from '../../assets/icons/contact/bootstrap/email.svg?raw';
+import filledMessenger from '../../assets/icons/contact/bootstrap/messenger.svg?raw';
+import linePhone from '../../assets/icons/contact/lucide/phone.svg?raw';
+import lineEmail from '../../assets/icons/contact/lucide/email.svg?raw';
+import lineMessenger from '../../assets/icons/contact/lucide/messenger.svg?raw';
+import duoPhone from '../../assets/icons/contact/phosphor/phone.svg?raw';
+import duoEmail from '../../assets/icons/contact/phosphor/email.svg?raw';
+import duoMessenger from '../../assets/icons/contact/phosphor/messenger.svg?raw';
+type Family = 'filled' | 'line' | 'duotone' | 'reference';
+interface Props {
+  kind: Contact['kind'];
+  family?: Family;
+}
+const { kind, family = 'filled' } = Astro.props;
+// Filled silhouettes matching the owner's reference: handset and free-standing plane.
+const referencePhone = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.58-6.58l2.2-2.2a1 1 0 0 0 .24-1.02A11.4 11.4 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1Z"/></svg>';
+const referenceMessenger = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.7 2.3 10.1c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.8 5.6c.2.6.4.8.8.8.3 0 .5-.1.8-.4l2.4-2.3 5 3.7c.9.5 1.5.2 1.7-.8l3.3-15.6c.4-1.5-.6-2-1.3-1.4ZM8.2 12.8l11.1-7c.5-.3.9-.1.5.2l-9.1 8.2-.4 4.2-2.1-5.6Z"/></svg>';
+const icons = {
+  reference: { phone: referencePhone, email: filledEmail, messenger: referenceMessenger },
+  filled: { phone: filledPhone, email: filledEmail, messenger: filledMessenger },
+  line: { phone: linePhone, email: lineEmail, messenger: lineMessenger },
+  duotone: { phone: duoPhone, email: duoEmail, messenger: duoMessenger },
+};
+---
+
+<span
+  class="contact-icon"
+  data-icon-family={family}
+  aria-hidden="true"
+  set:html={icons[family][kind]}
+/>
+<style>
+  .contact-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .contact-icon :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

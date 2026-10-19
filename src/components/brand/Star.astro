@@ -5,7 +5,7 @@ interface Props {
   size?: number;
 }
 
-const { class: className, color = 'lime', size = 120 } = Astro.props;
+const { class: className, color = 'violet', size = 120 } = Astro.props;
 ---
 
 <svg
@@ -38,7 +38,7 @@ const { class: className, color = 'lime', size = 120 } = Astro.props;
   }
 
   .brand-star--violet {
-    color: var(--color-violet);
+    color: var(--color-violet-accent);
   }
 
   @media (prefers-reduced-motion: reduce) {

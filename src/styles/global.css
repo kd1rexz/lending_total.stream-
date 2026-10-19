@@ -2,15 +2,23 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  cursor: inherit;
 }
 
 html {
+  cursor: default;
   min-width: 20rem;
   background: var(--color-bg);
   color: var(--color-text);
   color-scheme: dark;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -57,8 +65,19 @@ a[href] {
   -webkit-tap-highlight-color: transparent;
 }
 
-button,
-summary {
+a[href]:not([aria-disabled='true']),
+button:enabled:not([aria-disabled='true']),
+summary,
+select:enabled,
+input:is(
+    [type='checkbox'],
+    [type='radio'],
+    [type='button'],
+    [type='submit'],
+    [type='reset']
+  ):enabled,
+label[for],
+[role='button']:not([aria-disabled='true']) {
   cursor: pointer;
 }
 

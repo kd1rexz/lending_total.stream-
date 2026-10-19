@@ -11,96 +11,141 @@ const { items } = Astro.props;
 {items.length > 0 && (
   <section class="section reliability" aria-labelledby="reliability-title">
     <Container>
-      <div class="reliability__layout">
-        <div class="reliability__intro">
-          <SectionHeading
-            eyebrow="За кадром"
-            title="Эфир начинается с подготовки"
-            id="reliability-title"
-          />
-          <div class="reliability__signal" aria-hidden="true">
-            {[28, 52, 76, 38, 88, 60, 100, 68, 42, 82, 54, 30].map((height) => (
-              <span style={`--signal-height: ${height}%`}></span>
-            ))}
-          </div>
-        </div>
-        <div class="reliability__items">
-          {items.map((item, index) => (
-            <article class="reliability__item">
-              <span class="reliability__index eyebrow" aria-hidden="true">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+      <SectionHeading title="Эфир начинается с подготовки" id="reliability-title" />
+      <ol class="preparation-timeline" aria-label="Этапы подготовки трансляции">
+        {items.map((item, index) => (
+          <li class="preparation-step" data-reveal>
+            <div class="preparation-step__node" aria-hidden="true">
+              <svg
+                viewBox="0 0 32 32"
+                width="26"
+                height="26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                {index === 0 && (
+                  <>
+                    <path d="M5 25h22M8 25V10l8-5 8 5v15M13 25v-7h6v7" />
+                    <path d="M12 11h1m6 0h1m-8 4h1m6 0h1" />
+                  </>
+                )}
+                {index === 1 && (
+                  <>
+                    <rect x="5" y="8" width="22" height="19" rx="3" />
+                    <path d="M5 14h22M11 5v6M21 5v6m-10 9 3 3 7-7" />
+                  </>
+                )}
+                {index === 2 && (
+                  <>
+                    <path d="m16 4 10 4v8c0 6-6 10-10 12C12 26 6 22 6 16V8z" />
+                    <path d="m11 16 4 4 7-8" />
+                  </>
+                )}
+              </svg>
+            </div>
+            <div class="preparation-step__copy">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </Container>
   </section>
 )}
-
 <style>
-  .reliability__layout {
-    display: grid;
-    gap: var(--space-7);
+  .reliability {
+    --timeline-gap: clamp(2rem, 4vw, 3.5rem);
+    padding-block: clamp(4.5rem, 6vw, 5.5rem);
   }
-  .reliability__intro {
+  .reliability :global(.section-heading) {
+    max-width: 44rem;
+    margin-bottom: 3rem;
+  }
+  .preparation-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--timeline-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .preparation-step {
+    position: relative;
     min-width: 0;
   }
-  .reliability__signal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    width: min(100%, 20rem);
-    height: 6rem;
-    pointer-events: none;
+  .preparation-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: 24px;
+    width: calc(100% + var(--timeline-gap));
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-violet-text), var(--color-border));
   }
-  .reliability__signal span {
-    flex: 1;
-    height: var(--signal-height);
-    background: var(--color-violet);
-  }
-  .reliability__signal span:nth-child(3n) {
-    background: var(--color-lime);
-  }
-  .reliability__items {
-    min-width: 0;
-  }
-  .reliability__item {
+  .preparation-step__node {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: var(--space-4);
-    padding-block: var(--space-6);
-    border-top: 1px solid var(--color-border);
-  }
-  .reliability__item:last-child {
-    padding-bottom: 0;
-  }
-  .reliability__index {
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-violet-text);
+    border-radius: 50%;
+    background: var(--color-bg);
     color: var(--color-violet-text);
-    padding-top: var(--space-1);
   }
-  .reliability__item h3 {
-    margin-bottom: var(--space-4);
+  .preparation-step__copy {
+    margin-top: 1.5rem;
   }
-  .reliability__item p {
-    max-width: 40rem;
+  .preparation-step h3 {
+    max-width: 23ch;
+    min-height: 2.7em;
+    font-family: var(--font-heading);
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+  }
+  .preparation-step p {
+    margin-top: 1rem;
     color: var(--color-muted);
-    font-size: var(--text-base);
-    overflow-wrap: anywhere;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    max-width: 34ch;
   }
-  @media (min-width: 64rem) {
-    .reliability__layout {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-9);
+  @media (max-width: 47.999rem) {
+    .reliability { padding-block: 3.5rem; }
+    .reliability :global(.section-heading) { margin-bottom: 2rem; }
+    .preparation-step__node { width: 40px; height: 40px; }
+    .preparation-timeline {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
     }
-    .reliability__item {
-      grid-template-columns: 2rem minmax(0, 1fr);
-      column-gap: var(--space-5);
+    .preparation-step {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 1rem;
+    }
+    .preparation-step:not(:last-child)::before {
+      left: 19px;
+      top: 20px;
+      width: 1px;
+      height: calc(100% + 2rem);
+      background: linear-gradient(180deg, var(--color-violet-text), var(--color-border));
+    }
+    .preparation-step__copy {
+      margin-top: 0.25rem;
+    }
+    .preparation-step h3 {
+      min-height: 0;
+    }
+    .preparation-step p {
+      font-size: 1rem;
+      margin-top: 0.75rem;
     }
   }
 </style>

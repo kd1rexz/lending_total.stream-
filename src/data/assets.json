@@ -2,7 +2,7 @@
   "productionReady": false,
   "items": [
     {
-      "path": "src/assets/brand/logo-variant-3.png",
+      "path": "src/assets/brand/logo-source.png",
       "source": "PNG, присланный пользователем 15 октября 2026 года. Неизменённый оригинал: src/assets/brand/logo-source.png.",
       "rights": "unconfirmed",
       "status": "approved",
@@ -88,6 +88,46 @@
       "status": "reference",
       "scope": "preview",
       "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+    },
+    {
+      "path": "src/assets/images/service-preview-generated.png",
+      "source": "Сгенерировано imagegen 16 октября 2026 по поручению пользователя, один общий кадр для четырёх тестовых карточек услуг.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Иллюстрация для сравнения дизайна, не реальный проект Total Stream. В production-карточках не выводится."
+    },
+    {
+      "path": "src/assets/images/service-multicamera-generated.png",
+      "source": "imagegen, 16 октября 2026, отдельная иллюстрация формата по поручению пользователя.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Сгенерированный тематический кадр для карточки услуги, не реальный клиентский проект Total Stream. В production не выводится."
+    },
+    {
+      "path": "src/assets/images/service-hybrid-generated.png",
+      "source": "imagegen, 16 октября 2026, отдельная иллюстрация формата по поручению пользователя.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Сгенерированный тематический кадр для карточки услуги, не реальный клиентский проект Total Stream. В production не выводится."
+    },
+    {
+      "path": "src/assets/images/service-remote-generated.png",
+      "source": "imagegen, 16 октября 2026, отдельная иллюстрация формата по поручению пользователя.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Сгенерированный тематический кадр для карточки услуги, не реальный клиентский проект Total Stream. В production не выводится."
+    },
+    {
+      "path": "src/assets/images/service-recording-generated.png",
+      "source": "imagegen, 16 октября 2026, отдельная иллюстрация формата по поручению пользователя.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Сгенерированный тематический кадр для карточки услуги, не реальный клиентский проект Total Stream. В production не выводится."
     }
   ]
 }

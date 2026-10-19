@@ -1,119 +1,150 @@
 ---
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
-import Star from '../brand/Star.astro';
 import ServiceExamples from '../ui/ServiceExamples.astro';
 import type { ServiceWithExamples } from '../../types/content';
-
 interface Props {
   items: ServiceWithExamples[];
 }
 const { items } = Astro.props;
 ---
 
-<section class="section services" id="services" aria-labelledby="services-title">
+<section id="services" class="section services" aria-labelledby="services-title">
   <Container>
-    <div class="services__intro">
-      <SectionHeading
-        number="01"
-        eyebrow="Что делаем"
-        title="Форматы под вашу задачу"
-        id="services-title"
-      />
-      <div class="services__decoration">
-        <Star color="lime" size={76} />
-      </div>
-    </div>
-    <div class="services__list">
+    <SectionHeading title="Форматы под вашу задачу" id="services-title" />
+    <div class="format-grid">
       {items.map((service, index) => (
-        <article class="service">
-          <span class="service__number eyebrow" aria-hidden="true">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <div class="service__heading">
-            <p class="service__tag eyebrow">{service.tag}</p>
-            <h3>{service.title}</h3>
-          </div>
-          <div class="service__body">
-            <p>{service.description}</p>
-            <ServiceExamples service={service} />
-          </div>
+        <article class="format-card" aria-label={service.title}>
+          <svg
+            class="format-symbol"
+            viewBox="0 0 64 64"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            {index === 0 && (
+              <>
+                <rect x="8" y="17" width="32" height="30" rx="5" />
+                <path d="m40 27 15-9v28l-15-9" />
+                <circle cx="24" cy="32" r="7" />
+              </>
+            )}
+            {index === 1 && (
+              <>
+                <rect x="6" y="10" width="52" height="34" rx="4" />
+                <path d="M20 54h24M32 44v10" />
+                <circle cx="24" cy="25" r="5" />
+                <path d="M15 38c0-10 18-10 18 0M40 22h10M40 29h10" />
+              </>
+            )}
+            {index === 2 && (
+              <>
+                <circle cx="32" cy="32" r="23" />
+                <path d="M9 32h46M32 9c-16 12-16 34 0 46 16-12 16-34 0-46M13 19h38M13 45h38" />
+              </>
+            )}
+            {index === 3 && (
+              <>
+                <circle cx="32" cy="32" r="23" />
+                <circle cx="32" cy="32" r="10" />
+                <path d="M32 3v5M32 56v5M3 32h5M56 32h5" />
+              </>
+            )}
+          </svg>
+          <ServiceExamples service={service} presentation="title" />
+          <p class="format-card__description">{service.description}</p>
         </article>
       ))}
     </div>
   </Container>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLElement>('.format-grid').forEach((grid) => {
+    grid.addEventListener('pointermove', () => {
+      grid.dataset.pointer = '';
+    });
+    grid.addEventListener('pointerdown', () => {
+      grid.dataset.pointer = '';
+    });
+    document.addEventListener('keydown', () => {
+      delete grid.dataset.pointer;
+    });
+  });
+</script>
+
 <style>
-  .services__intro {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-6);
-  }
-  .services__decoration {
-    display: none;
-    flex: 0 0 auto;
-    padding-top: var(--space-6);
-    transform: rotate(12deg);
-  }
-  .services__list {
-    border-top: 1px solid var(--color-border);
-  }
-  .service {
+  .format-grid {
     display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: var(--space-5) var(--space-4);
-    padding-block: var(--space-7);
-    border-bottom: 1px solid var(--color-border);
+    gap: var(--space-5);
   }
-  .service__number {
-    padding-top: 0.15rem;
-    color: var(--color-muted);
-  }
-  .service__heading,
-  .service__body {
+  .format-card {
+    position: relative;
+    transition:
+      border-color var(--duration-base) ease,
+      transform var(--duration-base) var(--ease-out);
     min-width: 0;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
   }
-  .service__tag {
-    margin-bottom: var(--space-4);
-    color: var(--color-lime);
-    overflow-wrap: anywhere;
+  .format-symbol {
+    display: block;
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-6);
+    color: var(--color-violet-text);
   }
-  .service__body {
-    grid-column: 2;
-  }
-  .service__body > p {
-    max-width: 37rem;
+  .format-card__description {
+    margin-top: var(--space-4);
+    max-width: 44ch;
     color: var(--color-muted);
     font-size: var(--text-base);
-    overflow-wrap: anywhere;
   }
-  @media (max-width: 47.999rem) {
-    .service:has(:global([data-examples-fallback][open])) .service__body {
-      grid-column: 1 / -1;
+
+  /* Stretch the native trigger over the card while preserving one keyboard target.
+     Expanded no-JS details keep their contents and links independently usable. */
+  .format-card :global([data-examples-open]),
+  .format-card :global(details:not([open]) > summary) {
+    position: static;
+  }
+  .format-card :global([data-examples-open]::after),
+  .format-card :global(details:not([open]) > summary::after) {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-card);
+    cursor: pointer;
+  }
+  .format-grid:not([data-pointer]) .format-card:has(:focus-visible) {
+    border-color: var(--color-violet-text);
+  }
+  @media (hover: hover) {
+    .format-grid[data-pointer] .format-card:not(:hover) :global(.examples__trigger:focus-visible) {
+      color: var(--color-text);
+      outline: none;
+      box-shadow: none;
+    }
+    .format-card:not(:has(:global(dialog[open]))):hover {
+      border-color: var(--color-violet-text);
+      transform: scale(1.012);
+    }
+    .format-card:hover :global(.examples__trigger) {
+      color: var(--color-violet-text);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .format-card {
+      transition: none;
+    }
+    .format-card:not(:has(:global(dialog[open]))):hover {
+      transform: none;
     }
   }
   @media (min-width: 48rem) {
-    .services__decoration {
-      display: block;
-    }
-    .service {
-      grid-template-columns: 3rem minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: var(--space-6);
-      padding-block: var(--space-7);
-    }
-    .service__body {
-      grid-column: auto;
-    }
-    .service__heading h3 {
-      max-width: 20ch;
-    }
-  }
-  @media (min-width: 64rem) {
-    .service {
-      padding-block: var(--space-7);
-      column-gap: var(--space-7);
+    .format-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../../assets/brand/logo-variant-3.png';
+import logo from '../../assets/brand/logo-source.png';
 
 interface Props {
   class?: string;
@@ -16,19 +15,16 @@ const { class: className, compact = false, dark = false } = Astro.props;
   role="img"
   aria-label="Total Stream"
 >
-  <Image
-    src={logo}
-    width={48}
-    height={48}
-    widths={[48, 96, 144]}
-    sizes="48px"
-    format="webp"
-    quality={100}
-    alt=""
-    aria-hidden="true"
-    loading="eager"
-    class="brand-logo__mark"
-  />
+  <span class="brand-logo__mark" aria-hidden="true">
+    <img
+      src={logo.src}
+      width={logo.width}
+      height={logo.height}
+      alt=""
+      loading="eager"
+      class="brand-logo__source"
+    />
+  </span>
   {!compact && (
     <span class="brand-logo__wordmark" aria-hidden="true">
       TOTAL
@@ -51,7 +47,19 @@ const { class: className, compact = false, dark = false } = Astro.props;
     flex: 0 0 auto;
     width: 48px;
     height: 48px;
-    object-fit: contain;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Display the original PNG unchanged; frame out its transparent canvas in CSS.
+     Source: 1672 × 941; visible bounds: x465–1221, y80–821. */
+  .brand-logo__source {
+    position: absolute;
+    width: 221.164021%;
+    max-width: none;
+    height: auto;
+    left: -61.507937%;
+    top: -9.589947%;
   }
 
   .brand-logo__wordmark {

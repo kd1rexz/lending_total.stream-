@@ -1,0 +1,221 @@
+---
+import Container from '../ui/Container.astro';
+import ContactIcon from '../ui/ContactIcon.astro';
+import type { Contact } from '../../types/content';
+interface Props {
+  contacts: Contact[];
+}
+const { contacts } = Astro.props;
+// Preview-only demo destinations explicitly requested by the owner.
+const previewContacts: Contact[] = contacts.length
+  ? contacts
+  : [
+      { kind: 'phone', label: '8 (888) 888-88-88', href: 'tel:+78888888888' },
+      { kind: 'email', label: 'hello@example.com', href: 'mailto:hello@example.com' },
+      { kind: 'messenger', label: '@telegram', href: 'https://t.me/telegram' },
+    ];
+const channels = [
+  { kind: 'phone' as const, name: 'Телефон', placeholder: '+7 (XXX) XXX-XX-XX' },
+  { kind: 'email' as const, name: 'Почта', placeholder: 'name@example.com' },
+  { kind: 'messenger' as const, name: 'Telegram', placeholder: '@username' },
+].map((channel) => ({
+  ...channel,
+  contact: previewContacts.find((contact) => contact.kind === channel.kind),
+}));
+---
+
+<div id="contacts" class="contact-variants" aria-label="Контакты">
+  <section class="contact-variant contact-direct section" aria-labelledby="contact-direct-title">
+    <Container>
+      <div class="contact-direct__layout">
+        <div class="contact-direct__intro">
+          <h2 id="contact-direct-title">
+            Давайте
+            <br />
+            выйдем <span>в эфир</span>
+          </h2>
+          <p class="lead">
+            Расскажите о событии.
+            <br />
+            Обсудим формат и техническую сторону.
+          </p>
+        </div>
+        <div class="contact-direct__channels">
+          {channels.map((channel, index) => (
+            <div class:list={['channel direct-channel', `channel--${channel.kind}`, { 'direct-channel--primary': index === 0, 'contact-placeholder': !channel.contact }]}>
+              <span class="channel__icon"><ContactIcon kind={channel.kind} family="reference" /></span>
+              <span class="channel__body">
+                {channel.contact ? (
+                  <a class="channel__value" href={channel.contact.href} aria-label={`${channel.name}: ${channel.contact.label}`}>{channel.contact.label}</a>
+                ) : <span class="channel__value">{channel.placeholder}</span>}
+              </span>
+              {channel.contact && <button class="channel__copy" type="button" data-contact-copy={channel.contact.label} data-copy-name={channel.name} aria-label={`Скопировать: ${channel.name}`} title={`Скопировать: ${channel.name}`} hidden>
+                <svg class="channel__copy-mark" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg>
+                <svg class="channel__copy-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+              </button>}
+            </div>
+          ))}
+          <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+</div>
+
+<script>
+  import '../../scripts/contact-copy';
+</script>
+
+<style>
+  .contact-variants {
+    --color-bg: #2e2e2e;
+    --color-surface: #202124;
+    --color-surface-raised: #3b3b3b;
+    --color-button-gray: #b0b0b0;
+    --color-text: #ffffff;
+    --color-muted: #b0b0b0;
+    --color-lime: #b3fa92;
+    --color-lime-hover: color-mix(in srgb, var(--color-lime) 80%, white);
+    --color-on-lime: #2e2e2e;
+    --color-violet: #4511ef;
+    --color-violet-accent: var(--color-violet);
+    --color-violet-bright: #4c11f5;
+    --color-violet-text: color-mix(in srgb, var(--color-violet) 45%, white);
+    --color-violet-surface: var(--color-violet);
+    --color-on-violet: #ffffff;
+    --color-border: #505050;
+    --color-border-strong: #777777;
+    --color-focus: #ffffff;
+    color: var(--color-text);
+  }
+  .contact-variant {
+    background: var(--color-surface);
+    padding-block: clamp(3.5rem, 6vw, 5rem);
+  }
+  .contact-variant + .contact-variant {
+    border-top: 1px solid var(--color-border);
+  }
+  .contact-variant h2 {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  .contact-variant h2 span { color: var(--color-violet-text); }
+  .lead {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+  .channel {
+    min-width: 0;
+    text-decoration: none;
+  }
+  .channel__icon {
+    display: block;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    transition:
+      transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 350ms ease;
+  }
+  .channel__body { display: flex; min-width: 0; flex: 1; }
+  .channel__value {
+    display: inline-block;
+    max-width: 100%;
+    user-select: text;
+    text-decoration: none;
+    transition: color 220ms ease;
+    font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  /* 1: typographic contacts, with solid marks rather than colored bubbles. */
+  .contact-direct__layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--section-column-gap);
+    align-items: center;
+  }
+  .contact-direct__channels {
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .direct-channel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.75rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 350ms ease;
+  }
+  .direct-channel .channel__icon {
+    color: var(--color-lime);
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .direct-channel--primary {
+    grid-column: 1/-1;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    gap: 1rem;
+  }
+  .direct-channel--primary .channel__value {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2vw, 1.625rem);
+    letter-spacing: -0.02em;
+  }
+  .direct-channel:not(.direct-channel--primary) .channel__value {
+    font-size: clamp(1.25rem, 1.6vw, 1.375rem);
+  }
+  .channel__value:active { opacity: 0.8; }
+  .channel__value:focus-visible { color: var(--color-lime); text-decoration: none; }
+  .channel__copy { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; padding: 0; color: var(--color-muted); background: transparent; border: 0; border-radius: 0.4rem; transition: color 220ms ease, scale 180ms ease; }
+  .channel__copy:active { scale: 0.97; }
+  .channel__copy-check { display: none; }
+  .channel__copy[data-copied] { color: var(--color-lime); }
+  .channel__copy[data-copied] .channel__copy-mark { display: none; }
+  .channel__copy[data-copied] .channel__copy-check { display: block; }
+  @media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+    a.channel__value:hover { color: var(--color-lime); text-decoration: none; }
+    .channel__copy:hover { color: var(--color-lime); }
+  }
+  @media (max-width: 63.999rem), (hover: none), (pointer: coarse) {
+    a.channel__value { transition: color 100ms ease; }
+    a.channel__value:hover, a.channel__value:focus-visible { color: var(--color-text); }
+    a.channel__value:active, a.channel__value[data-pressed] { color: var(--color-lime); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .channel,
+    .channel__icon, .channel__value, .channel__copy {
+      transition: none !important;
+      transform: none !important;
+      scale: 1 !important;
+    }
+  }
+  @media (max-width: 63.999rem) {
+    .contact-direct__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+    .contact-direct__intro { max-width: 40rem; }
+    .contact-direct__channels { max-width: 42rem; }
+  }
+  @media (max-width: 47.999rem) {
+    .contact-variant { padding-block: 3.5rem; }
+    .direct-channel:not(.direct-channel--primary) .channel__value { font-size: 1.25rem; }
+    .direct-channel--primary .channel__value {
+      font-size: 1.375rem;
+    }
+  }
+</style>

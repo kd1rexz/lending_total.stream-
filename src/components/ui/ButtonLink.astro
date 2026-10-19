@@ -29,7 +29,7 @@ const { href, variant = 'primary', class: className, arrow = true } = Astro.prop
     min-height: 3.5rem;
     max-width: 100%;
     padding: var(--space-4) var(--space-6);
-    border: 1px solid transparent;
+    border: 0;
     border-radius: var(--radius-pill);
     font-size: var(--text-sm);
     font-weight: 600;
@@ -37,7 +37,6 @@ const { href, variant = 'primary', class: className, arrow = true } = Astro.prop
     text-decoration: none;
     transition:
       background-color var(--duration-fast) ease,
-      border-color var(--duration-fast) ease,
       color var(--duration-fast) ease;
   }
 
@@ -57,9 +56,8 @@ const { href, variant = 'primary', class: className, arrow = true } = Astro.prop
   }
 
   .button-link--secondary {
-    color: var(--color-text);
-    border-color: var(--color-border-strong);
-    background: transparent;
+    color: var(--color-bg);
+    background: var(--color-button-gray);
   }
 
   .button-link--text {
@@ -80,8 +78,7 @@ const { href, variant = 'primary', class: className, arrow = true } = Astro.prop
     }
 
     .button-link--secondary:hover {
-      border-color: var(--color-text);
-      background: var(--color-surface);
+      background: var(--color-text);
     }
 
     .button-link--text:hover {

@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import type { TeamProfile } from '../../types/content';
+interface Props {
+  profile: TeamProfile;
+}
+const { profile } = Astro.props;
+const photo = {
+  src: profile.portrait,
+  alt: profile.name,
+  widths: [400, 800, 1200],
+  sizes: '(min-width: 1024px) 50vw, 90vw',
+  format: 'webp' as const,
+  loading: 'lazy' as const,
+};
+---
+
+<div id="team" class="team-options" aria-label="Юрий Минеев">
+  <section class="section team-option editorial" aria-labelledby="yuri-editorial">
+    <Container>
+      <div class="editorial__layout">
+        <div class="editorial__copy">
+          <div class="editorial__signature">
+            <h2 id="yuri-editorial">{profile.name}</h2>
+            <p class="role">{profile.role}</p>
+          </div>
+          <p class="editorial__lead">{profile.description}</p>
+        </div>
+        <div class="editorial__photo">
+          <Image {...photo} />
+        </div>
+      </div>
+    </Container>
+  </section>
+</div>
+<style>
+  .team-option {
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+    background: var(--color-surface);
+  }
+  .editorial__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 25rem);
+    gap: var(--section-column-gap);
+    align-items: center;
+  }
+  .editorial__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 1rem;
+    gap: 2rem;
+    min-width: 0;
+  }
+  .editorial__lead {
+    max-width: 43ch;
+    font-family: var(--font-body);
+    font-size: clamp(1.25rem, 1.5vw, 1.375rem);
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-wrap: pretty;
+  }
+  .editorial__signature h2 {
+    font-size: clamp(1.75rem, 2.2vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+  .role {
+    color: var(--color-muted);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+  .editorial__photo {
+    min-height: 0;
+    height: clamp(22.5rem, 29vw, 25rem);
+    width: 100%;
+    max-width: 25rem;
+    justify-self: end;
+    overflow: hidden;
+    border-radius: 1.5rem;
+  }
+  .editorial__photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  @media (max-width: 47.999rem) {
+    .editorial__layout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'signature' 'photo' 'description';
+      gap: 1.5rem;
+    }
+    .team-option { padding-block: 3.5rem; }
+    .editorial__copy { display: contents; }
+    .editorial__signature { grid-area: signature; }
+    .editorial__lead { grid-area: description; font-size: 1.125rem; }
+    .editorial__signature h2 { font-size: 1.75rem; }
+    .editorial__photo {
+      grid-area: photo;
+      height: clamp(16rem, 72vw, 20rem);
+      max-width: none;
+      justify-self: stretch;
+      border-radius: 1.25rem;
+    }
+  }
+</style>

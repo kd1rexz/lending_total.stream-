@@ -1,0 +1,147 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ServiceProjects from '../ui/ServiceProjects.astro';
+import type { ServiceWithExamples } from '../../types/content';
+interface Props {
+  items: ServiceWithExamples[];
+}
+const { items } = Astro.props;
+---
+
+<section
+  id="services-switcher"
+  class="scroll-services"
+  aria-labelledby="services-scroll-title"
+  data-scroll-services
+>
+  <div class="scroll-services__stage" data-scroll-stage>
+    <Container>
+      <SectionHeading title="Форматы под вашу задачу" id="services-scroll-title" />
+      <div class="scroll-services__layout">
+        <div class="scroll-services__tabs" aria-label="Форматы трансляций" data-scroll-tabs>
+          {items.map((service) => (
+            <p id={`scroll-tab-${service.id}`} data-scroll-tab>
+              {service.title}
+            </p>
+          ))}
+        </div>
+        <div class="scroll-services__panels">
+          {items.map((service) => (
+            <div
+              id={`scroll-panel-${service.id}`}
+              class="scroll-services__panel"
+              role="region"
+              aria-labelledby={`scroll-heading-${service.id}`}
+              data-scroll-panel
+            >
+              <ServiceProjects service={service} />
+              <h3 id={`scroll-heading-${service.id}`}>{service.title}</h3>
+              <p class="scroll-services__description">{service.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </div>
+</section>
+<script>
+  import '../../scripts/service-scroll';
+</script>
+<style>
+  .scroll-services {
+    position: relative;
+    border-top: 1px solid var(--color-border);
+  }
+  .scroll-services__stage {
+    padding-block: clamp(2rem, 5svh, 4rem);
+  }
+  .scroll-services__stage :global(.section-heading) {
+    margin-bottom: clamp(1.5rem, 4svh, 3rem);
+  }
+  .scroll-services__layout {
+    display: grid;
+    gap: var(--space-6);
+  }
+  .scroll-services__tabs {
+    display: flex;
+    flex-direction: column;
+  }
+  .scroll-services__tabs p {
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1rem + 0.5vw, 1.5rem);
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    transition:
+      color 400ms ease,
+      border-color 400ms ease;
+    cursor: default;
+  }
+  .scroll-services__tabs p[data-active] {
+    color: var(--color-violet-text);
+    border-bottom-color: var(--color-violet-text);
+  }
+  .scroll-services__panel {
+    min-width: 0;
+  }
+  .scroll-services__panel h3 {
+    margin-top: var(--space-5);
+  }
+  .scroll-services__panel + .scroll-services__panel {
+    margin-top: var(--space-8);
+  }
+  .is-pinned .scroll-services__panel {
+    margin-top: 0;
+  }
+  .scroll-services__description {
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+    font-size: var(--text-base);
+  }
+  .scroll-services.is-pinned {
+    height: var(--scroll-height);
+  }
+  .is-pinned .scroll-services__stage {
+    position: sticky;
+    top: 0;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  .scroll-services:not(.is-pinned) .scroll-services__tabs {
+    display: none;
+  }
+  @media (max-width: 47.999rem) {
+    .scroll-services__tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 var(--space-4);
+    }
+    .scroll-services__tabs p {
+      padding-block: var(--space-3);
+      font-size: 0.875rem;
+    }
+    .scroll-services__stage {
+      padding-block: var(--space-5);
+    }
+    .scroll-services__description {
+      font-size: var(--text-sm);
+    }
+    .scroll-services :global(.examples__empty) {
+      padding: var(--space-4);
+      gap: var(--space-3);
+    }
+    .scroll-services :global(.examples__frame) {
+      display: none;
+    }
+  }
+  @media (min-width: 48rem) {
+    .scroll-services__layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--section-column-gap);
+    }
+  }
+</style>
