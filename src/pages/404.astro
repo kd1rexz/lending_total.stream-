@@ -1,63 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/brand/Logo.astro';
 ---
 
 <BaseLayout title="Страница не найдена — Total Stream" noindex>
-  <main id="main" class="not-found">
-    <span class="error-code" aria-hidden="true">
-      404
-    </span>
-    <p class="eyebrow">Сигнал не найден</p>
-    <h1>
-      Здесь пока
-      <br />
-      нет эфира.
-    </h1>
-    <p>Возможно, адрес изменился. Вернитесь на главную — там всё на своих местах.</p>
-    <a href="/">
-      На главную <span aria-hidden="true">↗</span>
-    </a>
-  </main>
+  <div class="error-page">
+    <a class="error-home" href="/" aria-label="Total Stream — на главную"><Logo /></a>
+    <main id="main" class="not-found">
+      <div class="error-copy">
+        <p class="error-status"><span></span> Сигнал не найден</p>
+        <h1>Эта страница<br />вне <span>эфира</span></h1>
+        <p class="error-description">Возможно, ссылка устарела или в адресе опечатка. Вернитесь на главную — продолжим оттуда.</p>
+        <a class="error-return" href="/">
+          <span>На главную</span>
+          <span class="error-return__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+        </a>
+      </div>
+      <div class="error-frame" aria-hidden="true">
+        <span class="frame-corner frame-corner--tl"></span><span class="frame-corner frame-corner--tr"></span>
+        <span class="frame-corner frame-corner--bl"></span><span class="frame-corner frame-corner--br"></span>
+        <span class="error-code">404</span>
+        <svg class="error-star" viewBox="0 0 100 100"><path d="m50 0 11 30 28-15-15 28 26 7-27 11 16 28-28-15-11 26-11-27-28 16 15-28L0 50l27-11-16-28 28 15Z" fill="currentColor" /></svg>
+        <span class="frame-caption">TOTAL STREAM / NO SIGNAL</span>
+      </div>
+    </main>
+    <p class="error-footer">Видеотрансляции под ключ</p>
+  </div>
 </BaseLayout>
 <style>
-  .not-found {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: max(32px, 8vw);
-    position: relative;
-    overflow: hidden;
+  .error-page { min-height: 100svh; width: min(100%, 1440px); margin-inline: auto; padding: 2rem clamp(1.25rem, 4vw, 4rem); display: flex; flex-direction: column; }
+  .error-home { display: inline-flex; align-self: flex-start; text-decoration: none; }
+  .not-found { flex: 1; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(2rem, 5vw, 5rem); padding-block: 4rem; }
+  .error-status { display: flex; align-items: center; gap: 0.65rem; color: var(--color-muted); font-size: 0.875rem; margin: 0 0 1.5rem; }
+  .error-status span { width: 6px; height: 6px; background: var(--color-lime); border-radius: 50%; }
+  h1 { font: 600 clamp(2rem, 3.6vw, 3.75rem)/1.22 var(--font-heading); letter-spacing: -0.055em; margin: 0; }
+  h1 span { color: var(--color-violet-text); }
+  .error-description { max-width: 26rem; margin: 1.75rem 0 0; font-size: 1.125rem; line-height: 1.65; color: var(--color-muted); }
+  .error-return { margin-top: 2.25rem; display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 66px; padding: 7px 7px 7px 1.75rem; border: 1px solid var(--color-text); border-radius: 999px; color: var(--color-text); text-decoration: none; font-weight: 600; transition: scale 220ms ease, background-color 220ms ease; }
+  .error-return__icon { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--color-lime); color: var(--color-bg); }
+  .error-return svg { width: 24px; height: 24px; }
+  .error-return:active { scale: 0.97; }
+  .error-frame { position: relative; min-height: 390px; aspect-ratio: 1.2; border: 1px solid var(--color-border); display: grid; place-items: center; background: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 25% 25%; }
+  .error-code { font: 600 clamp(5rem, 10.5vw, 10rem)/1 var(--font-heading); letter-spacing: -0.09em; color: var(--color-text); position: relative; z-index: 1; }
+  .error-star { position: absolute; width: 36%; right: 2%; top: 3%; color: var(--color-violet); }
+  .frame-caption { position: absolute; bottom: 1.25rem; left: 1.25rem; font: 0.6875rem var(--font-mono); letter-spacing: 0.12em; color: var(--color-muted); background: var(--color-bg); padding: 0.35rem 0.5rem; }
+  .frame-corner { position: absolute; width: 22px; height: 22px; border: solid var(--color-lime); border-width: 0; }
+  .frame-corner--tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+  .frame-corner--tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+  .frame-corner--bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+  .frame-corner--br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+  .error-footer { margin: 0; color: var(--color-muted); font-size: 0.875rem; }
+  @media (hover: hover) and (pointer: fine) { .error-return:hover { background: rgb(255 255 255 / 6%); } }
+  @media (max-width: 47.999rem) {
+    .error-page { padding-block: 1.25rem; }
+    .not-found { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 3rem; }
+    .error-frame { order: -1; aspect-ratio: 1.8; min-height: 0; }
+    .error-code { font-size: clamp(5rem, 22vw, 8rem); }
+    .error-star { width: 26%; right: 10%; }
+    .error-description { font-size: 1rem; margin-top: 1.25rem; }
+    .error-status { margin-bottom: 1rem; }
+    .error-return { margin-top: 1.5rem; }
   }
-  .error-code {
-    position: absolute;
-    right: 3vw;
-    top: 10vh;
-    color: var(--color-lime);
-    opacity: 0.08;
-    font-family: var(--font-heading);
-    font-size: clamp(8rem, 30vw, 28rem);
-    pointer-events: none;
-  }
-  .not-found h1 {
-    font: 600 clamp(2rem, 6vw, 5rem)/1.15 var(--font-heading);
-    position: relative;
-    margin: 1rem 0;
-  }
-  .not-found p:not(.eyebrow) {
-    max-width: 430px;
-    color: var(--color-muted);
-  }
-  .not-found a {
-    display: inline-flex;
-    gap: 2rem;
-    align-items: center;
-    margin-top: 2rem;
-    padding: 16px 28px;
-    background: var(--color-lime);
-    color: var(--color-bg);
-    border-radius: 999px;
-    font-weight: 700;
-  }
+  @media (prefers-reduced-motion: reduce) { .error-return { transition: none; } }
 </style>

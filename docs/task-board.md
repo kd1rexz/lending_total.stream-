@@ -320,3 +320,7 @@ T02, T03 и T06 завершены; владение их файлами воз�
 - T99 root — done, владение закрыто: mobile CTA без tint, menu быстрый underline вместо lime, contact только presslime без hover. Пути: src/components/ui/ProjectCTA.astro, src/components/sections/{SiteHeader,ContactVariants}.astro, tests/e2e/mobile-interactions.spec.ts, docs/{contracts,task-board}.md, docs/reports/T99.md, output/qa/T99/**.
 
 - T100 root — done, владение закрыто: нижний логотип ведёт к #top в обеих версиях; убрать underline мобильного меню, сохранить press. Пути: src/components/sections/{SiteFooter,SiteHeader}.astro, src/scripts/press-feedback.ts, tests/e2e/mobile-interactions.spec.ts, docs/{contracts,task-board}.md, docs/reports/T100.md.
+
+- T101 root — done, владение закрыто: оформить 404 в стиле лендинга, затемнить всплывающую шапку вне Hero; дать рекомендации по юридической подготовке и SEO без публикации. Пути: src/pages/404.astro, src/components/sections/SiteHeader.astro, src/scripts/header-scroll.ts, tests/e2e/{header-scroll,not-found}.spec.ts, docs/{contracts,task-board}.md, docs/reports/T101.md, output/qa/T101/**.
+
+- T102 root — done, владение закрыто: согласовать затемнение мобильного меню с шапкой вне Hero, сохранить прозрачное меню на Hero. Пути: src/components/sections/SiteHeader.astro, tests/e2e/header-scroll.spec.ts, docs/{contracts,task-board}.md, docs/reports/T102.md.

@@ -55,6 +55,7 @@ const { navigation } = Astro.props;
 
 <style>
   .site-header {
+    --header-shade: rgb(20 21 23 / 94%);
     position: absolute;
     inset: 0 0 auto;
     z-index: 10;
@@ -69,6 +70,11 @@ const { navigation } = Astro.props;
     transform: translateY(-105%);
     visibility: hidden;
     pointer-events: none;
+  }
+  .site-header[data-over-content] {
+    background: var(--header-shade);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .site-header :global(.site-header__inner) {
@@ -207,6 +213,11 @@ const { navigation } = Astro.props;
       transform-origin: top right;
     }
     .site-header[data-navigation-initialized] .site-header__links { grid-template-columns: minmax(0, 1fr); gap: 0.125rem; }
+    .site-header[data-over-content][data-navigation-initialized] .site-header__navigation {
+      background: var(--header-shade);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
     .site-header[data-navigation-initialized] .site-header__links a { min-height: 2.875rem; padding: 0.5rem 0.75rem; font-size: 1rem; border-radius: 0.5rem; }
     .site-header__links a::after { display: none; }
     .site-header__links a:hover, .site-header__links a:focus-visible { transform: none; }
