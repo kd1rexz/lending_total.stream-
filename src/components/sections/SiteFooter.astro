@@ -1,6 +1,8 @@
 ---
 import Container from '../ui/Container.astro';
 import Logo from '../brand/Logo.astro';
+interface Props { isPreview?: boolean; }
+const { isPreview = false } = Astro.props;
 const year = new Date().getUTCFullYear();
 ---
 
@@ -8,6 +10,14 @@ const year = new Date().getUTCFullYear();
   <Container>
     <div class="site-footer__brand">
       <a class="site-footer__home" href="#top" aria-label="Total Stream — к началу страницы"><Logo /></a>
+    {isPreview && (
+      <div class="site-footer__requisites" aria-label="Реквизиты исполнителя — временные заглушки">
+        <p>Исполнитель: XXXXX</p>
+        <p>ИНН: XXXXXXXXXX</p>
+        <p>ОГРН / ОГРНИП: XXXXXXXXXXXXX</p>
+        <p>Адрес: XXXXX</p>
+      </div>
+    )}
     </div>
     <div class="site-footer__bottom">
       <p>© {year} Total Stream</p>
@@ -22,9 +32,26 @@ const year = new Date().getUTCFullYear();
     background: var(--color-bg);
   }
   .site-footer__brand {
-    padding-bottom: var(--space-6);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem clamp(1.5rem, 5vw, 5rem);
+    padding-bottom: var(--space-5);
   }
   .site-footer__home { display: inline-flex; align-items: center; max-width: 100%; min-height: 2.75rem; text-decoration: none; }
+  .site-footer__requisites {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 2rem;
+    justify-self: end; min-width: 0; max-width: 36rem; color: var(--color-muted);
+    overflow-wrap: anywhere;
+    font-size: 0.75rem; line-height: 1.6;
+  }
+  @media (max-width: 47.999rem) {
+    .site-footer__brand { align-items: start; column-gap: 1rem; }
+    .site-footer__requisites { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    .site-footer__home :global(.brand-logo) { gap: 0.5rem; }
+    .site-footer__home :global(.brand-logo__mark) { width: 40px; height: 40px; }
+    .site-footer__home :global(.brand-logo__wordmark) { font-size: 0.8125rem; }
+  }
   .site-footer__bottom {
     display: flex;
     flex-wrap: wrap;

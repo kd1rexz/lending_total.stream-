@@ -20,7 +20,7 @@ const { isPreview } = resolveBuildContext();
 const content = await getPageContent();
 ---
 
-<BaseLayout description={content.site.description}>
+<BaseLayout description={content.site.description} homepage>
   <SiteHeader navigation={content.navigation} />
   <main id="main">
     <Hero poster={isPreview ? referencePoster : undefined} />
@@ -37,7 +37,7 @@ const content = await getPageContent();
       <Contacts contacts={content.site.contacts} isPreview={isPreview} />
     )}
   </main>
-  <SiteFooter />
+  <SiteFooter isPreview={isPreview} />
 </BaseLayout>
 <script>
   import '../scripts/reveal';

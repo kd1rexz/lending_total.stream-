@@ -1,5 +1,8 @@
 ---
 import { resolveBuildContext } from '../lib/build-context.mjs';
+import { createSiteSchema, serializeSchema } from '../lib/seo.mjs';
+import site from '../data/site.json';
+import logo from '../assets/brand/logo-source.png';
 import '../styles/tokens.css';
 import '../styles/typography.css';
 import '../styles/global.css';
@@ -8,14 +11,21 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  homepage?: boolean;
 }
 const {
   title = 'Total Stream — видеотрансляции под ключ',
   description = 'Видеотрансляции мероприятий для государства и бизнеса по всей России. Обсудите формат события с Total Stream.',
   noindex = false,
+  homepage = false,
 } = Astro.props;
-const { isPreview, siteUrl } = resolveBuildContext();
+const context = resolveBuildContext();
+const { isPreview, siteUrl } = context;
 const canonical = siteUrl ? new URL(Astro.url.pathname, siteUrl).href : undefined;
+const socialImage = siteUrl ? new URL('/og.png', siteUrl).href : undefined;
+const schema = homepage && !noindex ? createSiteSchema(context, {
+  name: site.name, description, logo: logo.src,
+}) : undefined;
 ---
 
 <!doctype html>
@@ -34,7 +44,14 @@ const canonical = siteUrl ? new URL(Astro.url.pathname, siteUrl).href : undefine
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && !noindex && <meta property="og:url" content={canonical} />}
-    {siteUrl && <meta property="og:image" content={new URL('/og.png', siteUrl).href} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta property="og:image:alt" content="Total Stream — видеотрансляции под ключ" />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    {socialImage && <meta name="twitter:image:alt" content="Total Stream — видеотрансляции под ключ" />}
+    {schema && <script type="application/ld+json" set:html={serializeSchema(schema)} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>

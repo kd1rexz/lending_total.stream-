@@ -324,3 +324,9 @@ T02, T03 и T06 завершены; владение их файлами воз�
 - T101 root — done, владение закрыто: оформить 404 в стиле лендинга, затемнить всплывающую шапку вне Hero; дать рекомендации по юридической подготовке и SEO без публикации. Пути: src/pages/404.astro, src/components/sections/SiteHeader.astro, src/scripts/header-scroll.ts, tests/e2e/{header-scroll,not-found}.spec.ts, docs/{contracts,task-board}.md, docs/reports/T101.md, output/qa/T101/**.
 
 - T102 root — done, владение закрыто: согласовать затемнение мобильного меню с шапкой вне Hero, сохранить прозрачное меню на Hero. Пути: src/components/sections/SiteHeader.astro, tests/e2e/header-scroll.spec.ts, docs/{contracts,task-board}.md, docs/reports/T102.md.
+
+
+- T103 root — done, владение закрыто: SEO без домена и без открытия индексации, штатный sitemap, метаданные/структурированные данные без вымышленных фактов, preview-заглушки реквизитов в футере. Пути: src/lib/seo.mjs, src/pages/sitemap.xml.ts, src/layouts/BaseLayout.astro, src/components/sections/SiteFooter.astro, src/pages/index.astro, scripts/verify-dist.mjs, tests/validation/seo.test.mjs, tests/e2e/seo.spec.ts, docs/{contracts,task-board,seo-launch}.md, docs/reports/T103.md.
+
+
+- T104 root — done, владение закрыто: компактные реквизиты справа от нижнего логотипа на desktop и mobile. Пути: src/components/sections/SiteFooter.astro, docs/{contracts,task-board}.md, docs/reports/T104.md, output/qa/T104/**.

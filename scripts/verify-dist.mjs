@@ -1,14 +1,15 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveBuildContext } from '../src/lib/build-context.mjs';
+import { createSitemap } from '../src/lib/seo.mjs';
 
 const { isPreview, siteUrl } = resolveBuildContext();
-if (!isPreview) {
-  await writeFile(
-    'dist/sitemap.xml',
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${siteUrl}/</loc></url></urlset>\n`,
-  );
-}
+const sitemap = await readFile('dist/sitemap.xml', 'utf8');
+if (sitemap !== createSitemap({ isPreview, siteUrl }))
+  throw new Error('Sitemap must contain only the public homepage, or no URLs in preview.');
+const robots = await readFile('dist/robots.txt', 'utf8');
+if (isPreview && (!robots.includes('Disallow: /') || /Sitemap:/i.test(robots)))
+  throw new Error('Preview robots must block crawling and must not advertise a sitemap.');
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
