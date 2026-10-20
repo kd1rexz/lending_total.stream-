@@ -4,6 +4,9 @@ server {
     listen [::]:80;
     server_name @@NAMES@@;
     server_tokens off;
+    # Explicitly override inherited request logging on redirects and ACME too.
+    access_log off;
+    error_log /dev/null crit;
     add_header X-Content-Type-Options nosniff always;
     @@ROBOTS@@
     add_header Cache-Control no-store always;

@@ -58,6 +58,9 @@ def render(args):
     ssl_certificate_key %s;
     ssl_protocols TLSv1.2 TLSv1.3;
     server_tokens off;
+    # Explicitly override inherited request logging on redirects and ACME too.
+    access_log off;
+    error_log /dev/null crit;
     add_header X-Content-Type-Options nosniff always;
     %s
     add_header Cache-Control no-store always;

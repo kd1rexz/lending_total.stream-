@@ -67,7 +67,7 @@ python3 scripts/deploy/render-nginx.py \
 
 Повторить установку, `nginx -t`, reload и HTTP smoke. Редиректы сохраняют путь и query. `/_astro/` читается из shared; неизвестный путь возвращает настоящую 404 с `404.html`. Кеш ошибок — no-store. Карта кеша разрешает immutable только успешным/304 ответам хешированных ресурсов. В каждом location с собственными заголовками повторены nosniff и staging noindex, чтобы не потерять их при наследовании `add_header`.
 
-Оба шаблона слушают IPv4 и IPv6; сетевую доступность и AAAA проверять отдельно. Включены TLS 1.2/1.3, gzip и MIME из системного `mime.types`. Корректность MIME AVIF/WOFF2/JS проверяет smoke; на старых пакетах потребуется обновление/исправление системной таблицы. HSTS до проверки доменов/HTTPS не включён. Access log использует `$uri` без query. Проверить штатный logrotate `/var/log/nginx/*.log`, согласовать `rotate 14`; не создавать второй конкурирующий блок для тех же файлов.
+Оба шаблона слушают IPv4 и IPv6; сетевую доступность и AAAA проверять отдельно. Включены TLS 1.2/1.3, gzip и MIME из системного `mime.types`. Корректность MIME AVIF/WOFF2/JS проверяет smoke; на старых пакетах потребуется обновление/исправление системной таблицы. HSTS до проверки доменов/HTTPS не включён. Во всех генерируемых server-блоках (HTTP/ACME, HTTPS, алиасы, staging) явно заданы `access_log off;` и `error_log /dev/null crit;`: запросы и IP не сохраняются в проектные журналы, включая сообщения об ошибках. Удалён прежний `log_format` с `$remote_addr`. Это отключает диагностику отдельных запросов по логам. При установке проверить итоговый `nginx -T`, `nginx -t`, наследование/include, default_server/TLS и внешние proxy/CDN/журналы хостинга. Глобальные ошибки до выбора хоста и сторонние журналы не контролируются этими шаблонами; ранее созданные файлы и резервные копии не удаляются. Проверки доступности и HTTP smoke сохраняются.
 
 Проверить автоматическое продление: для Certbot — `sudo certbot renew --dry-run`. Deploy-hook ACME-клиента должен выполнять `nginx -t` и reload после успешного обновления. Обычная смена `current` reload не требует.
 
@@ -177,10 +177,11 @@ export TS_SMOKE_USER TS_SMOKE_PASSWORD
 ## Локальные проверки и пределы
 
 ```bash
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/deploy/test_nginx.py
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/deploy/test_tools.py
 bash -n scripts/deploy/release.sh
 ```
 
-Эти проверки не доказывают HTTP-поведение и не заменяют `nginx -t`. На текущей macOS Linux/Nginx/Docker/flock отсутствуют; полноценная серверная репетиция оставлена T11. Никакие адреса, доступы и данные VPS сейчас не нужны для локального preview.
+Эти проверки не доказывают HTTP-поведение и не заменяют `nginx -t`. test_nginx.py проверяет генератор на Windows и Linux; test_tools.py требует Unix-модуль fcntl. Полноценная репетиция с Nginx выполняется на Linux в T11. В проверке T105 на Windows Docker Engine недоступен, поэтому nginx -t не выполнялся. Никакие адреса, доступы и данные VPS сейчас не нужны для локального preview.
 
 Основания для конфигурации: [Nginx try_files и error_page](https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files), [наследование add_header](https://nginx.org/en/docs/http/ngx_http_headers_module.html), [Basic Auth](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html). Проверены 13 октября 2026 года.

@@ -330,3 +330,6 @@ T02, T03 и T06 завершены; владение их файлами воз�
 
 
 - T104 root — done, владение закрыто: компактные реквизиты справа от нижнего логотипа на desktop и mobile. Пути: src/components/sections/SiteFooter.astro, docs/{contracts,task-board}.md, docs/reports/T104.md, output/qa/T104/**.
+
+
+- T105 root — done, владение закрыто: отключить журналы запросов/IP в конфигурациях Nginx, проверить генератор и сайт, коммит/push по поручению пользователя. Пути: infra/nginx/{http,https}.conf.template, scripts/deploy/{render-nginx.py,test_nginx.py}, infra/README.md, docs/{deployment,seo-launch,contracts,task-board}.md, docs/reports/T105.md.
