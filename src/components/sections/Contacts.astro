@@ -26,7 +26,7 @@ const kindLabels: Record<Contact['kind'], string> = {
         </h2>
         <p class="contacts__description">
           Расскажите о событии.
-          <br />
+            <br />{' '}
           Обсудим формат и техническую сторону.
         </p>
       </div>
@@ -146,6 +146,21 @@ const kindLabels: Record<Contact['kind'], string> = {
     color: var(--color-lime);
     flex: 0 0 auto;
     transition: transform var(--duration-base) var(--ease-out);
+  }
+  @media (max-width: 47.999rem) {
+    .contacts { padding-block: 2.5rem; }
+    .contacts__layout { gap: 1.25rem; }
+    .contacts__description { margin-top: 0.75rem; font-size: 1rem; }
+    .contacts__description br { display: none; }
+    .contacts__list { border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding-inline: 0.875rem; background: var(--color-bg); }
+    .contacts__list li:last-child { border-bottom: 0; }
+    .contacts__link { min-height: 4rem; padding-block: 0.5rem; }
+    .contacts__channel-content { gap: 0; }
+    .contacts__channel-content .sr-only {
+      position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto;
+      clip-path: none; white-space: normal; color: var(--color-muted); font-size: 0.8125rem;
+    }
+    .contacts__channel-label { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
   }
   @media (hover: hover) {
     a.contacts__link:hover .contacts__channel-label {

@@ -29,9 +29,45 @@ test('case strip remains horizontally scrollable without JavaScript', async ({ b
   await page.goto('/');
   const track = page.locator('#cases [data-case-track]');
   await expect(track).toHaveCSS('overflow-x', 'auto');
+  await expect(track.locator('.case-slide__story').first()).toBeVisible();
+  await expect(track.locator('[data-case-more]').first()).toBeHidden();
   expect(await track.evaluate(e => e.scrollWidth > e.clientWidth)).toBe(true);
   await expect(page.locator('#cases [data-case-controls]')).toBeHidden();
   await context.close();
+});
+
+test('phone readers can expand each case and desktop always shows the complete story', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/#cases');
+  const track = page.locator('[data-case-track]');
+  const active = track.locator('[data-case-slide][aria-hidden="false"]');
+  const story = active.locator('.case-slide__story');
+  const toggle = active.locator('[data-case-more]');
+  for (let i = 0; i < 3; i++) {
+    await expect(story).toBeHidden();
+    await expect(active.locator('.case-slide__excerpt')).toBeVisible();
+    const compactHeight = await track.evaluate(el => el.clientHeight);
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    await expect(toggle).toHaveAccessibleName('Свернуть');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(story.locator('p').last()).toBeVisible();
+    expect(await track.evaluate(el => el.clientHeight)).toBeGreaterThan(compactHeight + 80);
+    if (i === 0) {
+      await toggle.click();
+      await expect(toggle).toHaveAccessibleName('Ещё');
+      expect(await track.evaluate(el => el.clientHeight)).toBe(compactHeight);
+      await toggle.click();
+    }
+    if (i < 2) await page.locator('[data-case-next]').click();
+  }
+  await page.locator('[data-case-prev]').click();
+  await expect(story).toBeHidden();
+  await page.setViewportSize({ width: 768, height: 900 });
+  await expect(story).toBeVisible();
+  await expect(toggle).toBeHidden();
+  await expect(active.locator('.case-slide__excerpt')).toBeHidden();
 });
 
 for (const width of [390, 1366]) {

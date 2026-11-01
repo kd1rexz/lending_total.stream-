@@ -47,8 +47,12 @@ const year = new Date().getUTCFullYear();
     font-size: 0.75rem; line-height: 1.6;
   }
   @media (max-width: 47.999rem) {
-    .site-footer__brand { align-items: start; column-gap: 1rem; }
-    .site-footer__requisites { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    .site-footer__brand { grid-template-columns: minmax(0, 1fr); justify-items: start; row-gap: 1rem; padding-bottom: 1rem; }
+    .site-footer__requisites {
+      grid-template-columns: minmax(0, 1fr); justify-self: stretch; gap: 0.125rem;
+      font-size: 0.8125rem; line-height: 1.5; font-variant-numeric: tabular-nums;
+    }
+    .site-footer__owner { margin-bottom: 0.25rem; font-size: 0.9375rem; color: var(--color-text); }
     .site-footer__home :global(.brand-logo) { gap: 0.5rem; }
     .site-footer__home :global(.brand-logo__mark) { width: 40px; height: 40px; }
     .site-footer__home :global(.brand-logo__wordmark) { font-size: 0.8125rem; }
@@ -63,5 +67,8 @@ const year = new Date().getUTCFullYear();
     border-top: 1px solid var(--color-border);
     color: var(--color-muted);
     font-size: var(--text-xs);
+  }
+  @media (max-width: 47.999rem) {
+    .site-footer__bottom { gap: 0.25rem 1rem; padding-top: 0.875rem; font-size: 0.8125rem; }
   }
 </style>

@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T110 — компактные кейсы и контакты на телефоне
+
+Владелец root. Статус done. [Отчёт T110](reports/T110.md). Основа T109. Пути записи — `src/components/sections/{Cases,ContactVariants,Contacts,SiteFooter}.astro`, `src/scripts/case-carousel.ts`, профильные проверки кейсов и контактов, `output/qa/T110/`, доска и отчёт T110.
+
 ### T109 — реквизиты исполнителя в подвале
 
 Владелец root. Статус done. [Отчёт T109](reports/T109.md). Основа T108 и карточка ИП от владельца. Пути записи — `src/data/site.json`, `src/lib/content-schema.mjs`, `src/types/content.ts`, `src/pages/index.astro`, `src/components/sections/SiteFooter.astro`, `tests/e2e/seo.spec.ts`, `docs/seo-launch.md`, доска и отчёт T109.

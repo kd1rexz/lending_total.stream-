@@ -9,7 +9,15 @@ interface Props {
 }
 const { items, isPreview } = Astro.props;
 const isDraft = items.length === 0;
-const slides = items.length ? items.map(item => ({
+function getExcerpt(description: string) {
+  const first = description.split('\n', 1)[0].trim();
+  const opening = first.match(/^.{1,100}?[.!?…](?=\s|$)/u)?.[0];
+  if (opening) return opening === description.trim() ? '' : opening;
+  if (first.length <= 80) return first === description.trim() ? '' : first;
+  const cut = first.lastIndexOf(' ', 80);
+  return first.slice(0, cut > 0 ? cut : 80).trimEnd() + '…';
+}
+const sourceSlides = items.length ? items.map(item => ({
   id: item.id, title: item.title, description: item.solution || item.task,
   image: item.cover, alt: item.coverAlt,
 })) : isPreview ? Array.from({ length: 3 }, (_, index) => ({
@@ -17,6 +25,7 @@ const slides = items.length ? items.map(item => ({
   description: 'Здесь будет описание того, что команда Total Stream сделала для заказчика: какой была задача, как организовали съёмку и трансляцию, какие технические решения использовали.\n\nВо второй части можно рассказать об особенностях площадки и результате проекта. Реальные название, фотографию и текст добавим после подготовки материалов.',
   image: previewPhoto, alt: 'Временное изображение для макета кейса',
 })) : [];
+const slides = sourceSlides.map(slide => ({ ...slide, excerpt: getExcerpt(slide.description) }));
 ---
 
 {slides.length > 0 && (
@@ -36,7 +45,13 @@ const slides = items.length ? items.map(item => ({
             </div>
             <div class="case-slide__caption">
               <h3>{slide.title}</h3>
-              <div class="case-slide__description">{slide.description.split(/\n+/).map(paragraph => <p>{paragraph}</p>)}</div>
+              <div class="case-slide__description">
+                <div class="case-slide__story" id={`case-story-${slide.id}`}>{slide.description.split(/\n+/).map(paragraph => <p>{paragraph}</p>)}</div>
+                {slide.excerpt && <>
+                  <span class="case-slide__excerpt">{slide.excerpt}</span>
+                  <button class="case-slide__more" type="button" data-case-more aria-expanded="false" aria-controls={`case-story-${slide.id}`} hidden>Ещё</button>
+                </>}
+              </div>
             </div>
           </article>
         ))}
@@ -95,6 +110,7 @@ const slides = items.length ? items.map(item => ({
   .case-slide__description { max-width: 63ch; min-width: 0; }
   .case-slide__description p { font-size: 1.0625rem; color: var(--color-muted); line-height: 1.65; }
   .case-slide__description p + p { margin-top: 1rem; }
+  .case-slide__excerpt, .case-slide__more { display: none; }
   .cases__controls { position: absolute; z-index: 3; bottom: calc(var(--case-padding) + 1px); right: calc(var(--case-padding) + 1px); width: calc((100% - 2px - 2 * var(--case-padding) - var(--case-gap)) * 1.15 / 2.15); display: flex; justify-content: flex-start; align-items: center; gap: 0.75rem; }
   .cases__controls button { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; color: var(--color-text); background: var(--color-surface); border: 0; border-radius: 50%; transition: background-color 180ms ease, color 180ms ease, opacity 180ms ease, scale 320ms cubic-bezier(0.4, 0, 0.2, 1); }
   .cases__controls button:not(:disabled):active { scale: 0.97; }
@@ -107,11 +123,22 @@ const slides = items.length ? items.map(item => ({
   }
   @media (max-width:47.999rem) {
     .cases__stage { --case-padding: 1.5rem; --case-gap: 1.5rem; }
+    .cases__track[data-case-enhanced] { position: relative; }
+    .cases__track[data-case-enhanced] .case-slide[aria-hidden="true"] { position: absolute; inset: 0; }
     .cases__heading { margin-bottom: 2rem; }
     .case-slide { grid-template-columns: minmax(0,1fr); gap: var(--case-gap); padding: var(--case-padding); }
-    .case-slide__caption { padding-top: 0; padding-bottom: 5rem; }
+    .case-slide__caption { padding-top: 0; padding-bottom: 4rem; }
     .case-slide__caption h3 { font-size: 1.5rem; }
     .case-slide__description p { font-size: 1rem; }
+    .case-slide__description[data-folded] .case-slide__story { display: none; }
+    .case-slide__description[data-folded] .case-slide__excerpt { display: inline; color: var(--color-muted); font-size: 1rem; line-height: 1.65; }
+    .case-slide__more:not([hidden]) {
+      position: relative; display: inline-block; min-width: 44px; padding: 0; border: 0;
+      background: transparent; color: var(--color-lime); font: 600 1rem/1.4 var(--font-body); text-align: start;
+    }
+    .case-slide__more::after { content: ''; position: absolute; inset: 50% 0 auto; height: 44px; transform: translateY(-50%); }
+    .case-slide__description[data-folded] .case-slide__more { margin-inline-start: 0.25rem; }
+    .case-slide__description:not([data-folded]) .case-slide__more { margin-top: 0.625rem; }
     .case-slide__image { min-height: 0; height: clamp(12rem, 56vw, 18rem); }
     .cases__controls { bottom: calc(var(--case-padding) + 1px); width: calc(100% - 2px - 2 * var(--case-padding)); }
   }

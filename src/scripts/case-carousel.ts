@@ -1,4 +1,15 @@
+function setStoryExpanded(button: HTMLButtonElement, expanded: boolean) {
+  button.setAttribute('aria-expanded', String(expanded));
+  button.textContent = expanded ? 'Свернуть' : 'Ещё';
+  button.closest('.case-slide__description')?.toggleAttribute('data-folded', !expanded);
+}
+
 document.querySelectorAll<HTMLElement>('[data-case-carousel]').forEach(root => {
+  root.querySelectorAll<HTMLButtonElement>('[data-case-more]').forEach(button => {
+    setStoryExpanded(button, false);
+    button.hidden = false;
+    button.addEventListener('click', () => setStoryExpanded(button, button.getAttribute('aria-expanded') === 'false'));
+  });
   const track = root.querySelector<HTMLElement>('[data-case-track]');
   const controls = root.querySelector<HTMLElement>('[data-case-controls]');
   const previous = root.querySelector<HTMLButtonElement>('[data-case-prev]');
@@ -38,6 +49,8 @@ document.querySelectorAll<HTMLElement>('[data-case-carousel]').forEach(root => {
     effects = [];
     const currentVersion = ++version;
     index = target;
+    const disclosure = slides[index].querySelector<HTMLButtonElement>('[data-case-more]');
+    if (disclosure) setStoryExpanded(disclosure, false);
     render();
     if (reduced.matches) { settle(); return; }
     transitioning = true;
@@ -74,7 +87,11 @@ document.querySelectorAll<HTMLElement>('[data-case-carousel]').forEach(root => {
   next.addEventListener('click', () => go(index + 1));
   track.addEventListener('keydown', event => {
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-      event.preventDefault(); go(index + (event.key === 'ArrowRight' ? 1 : -1));
+      event.preventDefault();
+      if (event.target instanceof Element && event.target.closest('[data-case-more]')) {
+        track.focus({ preventScroll: true });
+      }
+      go(index + (event.key === 'ArrowRight' ? 1 : -1));
     }
   });
   let touchStart: { x: number; y: number } | undefined;
