@@ -89,7 +89,7 @@ test('case content crossfades in place and rapid navigation settles cleanly', as
   await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
   expect(await track.evaluate(e => e.scrollLeft)).toBe(0);
   await expect(root.locator('[data-case-slide][data-active]')).toHaveCount(1);
-  await expect(root.locator('[data-case-slide][data-active] h3')).toHaveText('Название проекта 2');
+  await expect(root.locator('[data-case-slide][data-active] h3')).toHaveText('Dobrofest 2026');
   await root.locator('[data-case-next]').click();
   await root.locator('[data-case-prev]').click();
   await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
@@ -98,4 +98,29 @@ test('case content crossfades in place and rapid navigation settles cleanly', as
   expect(after.height).toBeCloseTo(before.height, 0);
   expect(after.x).toBe(before.x);
   await expect(root.locator('[data-case-slide][aria-hidden="true"]')).toHaveCount(2);
+});
+
+test('photo preview moves once in view and respects the reader’s motion preference', async ({ page }) => {
+  const videoRequests: string[] = [];
+  page.on('request', request => {
+    if (/\.mp4(?:$|\?)/i.test(request.url())) videoRequests.push(request.url());
+  });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/variants/film');
+  await expect(page).toHaveURL(/\/(#cases)?$/);
+  await expect(page.locator('#top video, #cases video')).toHaveCount(0);
+  const track = page.locator('[data-case-track]');
+  const active = track.locator('[aria-hidden="false"] img');
+  await expect(active).toHaveCSS('animation-play-state', 'paused');
+  await track.scrollIntoViewIfNeeded();
+  await expect(active).toHaveCSS('animation-play-state', 'running');
+  await expect.poll(() => active.evaluate(el => el.getAnimations()[0]?.playState), { timeout: 8000 }).toBe('finished');
+  await track.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('[data-case-count]')).toHaveText('2 / 3');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(active).toHaveCSS('animation-name', 'none');
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('[data-case-count]')).toHaveText('3 / 3');
+  expect(videoRequests).toEqual([]);
 });

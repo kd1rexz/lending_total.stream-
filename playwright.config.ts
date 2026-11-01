@@ -13,7 +13,7 @@ export default defineConfig({
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
-    command: 'pnpm preview --port 4323',
+    command: 'pnpm preview --port 4323 --ignore-lock',
     url: 'http://127.0.0.1:4323',
     reuseExistingServer: !process.env.CI,
   },

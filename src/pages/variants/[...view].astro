@@ -1,0 +1,10 @@
+---
+import { resolveBuildContext } from '../../lib/build-context.mjs';
+
+export function getStaticPaths() {
+  if (!resolveBuildContext().isPreview) return [];
+  return [undefined, 'photo', 'film'].map((view) => ({ params: { view } }));
+}
+
+return Astro.redirect('/');
+---

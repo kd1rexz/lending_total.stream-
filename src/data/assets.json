@@ -128,6 +128,30 @@
       "status": "reference",
       "scope": "preview",
       "note": "Сгенерированный тематический кадр для карточки услуги, не реальный клиентский проект Total Stream. В production не выводится."
+    },
+    {
+      "path": "src/assets/images/case-mice.webp",
+      "source": "Съёмка Total Stream, «Meet Global MICE Congress», 13.jpg из пакета команды.",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Отобранная фотообложка. Подтверждение прав для публичной площадки учитывается при выпуске."
+    },
+    {
+      "path": "src/assets/images/case-dobrofest.webp",
+      "source": "Съёмка Total Stream, «Dobrofest 2026», 3.jpg из пакета команды.",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Отобранная фотообложка. Подтверждение прав для публичной площадки учитывается при выпуске."
+    },
+    {
+      "path": "src/assets/images/case-student.webp",
+      "source": "Съёмка Total Stream, «Премия «Студент года»», 14.jpg из пакета команды.",
+      "rights": "unconfirmed",
+      "status": "approved",
+      "scope": "production",
+      "note": "Отобранная фотообложка. Подтверждение прав для публичной площадки учитывается при выпуске."
     }
   ]
 }

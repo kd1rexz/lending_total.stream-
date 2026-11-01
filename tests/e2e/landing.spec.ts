@@ -105,9 +105,10 @@ test('only honest preview content and contact links', async ({ page }) => {
   await expect(page.locator('#contacts .contacts__placeholder')).toHaveCount(0);
   await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @telegram', exact:true})).toHaveCount(1);
   await expect(page.locator('#contacts .contacts__placeholder-note')).toHaveCount(0);
-  await expect(page.locator('#cases')).toContainText(
-    'Название проекта 1',
-  );
+  await expect(page.locator('#cases h3')).toHaveText([
+    'Meet Global MICE Congress', 'Dobrofest 2026', 'Премия «Студент года»',
+  ]);
+  await expect(page.locator('#top video, #cases video')).toHaveCount(0);
   const html = await page.content();
   expect(html).not.toMatch(
     /demo@example\.com|test@example|fixture-case|fixture-review|__TEST_CONTACT__|ООО «Тест»/i,

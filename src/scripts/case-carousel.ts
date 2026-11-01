@@ -65,6 +65,10 @@ document.querySelectorAll<HTMLElement>('[data-case-carousel]').forEach(root => {
   };
   slides[0].setAttribute('data-active', '');
   track.setAttribute('data-case-enhanced', '');
+  const coverVisibility = new IntersectionObserver(([entry]) => {
+    track.toggleAttribute('data-in-view', entry.isIntersecting);
+  });
+  coverVisibility.observe(track);
   render();
   previous.addEventListener('click', () => go(index - 1));
   next.addEventListener('click', () => go(index + 1));
@@ -85,6 +89,13 @@ document.querySelectorAll<HTMLElement>('[data-case-carousel]').forEach(root => {
     if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) go(index + (dx < 0 ? 1 : -1));
   });
   track.addEventListener('pointercancel', () => { touchStart = undefined; });
-  reduced.addEventListener('change', () => { version++; transitioning = false; pending = undefined; settle(); });
+  reduced.addEventListener('change', () => {
+    version++;
+    transitioning = false;
+    const queued = pending;
+    pending = undefined;
+    settle();
+    if (queued !== undefined) go(queued);
+  });
   controls.hidden = false;
 });
