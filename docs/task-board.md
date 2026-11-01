@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T109 — реквизиты исполнителя в подвале
+
+Владелец root. Статус done. [Отчёт T109](reports/T109.md). Основа T108 и карточка ИП от владельца. Пути записи — `src/data/site.json`, `src/lib/content-schema.mjs`, `src/types/content.ts`, `src/pages/index.astro`, `src/components/sections/SiteFooter.astro`, `tests/e2e/seo.spec.ts`, `docs/seo-launch.md`, доска и отчёт T109.
+
 ### T108 — телефон и Telegram в контактах
 
 Владелец root. Статус done. Основа T107. Пути записи — `src/data/site.json`, `src/components/sections/ContactVariants.astro`, профильные проверки в `tests/e2e`, README, доска и [отчёт T108](reports/T108.md).

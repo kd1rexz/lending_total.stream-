@@ -13,7 +13,8 @@ test('domainless preview stays closed and contains no fictional canonical URLs',
   expect(xml).toContain('<urlset');
   expect(xml).not.toMatch(/<loc>|localhost|127\.0\.0\.1|404/);
   expect(await page.locator('h1').count()).toBe(1);
-  await expect(page.locator('.site-footer__requisites')).toContainText('Исполнитель: XXXXX');
+  const requisites = page.getByRole('region', { name: 'Реквизиты исполнителя' });
+  await expect(requisites.locator('p')).toHaveText([/^ИП .+/, /^ИНН \d{12}$/, /^ОГРНИП \d{15}$/]);
   await expect(page.locator('.site-footer__requisites a')).toHaveCount(0);
   await page.setViewportSize({ width: 360, height: 800 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

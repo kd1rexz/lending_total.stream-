@@ -5,6 +5,11 @@
     { "kind": "phone", "label": "+7 (905) 384-59-03", "href": "tel:+79053845903" },
     { "kind": "messenger", "label": "@URY_TTS", "href": "https://t.me/URY_TTS" }
   ],
+  "requisites": {
+    "name": "ИП Минеева Ольга Игоревна",
+    "inn": "645110750800",
+    "ogrnip": "323645700015994"
+  },
   "contentApproved": false,
   "brandApproved": false
 }

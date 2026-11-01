@@ -37,7 +37,7 @@ const content = await getPageContent();
       <Contacts contacts={content.site.contacts} isPreview={isPreview} />
     )}
   </main>
-  <SiteFooter isPreview={isPreview} />
+  <SiteFooter requisites={content.site.requisites} />
 </BaseLayout>
 <script>
   import '../scripts/reveal';

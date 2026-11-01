@@ -47,6 +47,7 @@ export type SiteSettings = {
   name: string;
   description: string;
   contacts: Contact[];
+  requisites?: { name: string; inn: string; ogrnip: string };
   contentApproved: boolean;
   brandApproved: boolean;
 };

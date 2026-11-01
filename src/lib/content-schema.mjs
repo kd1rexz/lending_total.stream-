@@ -41,6 +41,11 @@ export const siteSchema = z
     name: text,
     description: text,
     contacts: z.array(contactSchema),
+    requisites: z.object({
+      name: text,
+      inn: z.string().regex(/^\d{12}$/),
+      ogrnip: z.string().regex(/^\d{15}$/),
+    }).strict().optional(),
     contentApproved: z.boolean(),
     brandApproved: z.boolean(),
   })

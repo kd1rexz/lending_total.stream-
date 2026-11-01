@@ -1,8 +1,9 @@
 ---
 import Container from '../ui/Container.astro';
 import Logo from '../brand/Logo.astro';
-interface Props { isPreview?: boolean; }
-const { isPreview = false } = Astro.props;
+import type { SiteSettings } from '../../types/content';
+interface Props { requisites?: SiteSettings['requisites']; }
+const { requisites } = Astro.props;
 const year = new Date().getUTCFullYear();
 ---
 
@@ -10,14 +11,13 @@ const year = new Date().getUTCFullYear();
   <Container>
     <div class="site-footer__brand">
       <a class="site-footer__home" href="#top" aria-label="Total Stream — к началу страницы"><Logo /></a>
-    {isPreview && (
-      <div class="site-footer__requisites" aria-label="Реквизиты исполнителя — временные заглушки">
-        <p>Исполнитель: XXXXX</p>
-        <p>ИНН: XXXXXXXXXX</p>
-        <p>ОГРН / ОГРНИП: XXXXXXXXXXXXX</p>
-        <p>Адрес: XXXXX</p>
-      </div>
-    )}
+      {requisites && (
+        <section id="requisites" class="site-footer__requisites" aria-label="Реквизиты исполнителя">
+          <p class="site-footer__owner">{requisites.name}</p>
+          <p>ИНН {requisites.inn}</p>
+          <p>ОГРНИП {requisites.ogrnip}</p>
+        </section>
+      )}
     </div>
     <div class="site-footer__bottom">
       <p>© {year} Total Stream</p>
@@ -39,6 +39,7 @@ const year = new Date().getUTCFullYear();
     padding-bottom: var(--space-5);
   }
   .site-footer__home { display: inline-flex; align-items: center; max-width: 100%; min-height: 2.75rem; text-decoration: none; }
+  .site-footer__owner { grid-column: 1 / -1; }
   .site-footer__requisites {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 2rem;
     justify-self: end; min-width: 0; max-width: 36rem; color: var(--color-muted);
