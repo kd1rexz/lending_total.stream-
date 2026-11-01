@@ -22,7 +22,7 @@ test('contacts highlight only the text and copy the exact address', async ({ pag
     }});
   });
   await page.goto('/');
-  const row = page.locator('.channel--email');
+  const row = page.locator('.channel--messenger');
   await row.scrollIntoViewIfNeeded();
   const link = row.locator('a');
   await row.locator('.channel__icon').hover();
@@ -30,11 +30,13 @@ test('contacts highlight only the text and copy the exact address', async ({ pag
   await link.hover();
   await expect(link).toHaveCSS('color', 'rgb(179, 250, 146)');
   await expect(link).toHaveCSS('text-decoration-line', 'none');
-  await expect(link).toHaveAttribute('href', 'mailto:hello@example.com');
-  await row.getByRole('button', { name: 'Скопировать: Почта', exact: true }).click();
-  await expect.poll(() => page.evaluate(() => (window as unknown as { copied: string }).copied)).toBe('hello@example.com');
+  await expect(link).toHaveAttribute('href', 'https://t.me/URY_TTS');
+  await row.getByRole('button', { name: 'Скопировать: Telegram', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => (window as unknown as { copied: string }).copied)).toBe('@URY_TTS');
   await expect(row.locator('[data-contact-copy]')).toHaveAttribute('data-copied', '');
   await expect(row.locator('[data-contact-copy]')).not.toHaveAttribute('data-copied', '', { timeout: 3000 });
+  await page.getByRole('button', { name: 'Скопировать: Телефон', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => (window as unknown as { copied: string }).copied)).toBe('+79053845903');
 });
 
 test('case arrows and explore cue retain the original visible press', async ({ page }) => {

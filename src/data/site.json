@@ -1,7 +1,10 @@
 {
   "name": "Total Stream",
   "description": "Видеотрансляции под ключ для событий, которые важно увидеть. Многокамерный эфир, онлайн-участие и запись мероприятия.",
-  "contacts": [],
+  "contacts": [
+    { "kind": "phone", "label": "+7 (905) 384-59-03", "href": "tel:+79053845903" },
+    { "kind": "messenger", "label": "@URY_TTS", "href": "https://t.me/URY_TTS" }
+  ],
   "contentApproved": false,
   "brandApproved": false
 }

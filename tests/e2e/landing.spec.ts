@@ -101,9 +101,9 @@ test('only honest preview content and contact links', async ({ page }) => {
   ).toHaveCount(0);
   await expect(
     page.locator('a[href^="tel:"], a[href^="mailto:"], a[href*="t.me/"], a[href*="wa.me/"]'),
-  ).toHaveCount(3);
+  ).toHaveCount(2);
   await expect(page.locator('#contacts .contacts__placeholder')).toHaveCount(0);
-  await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @telegram', exact:true})).toHaveCount(1);
+  await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @URY_TTS', exact:true})).toHaveCount(1);
   await expect(page.locator('#contacts .contacts__placeholder-note')).toHaveCount(0);
   await expect(page.locator('#cases h3')).toHaveText([
     'Meet Global MICE Congress', 'Dobrofest 2026', 'Премия «Студент года»',
@@ -116,7 +116,7 @@ test('only honest preview content and contact links', async ({ page }) => {
   const external = await page
     .locator('a[href^="http"]')
     .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
-  expect(external).toEqual(['https://t.me/telegram']);
+  expect(external).toEqual(['https://t.me/URY_TTS']);
 });
 
 for (const width of widths) {
@@ -296,7 +296,7 @@ test.describe('without JavaScript', () => {
     await navigation.getByRole('link', { name: 'Контакты', exact: true }).click();
     await expect(page).toHaveURL(/#contacts$/);
     await expect(page.locator('#contacts .contacts__placeholder')).toHaveCount(0);
-    await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @telegram', exact:true})).toHaveCount(1);
+    await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @URY_TTS', exact:true})).toHaveCount(1);
     await expect(page.locator('#contacts .contacts__placeholder-note')).toHaveCount(0);
     const question = page.locator('.faq summary').first();
     await question.focus();

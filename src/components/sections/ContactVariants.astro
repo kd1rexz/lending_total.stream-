@@ -6,22 +6,11 @@ interface Props {
   contacts: Contact[];
 }
 const { contacts } = Astro.props;
-// Preview-only demo destinations explicitly requested by the owner.
-const previewContacts: Contact[] = contacts.length
-  ? contacts
-  : [
-      { kind: 'phone', label: '8 (888) 888-88-88', href: 'tel:+78888888888' },
-      { kind: 'email', label: 'hello@example.com', href: 'mailto:hello@example.com' },
-      { kind: 'messenger', label: '@telegram', href: 'https://t.me/telegram' },
-    ];
-const channels = [
-  { kind: 'phone' as const, name: 'Телефон', placeholder: '+7 (XXX) XXX-XX-XX' },
-  { kind: 'email' as const, name: 'Почта', placeholder: 'name@example.com' },
-  { kind: 'messenger' as const, name: 'Telegram', placeholder: '@username' },
-].map((channel) => ({
-  ...channel,
-  contact: previewContacts.find((contact) => contact.kind === channel.kind),
-}));
+const channelNames: Record<Contact['kind'], string> = {
+  phone: 'Телефон',
+  email: 'Почта',
+  messenger: 'Telegram',
+};
 ---
 
 <div id="contacts" class="contact-variants" aria-label="Контакты">
@@ -41,18 +30,17 @@ const channels = [
           </p>
         </div>
         <div class="contact-direct__channels">
-          {channels.map((channel, index) => (
-            <div class:list={['channel direct-channel', `channel--${channel.kind}`, { 'direct-channel--primary': index === 0, 'contact-placeholder': !channel.contact }]}>
-              <span class="channel__icon"><ContactIcon kind={channel.kind} family="reference" /></span>
+          {contacts.length === 0 && <p>Контакты будут добавлены.</p>}
+          {contacts.map(({ kind, label, href }, index) => (
+            <div class:list={['channel direct-channel', `channel--${kind}`, { 'direct-channel--primary': index === 0 }]}>
+              <span class="channel__icon"><ContactIcon kind={kind} family="reference" /></span>
               <span class="channel__body">
-                {channel.contact ? (
-                  <a class="channel__value" href={channel.contact.href} aria-label={`${channel.name}: ${channel.contact.label}`}>{channel.contact.label}</a>
-                ) : <span class="channel__value">{channel.placeholder}</span>}
+                <a class="channel__value" href={href} aria-label={`${channelNames[kind]}: ${label}`}>{label}</a>
               </span>
-              {channel.contact && <button class="channel__copy" type="button" data-contact-copy={channel.contact.label} data-copy-name={channel.name} aria-label={`Скопировать: ${channel.name}`} title={`Скопировать: ${channel.name}`} hidden>
+              <button class="channel__copy" type="button" data-contact-copy={kind === 'phone' ? href.slice(4) : label} data-copy-name={channelNames[kind]} aria-label={`Скопировать: ${channelNames[kind]}`} title={`Скопировать: ${channelNames[kind]}`} hidden>
                 <svg class="channel__copy-mark" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg>
                 <svg class="channel__copy-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
-              </button>}
+              </button>
             </div>
           ))}
           <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
