@@ -14,7 +14,7 @@ const channelNames: Record<Contact['kind'], string> = {
 };
 ---
 
-<div id="contacts" class="contact-variants" aria-label="Контакты">
+<div id="contacts" class="contact-variants section-surface" aria-label="Контакты">
   <section class="contact-variant contact-direct section" aria-labelledby="contact-direct-title">
     <Container>
       <div class="contact-direct__layout">
@@ -73,7 +73,6 @@ const channelNames: Record<Contact['kind'], string> = {
     color: var(--color-text);
   }
   .contact-variant {
-    background: var(--color-surface);
     padding-block: clamp(3.5rem, 6vw, 5rem);
   }
   .contact-variant + .contact-variant {

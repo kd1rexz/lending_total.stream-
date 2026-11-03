@@ -1,6 +1,7 @@
 :root {
   /* Restore the approved landing palette; contact experiments are scoped locally. */
   --color-bg: #141517;
+  --page-background: var(--color-bg);
   --color-surface: #202124;
   --color-surface-raised: #292a2d;
   --color-button-gray: #afafaf;

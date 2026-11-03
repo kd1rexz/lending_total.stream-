@@ -17,7 +17,7 @@ const kindLabels: Record<Contact['kind'], string> = {
 };
 ---
 
-<section id="contacts" class="contacts section" aria-labelledby="contacts-title">
+<section id="contacts" class="contacts section section-surface" aria-labelledby="contacts-title">
   <Container>
     <div class="contacts__layout">
       <div class="contacts__intro">
@@ -81,7 +81,6 @@ const kindLabels: Record<Contact['kind'], string> = {
   .contacts {
     padding-block: clamp(2.5rem, 4vw, 4rem);
     color: var(--color-text);
-    background: var(--color-surface);
   }
   .contacts__layout {
     display: grid;

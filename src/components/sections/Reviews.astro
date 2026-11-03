@@ -9,7 +9,7 @@ const { items } = Astro.props;
 ---
 
 {items.length > 0 && (
-  <section class="section reviews" aria-labelledby="reviews-title">
+  <section class="section section-surface reviews" aria-labelledby="reviews-title">
     <Container>
       <SectionHeading title="После финальных титров" id="reviews-title" />
       <div class="reviews__grid">
@@ -33,9 +33,6 @@ const { items } = Astro.props;
 )}
 
 <style>
-  .reviews {
-    background: var(--color-surface);
-  }
   .reviews__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

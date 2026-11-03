@@ -109,6 +109,20 @@ button {
   padding-block: var(--section-space);
 }
 
+.section-surface {
+  --fade-depth: clamp(2.5rem, 8vw, 7rem);
+  background-color: var(--color-surface);
+  background-image: linear-gradient(to bottom, var(--page-background), transparent),
+                    linear-gradient(to top, var(--page-background), transparent);
+  background-position: top, bottom;
+  background-size: 100% var(--fade-top, var(--fade-depth)), 100% var(--fade-bottom, var(--fade-depth));
+  background-repeat: no-repeat;
+}
+
+/* Adjacent grey sections share one continuous surface. */
+.section-surface:has(+ .section-surface) { --fade-bottom: 0px; }
+.section-surface + .section-surface { --fade-top: 0px; }
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
