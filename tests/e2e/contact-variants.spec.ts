@@ -12,9 +12,14 @@ for (const width of [390, 1440]) {
         '#contacts .variant-label, #contacts .channel__action, #contacts .choice-channel__text',
       ),
     ).toHaveCount(0);
-    await expect(page.locator('#contacts .lead')).toHaveText(
-      Array(1).fill(/Расскажите о событии\.\s*Обсудим формат и техническую сторону\./),
-    );
+    const heading = page.locator('#contacts h2');
+    await expect(heading).toHaveAccessibleName(width < 768 ? 'Обсудим трансляцию' : 'Давайте выйдем в эфир');
+    const intro = page.locator('#contacts .lead');
+    await expect(intro.locator(width < 768 ? '.narrow' : '.wide')).toBeVisible();
+    if (width < 768) {
+      await expect(page.getByRole('link', { name: /Позвонить \+7/ })).toHaveAttribute('href', 'tel:+79053845903');
+      await expect(page.getByRole('link', { name: 'Написать в Telegram @URY_TTS' })).toHaveAttribute('href', 'https://t.me/URY_TTS');
+    }
     await expect(page.locator('#contacts .channel')).toHaveCount(2);
     await expect(page.locator('#contacts .channel__icon svg')).toHaveCount(2);
     await expect(page.locator('#contacts [data-icon-family="reference"]')).toHaveCount(2);
