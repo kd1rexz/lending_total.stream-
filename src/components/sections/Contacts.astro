@@ -2,6 +2,7 @@
 import type { Contact } from '../../types/content';
 import Container from '../ui/Container.astro';
 import ContactIntro from '../ui/ContactIntro.astro';
+import ContactIcon from '../ui/ContactIcon.astro';
 
 interface Props {
   contacts: Contact[];
@@ -28,6 +29,7 @@ const kindLabels: Record<Contact['kind'], string> = {
             {contacts.map((contact) => (
               <li>
                 <a href={contact.href} class="contacts__link">
+                  <span class="contacts__icon"><ContactIcon kind={contact.kind} family="reference" /></span>
                   <span class="contacts__channel-content">
                     <span class="sr-only">{kindLabels[contact.kind]}</span>
                     <span class="contacts__channel-label">{contact.label}</span>
@@ -109,6 +111,7 @@ const kindLabels: Record<Contact['kind'], string> = {
     padding-block: var(--space-4);
     text-decoration: none;
   }
+  .contacts__icon { display: none; }
   .contacts__channel-content {
     display: flex;
     flex-direction: column;
@@ -127,21 +130,13 @@ const kindLabels: Record<Contact['kind'], string> = {
     transition: transform var(--duration-base) var(--ease-out);
   }
   @media (max-width: 47.999rem) {
-    .contacts { padding-block: 2.5rem; }
-    .contacts__layout { gap: 1.25rem; }
-    .contacts__list { display: grid; gap: 0.75rem; }
-    .contacts__list li {
-      border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); background: var(--color-surface);
-    }
-    .contacts__list li:first-child { background: var(--color-violet-surface); border-color: transparent; }
-    .contacts__link { min-height: 4rem; padding: 0.5rem 1rem; border-radius: inherit; }
-    .contacts__channel-content { gap: 0.125rem; }
-    .contacts__channel-content .sr-only {
-      position: static; width: auto; height: auto; overflow: visible; clip: auto;
-      white-space: normal; font-size: 1.25rem; font-weight: 600; line-height: 1.4;
-    }
-    .contacts__channel-label { color: var(--color-muted); font-size: 0.875rem; font-weight: 400; font-variant-numeric: tabular-nums; }
-    .contacts__list li:first-child .contacts__channel-label { color: var(--color-text); }
+    .contacts { padding-block: 1.75rem; }
+    .contacts__layout { gap: 1rem; }
+    .contacts__list { border-top: 1px solid var(--color-border); }
+    .contacts__link { min-height: 3.125rem; padding-block: 0.125rem; justify-content: flex-start; gap: 0.625rem; }
+    .contacts__icon { display: block; flex: 0 0 1.0625rem; width: 1.0625rem; height: 1.0625rem; color: var(--color-lime); }
+    .contacts__channel-label { font-size: 1.125rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .contacts__arrow { margin-left: auto; width: 1rem; height: 1rem; color: var(--color-muted); }
   }
   @media (hover: hover) {
     a.contacts__link:hover .contacts__channel-label {

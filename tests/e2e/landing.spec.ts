@@ -296,7 +296,7 @@ test.describe('without JavaScript', () => {
     await navigation.getByRole('link', { name: 'Контакты', exact: true }).click();
     await expect(page).toHaveURL(/#contacts$/);
     await expect(page.locator('#contacts .contacts__placeholder')).toHaveCount(0);
-    await expect(page.locator('#contacts').getByRole('link', {name: 'Написать в Telegram @URY_TTS', exact:true})).toHaveCount(1);
+    await expect(page.locator('#contacts').getByRole('link', {name: 'Telegram: @URY_TTS', exact:true})).toHaveCount(1);
     await expect(page.locator('#contacts .contacts__placeholder-note')).toHaveCount(0);
     const question = page.locator('.faq summary').first();
     await question.focus();

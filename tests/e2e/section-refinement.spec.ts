@@ -23,7 +23,7 @@ for (const width of [360, 390, 768, 1366, 1440]) {
       expect(photo.height).toBeLessThanOrEqual(320);
     }
     const otherContact = page.locator('.direct-channel:not(.direct-channel--primary) .channel__value').first();
-    expect(await otherContact.evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(20);
+    expect(await otherContact.evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(width < 768 ? 18 : 20);
     const steps = await page.locator('.preparation-step').all();
     expect(steps.length).toBe(3);
     const first = (await steps[0].boundingBox())!;

@@ -13,13 +13,10 @@ for (const width of [390, 1440]) {
       ),
     ).toHaveCount(0);
     const heading = page.locator('#contacts h2');
-    await expect(heading).toHaveAccessibleName(width < 768 ? 'Обсудим трансляцию' : 'Давайте выйдем в эфир');
-    const intro = page.locator('#contacts .lead');
-    await expect(intro.locator(width < 768 ? '.narrow' : '.wide')).toBeVisible();
-    if (width < 768) {
-      await expect(page.getByRole('link', { name: /Позвонить \+7/ })).toHaveAttribute('href', 'tel:+79053845903');
-      await expect(page.getByRole('link', { name: 'Написать в Telegram @URY_TTS' })).toHaveAttribute('href', 'https://t.me/URY_TTS');
-    }
+    await expect(heading).toHaveAccessibleName('Давайте выйдем в эфир');
+    await expect(page.locator('#contacts .lead')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Телефон: +7 (905) 384-59-03' })).toHaveAttribute('href', 'tel:+79053845903');
+    await expect(page.getByRole('link', { name: 'Telegram: @URY_TTS' })).toHaveAttribute('href', 'https://t.me/URY_TTS');
     await expect(page.locator('#contacts .channel')).toHaveCount(2);
     await expect(page.locator('#contacts .channel__icon svg')).toHaveCount(2);
     await expect(page.locator('#contacts [data-icon-family="reference"]')).toHaveCount(2);

@@ -134,7 +134,8 @@ const slides = sourceSlides.map(slide => ({ ...slide, excerpt: getExcerpt(slide.
     .case-slide__description[data-folded] .case-slide__excerpt { display: inline; color: var(--color-muted); font-size: 1rem; line-height: 1.65; }
     .case-slide__more:not([hidden]) {
       position: relative; display: inline-block; min-width: 44px; padding: 0; border: 0;
-      background: transparent; color: var(--color-lime); font: 600 1rem/1.4 var(--font-body); text-align: start;
+      background: transparent; color: var(--color-muted); font: 400 0.875rem/1.4 var(--font-body); text-align: start;
+      text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 0.16em;
     }
     .case-slide__more::after { content: ''; position: absolute; inset: 50% 0 auto; height: 44px; transform: translateY(-50%); }
     .case-slide__description[data-folded] .case-slide__more { margin-inline-start: 0.25rem; }
