@@ -121,6 +121,10 @@ const slides = sourceSlides.map(slide => ({ ...slide, excerpt: getExcerpt(slide.
   @media (max-width:63.999rem), (hover:none), (pointer:coarse) {
     .cases__controls button:not(:disabled):active, .cases__controls button:not(:disabled)[data-pressed] { background: var(--color-violet); color: white; }
   }
+  @media (min-width:48rem) and (max-width:63.999rem) {
+    /* Match the Dobrofest frame as the tablet layout widens and its caption wraps less. */
+    .case-slide__image[data-cover="mice"] { max-height: max(20.5rem, calc(46.125rem - 42vw)); }
+  }
   @media (max-width:47.999rem) {
     .cases__stage { --case-padding: 1.5rem; --case-gap: 1.5rem; }
     .cases__track[data-case-enhanced] { position: relative; }
