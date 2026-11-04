@@ -45,49 +45,49 @@
     {
       "name": "Сбер",
       "logo": "sber.svg",
-      "displayWidth": 112,
+      "displayWidth": 131,
       "previewOnly": false
     },
     {
       "name": "X5 Group",
       "logo": "x5.svg",
-      "displayWidth": 72,
+      "displayWidth": 84,
       "previewOnly": false
     },
     {
       "name": "AstraZeneca",
       "logo": "az.svg",
-      "displayWidth": 148,
+      "displayWidth": 173,
       "previewOnly": false
     },
     {
       "name": "Роскосмос",
       "logo": "roscosmos.svg",
-      "displayWidth": 115,
+      "displayWidth": 134,
       "previewOnly": false
     },
     {
       "name": "ПМЭФ",
       "logo": "pmef.svg",
-      "displayWidth": 48,
+      "displayWidth": 56,
       "previewOnly": false
     },
     {
       "name": "ЕвроХим",
       "logo": "eurochem.svg",
-      "displayWidth": 144,
+      "displayWidth": 168,
       "previewOnly": false
     },
     {
       "name": "Dreame",
       "logo": "dreame.svg",
-      "displayWidth": 126,
+      "displayWidth": 147,
       "previewOnly": false
     },
     {
       "name": "JETOUR",
       "logo": "jetour.svg",
-      "displayWidth": 143,
+      "displayWidth": 167,
       "previewOnly": false
     }
   ]

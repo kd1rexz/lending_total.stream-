@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T121 — размер логотипов в блоке «Нам доверяют»
+
+Владелец root. Статус done. [Отчёт T121](reports/T121.md). Основа T120. Пути записи — `src/components/sections/Trust.astro`, `src/data/editorial.json`, `output/qa/T121/`, доска и отчёт T121.
+
 ### T120 — плавная тонировка шапки
 
 Владелец root. Статус done. [Отчёт T120](reports/T120.md). Основа T119. Пути записи — `src/components/sections/SiteHeader.astro`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T120/`, доска и отчёт T120.
