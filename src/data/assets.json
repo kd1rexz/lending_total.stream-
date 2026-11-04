@@ -26,68 +26,68 @@
       "note": "Исходный JPG сохранён без изменений. Отображается в блоке О команде через Astro Image; имя и роль CEO подтверждены пользователем. Финальная проверка прав перед публичным выпуском остаётся в T10."
     },
     {
-      "path": "src/assets/clients/pims.png",
-      "source": "https://pimstea.world/ → https://img1.creatium.ru/7f/07/91/60d999fa013ed46cf0d0df862774c89f52/PIMS_logo3.png",
+      "path": "src/assets/clients/sber.svg",
+      "source": "https://www.ph4.ru/DL/LOGO/s/sber.zip — русский знак «Сбер», контуры EPS в формате SVG.",
       "rights": "unconfirmed",
       "status": "approved",
       "scope": "production",
-      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. Оригинальный PNG без изменений; Astro оптимизирует размер, CSS задаёт монохромное отображение."
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/apple.svg",
-      "source": "https://www.apple.com/ — SVG знака из globalnav-link-apple, 15 октября 2026.",
+      "path": "src/assets/clients/x5.svg",
+      "source": "https://mediahub.x5.ru/back/api/brandbook_media/file/x5_mainlogo_color.svg?prefix=brandbook_",
       "rights": "unconfirmed",
       "status": "approved",
       "scope": "production",
-      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/google.png",
-      "source": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+      "path": "src/assets/clients/az.svg",
+      "source": "https://upload.wikimedia.org/wikipedia/en/4/4f/AstraZeneca.svg",
       "rights": "unconfirmed",
       "status": "approved",
       "scope": "production",
-      "note": "Название предоставлено пользователем; финальная редакторская приёмка остаётся в T10. Оригинальный PNG без изменений; Astro оптимизирует размер, CSS задаёт монохромное отображение."
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/nike.svg",
-      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/nike.svg",
+      "path": "src/assets/clients/roscosmos.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:Roscosmos_logo_ru.svg",
       "rights": "unconfirmed",
-      "status": "reference",
-      "scope": "preview",
-      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "status": "approved",
+      "scope": "production",
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/samsung.svg",
-      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/samsung.svg",
+      "path": "src/assets/clients/pmef.svg",
+      "source": "https://www.ph4.ru/DL/LOGO/f/forumspb.zip — эмблема из forumspb.svg.",
       "rights": "unconfirmed",
-      "status": "reference",
-      "scope": "preview",
-      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "status": "approved",
+      "scope": "production",
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/sony.svg",
-      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/sony.svg",
+      "path": "src/assets/clients/eurochem.svg",
+      "source": "https://www.eurochem.ru/wp-content/uploads/2019/06/logo-ru-black.svg",
       "rights": "unconfirmed",
-      "status": "reference",
-      "scope": "preview",
-      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "status": "approved",
+      "scope": "production",
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/nvidia.svg",
-      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/nvidia.svg",
+      "path": "src/assets/clients/dreame.svg",
+      "source": "https://cdn.shopify.com/s/files/1/0553/1320/3405/files/LOGO_B.svg",
       "rights": "unconfirmed",
-      "status": "reference",
-      "scope": "preview",
-      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "status": "approved",
+      "scope": "production",
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
-      "path": "src/assets/clients/spotify.svg",
-      "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/spotify.svg",
+      "path": "src/assets/clients/jetour.svg",
+      "source": "https://jetourglobal.com/ — официальный знак i-jietu:logo из CSS шапки.",
       "rights": "unconfirmed",
-      "status": "reference",
-      "scope": "preview",
-      "note": "Демонстрационный бренд по поручению пользователя; не подтверждает сотрудничество. previewOnly исключает запись из production. SVG paths сохранены, viewBox ограничен знаком, заливка белая."
+      "status": "approved",
+      "scope": "production",
+      "note": "Из списка пользователя для блока «Нам доверяют»."
     },
     {
       "path": "src/assets/images/service-preview-generated.png",

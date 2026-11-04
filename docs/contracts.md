@@ -21,7 +21,7 @@
 - Team: `profile: TeamProfile` с `name`, `role`, `description`, `portrait: ImageMetadata`. id="team". Показывает Юрия Минеева, CEO команды Total Stream, с предоставленным портретом и текстом. Профиль собирает слой content; карточки ролей удалены по последующей правке пользователя.
 - Reliability: `items: EditorialItem[]`.
 - FAQ: `items: FAQItem[]`.
-- Trust: `items: TrustItem[]`. Блок «Нам доверяют», id="clients", следует после Cases. Сетка локальных логотипов: 4 колонки от 768 px, 2 ниже. TrustItem содержит name, logo: ImageMetadata, displayWidth и previewOnly; слой content разрешает файл из src/assets/clients и исключает previewOnly в production. PIMS, Apple и Google указаны пользователем; Nike, Samsung, Sony, NVIDIA, Spotify добавлены по его подтверждённому поручению как примеры для макета. Для demo-брендов видна подпись. Изображения ленивые, с alt; текстовые имитации логотипов не используются. Пустой блок скрыт.
+- Trust: `items: TrustItem[]`. Блок «Нам доверяют», id="clients", следует после Cases. Сетка локальных логотипов: 4 колонки от 768 px, 2 ниже. TrustItem содержит name, logo: ImageMetadata, displayWidth и previewOnly; слой content разрешает файл из src/assets/clients и исключает previewOnly в production. Список для текущей версии задаётся в `src/data/editorial.json`. Происхождение файлов зафиксировано в `src/data/assets.json`. Изображения ленивые, с alt; текстовые имитации логотипов не используются. Пустой блок скрыт.
 - Reviews: `items: Review[]`; пустой блок скрыт.
 
 ## Данные и сборка

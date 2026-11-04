@@ -43,52 +43,52 @@
   "reviews": [],
   "clients": [
     {
-      "name": "PIMS",
-      "logo": "pims.png",
+      "name": "Сбер",
+      "logo": "sber.svg",
+      "displayWidth": 112,
+      "previewOnly": false
+    },
+    {
+      "name": "X5 Group",
+      "logo": "x5.svg",
+      "displayWidth": 72,
+      "previewOnly": false
+    },
+    {
+      "name": "AstraZeneca",
+      "logo": "az.svg",
+      "displayWidth": 148,
+      "previewOnly": false
+    },
+    {
+      "name": "Роскосмос",
+      "logo": "roscosmos.svg",
+      "displayWidth": 115,
+      "previewOnly": false
+    },
+    {
+      "name": "ПМЭФ",
+      "logo": "pmef.svg",
+      "displayWidth": 48,
+      "previewOnly": false
+    },
+    {
+      "name": "ЕвроХим",
+      "logo": "eurochem.svg",
+      "displayWidth": 144,
+      "previewOnly": false
+    },
+    {
+      "name": "Dreame",
+      "logo": "dreame.svg",
       "displayWidth": 126,
       "previewOnly": false
     },
     {
-      "name": "Apple",
-      "logo": "apple.svg",
-      "displayWidth": 38,
+      "name": "JETOUR",
+      "logo": "jetour.svg",
+      "displayWidth": 143,
       "previewOnly": false
-    },
-    {
-      "name": "Google",
-      "logo": "google.png",
-      "displayWidth": 128,
-      "previewOnly": false
-    },
-    {
-      "name": "Sony",
-      "logo": "sony.svg",
-      "displayWidth": 132,
-      "previewOnly": true
-    },
-    {
-      "name": "Nike",
-      "logo": "nike.svg",
-      "displayWidth": 112,
-      "previewOnly": true
-    },
-    {
-      "name": "Samsung",
-      "logo": "samsung.svg",
-      "displayWidth": 142,
-      "previewOnly": true
-    },
-    {
-      "name": "NVIDIA",
-      "logo": "nvidia.svg",
-      "displayWidth": 64,
-      "previewOnly": true
-    },
-    {
-      "name": "Spotify",
-      "logo": "spotify.svg",
-      "displayWidth": 46,
-      "previewOnly": true
     }
   ]
 }

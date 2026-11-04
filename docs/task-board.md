@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T117 — подборка логотипов для блока «Нам доверяют»
+
+Владелец root. Статус done. [Отчёт T117](reports/T117.md). Основа T116. Пути записи — `src/assets/clients/`, `src/data/{assets,editorial}.json`, `docs/{content-register,contracts,technical-spec}.md`, `output/qa/T117/`, доска и отчёт T117.
+
 ### T116 — тонированная шапка на первом экране
 
 Владелец root. Статус done. [Отчёт T116](reports/T116.md). Основа T115. Пути записи — `src/components/sections/SiteHeader.astro`, `src/scripts/header-scroll.ts`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T116/`, доска и отчёт T116.
