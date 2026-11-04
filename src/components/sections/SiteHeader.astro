@@ -59,6 +59,8 @@ const { navigation } = Astro.props;
     position: absolute;
     inset: 0 0 auto;
     z-index: 10;
+  }
+  .site-header[data-scrolled] {
     background: var(--header-shade);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
@@ -73,7 +75,7 @@ const { navigation } = Astro.props;
     visibility: hidden;
     pointer-events: none;
   }
-  .site-header:not([data-header-hidden])::after {
+  .site-header[data-scrolled]:not([data-header-hidden])::after {
     content: '';
     position: absolute;
     z-index: -1;

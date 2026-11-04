@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T119 — прозрачный фон за логотипом вверху первого экрана
+
+Владелец root. Статус done. [Отчёт T119](reports/T119.md). Основа T118. Пути записи — `src/components/sections/SiteHeader.astro`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T119/`, доска и отчёт T119.
+
 ### T118 — контакты на основном фоне страницы
 
 Владелец root. Статус done. [Отчёт T118](reports/T118.md). Основа T117. Пути записи — `src/components/sections/{ContactVariants,Contacts}.astro`, `output/qa/T118/`, доска и отчёт T118.
