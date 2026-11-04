@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T120 — плавная тонировка шапки
+
+Владелец root. Статус done. [Отчёт T120](reports/T120.md). Основа T119. Пути записи — `src/components/sections/SiteHeader.astro`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T120/`, доска и отчёт T120.
+
 ### T119 — прозрачный фон за логотипом вверху первого экрана
 
 Владелец root. Статус done. [Отчёт T119](reports/T119.md). Основа T118. Пути записи — `src/components/sections/SiteHeader.astro`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T119/`, доска и отчёт T119.

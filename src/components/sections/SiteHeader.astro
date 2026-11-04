@@ -60,11 +60,6 @@ const { navigation } = Astro.props;
     inset: 0 0 auto;
     z-index: 10;
   }
-  .site-header[data-scrolled] {
-    background: var(--header-shade);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
   .site-header[data-scroll-header] {
     position: fixed;
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), visibility 300ms;
@@ -75,14 +70,22 @@ const { navigation } = Astro.props;
     visibility: hidden;
     pointer-events: none;
   }
-  .site-header[data-scrolled]:not([data-header-hidden])::after {
+  .site-header::before {
+    --soft-edge: clamp(0.75rem, 1.5vw, 1.5rem);
     content: '';
     position: absolute;
     z-index: -1;
-    inset: 100% 0 auto;
-    height: clamp(0.75rem, 1.5vw, 1.5rem);
-    background: linear-gradient(to bottom, var(--header-shade), transparent);
+    inset: 0 0 calc(-1 * var(--soft-edge));
+    background: var(--header-shade);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    mask-image: linear-gradient(to bottom, black calc(100% - var(--soft-edge)), transparent);
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease-in-out;
+  }
+  .site-header[data-scrolled]:not([data-header-hidden])::before {
+    opacity: 1;
   }
 
   .site-header :global(.site-header__inner) {
@@ -202,6 +205,7 @@ const { navigation } = Astro.props;
 
   @media (prefers-reduced-motion: reduce) {
     .site-header[data-scroll-header] { transition: none; }
+    .site-header::before { transition: none; }
     .site-header__toggle-icon span { transition: none; }
     .site-header__links a::before, .site-header__links a::after { transition: none !important; }
     .site-header__links a {
