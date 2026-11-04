@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T118 — контакты на основном фоне страницы
+
+Владелец root. Статус done. [Отчёт T118](reports/T118.md). Основа T117. Пути записи — `src/components/sections/{ContactVariants,Contacts}.astro`, `output/qa/T118/`, доска и отчёт T118.
+
 ### T117 — подборка логотипов для блока «Нам доверяют»
 
 Владелец root. Статус done. [Отчёт T117](reports/T117.md). Основа T116. Пути записи — `src/assets/clients/`, `src/data/{assets,editorial}.json`, `docs/{content-register,contracts,technical-spec}.md`, `output/qa/T117/`, доска и отчёт T117.
