@@ -4,6 +4,10 @@
 
 ## Состояние задач
 
+### T116 — тонированная шапка на первом экране
+
+Владелец root. Статус done. [Отчёт T116](reports/T116.md). Основа T115. Пути записи — `src/components/sections/SiteHeader.astro`, `src/scripts/header-scroll.ts`, `tests/e2e/header-scroll.spec.ts`, `output/qa/T116/`, доска и отчёт T116.
+
 ### T115 — кадрирование фотографии MICE на iPad
 
 Владелец root. Статус done. [Отчёт T115](reports/T115.md). Основа T113. Пути записи — `src/components/sections/Cases.astro`, `output/qa/T115/`, доска и отчёт T115.

@@ -1,6 +1,5 @@
 const header = document.querySelector<HTMLElement>('[data-site-header]');
 if (header) {
-  const hero = document.querySelector<HTMLElement>('.hero');
   let previous = Math.max(0, scrollY);
   let direction = 0;
   let distance = 0;
@@ -17,7 +16,6 @@ if (header) {
     distance += Math.abs(delta);
     previous = y;
     header.toggleAttribute('data-scrolled', y > 48);
-    header.toggleAttribute('data-over-content', !hero || hero.getBoundingClientRect().bottom <= 0);
     const menuOpen = header.querySelector('[data-menu-toggle]')?.getAttribute('aria-expanded') === 'true';
     const focused = document.activeElement instanceof HTMLElement && header.contains(document.activeElement) && document.activeElement.matches(':focus-visible');
     if (y <= 24 || menuOpen || focused) show();
