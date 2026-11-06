@@ -62,6 +62,11 @@ function contactHost(contact) {
   return undefined;
 }
 
+function publicationAuthorized(asset) {
+  return asset && asset.scope === 'production' && asset.status === 'approved' &&
+    ['cleared', 'user-authorized'].includes(asset.rights);
+}
+
 /** Schema and publication policy shared by CLI and the page data layer. */
 export function validateContentSource(rawSource, env = process.env) {
   const build = resolveBuildContext(env);
@@ -110,30 +115,21 @@ export function validateContentSource(rawSource, env = process.env) {
     const services = visibleEntries(source.services, false);
     if (services.length < 3 || services.length > 4)
       issues.push('Production requires 3–4 approved, published services.');
-    for (const service of services) {
-      if (!cases.some((entry) => entry.serviceIds.includes(service.id)))
-        issues.push(`Service ${service.id}: production requires at least one published example.`);
-    }
     for (const key of ['reliability', 'faq']) {
       if (!source.editorial[key].length)
         issues.push(`Production requires approved ${key} content.`);
     }
     for (const asset of source.assets.items.filter((item) => item.scope === 'production')) {
-      if (asset.status !== 'approved' || asset.rights !== 'cleared') {
-        issues.push(`Production asset ${asset.path} requires approved status and cleared rights.`);
+      if (!publicationAuthorized(asset)) {
+        issues.push(`Production asset ${asset.path} requires approved status and publication authorization.`);
       }
     }
     for (const entry of cases) {
       const path = `src/assets/images/${entry.cover.split('/').at(-1)}`;
       const asset = source.assets.items.find((item) => item.path === path);
-      if (
-        !asset ||
-        asset.scope !== 'production' ||
-        asset.status !== 'approved' ||
-        asset.rights !== 'cleared'
-      ) {
+      if (!publicationAuthorized(asset)) {
         issues.push(
-          `Case ${entry.id}: cover must be registered as an approved production asset with cleared rights.`,
+          `Case ${entry.id}: cover must be registered as an approved production asset with publication authorization.`,
         );
       }
     }

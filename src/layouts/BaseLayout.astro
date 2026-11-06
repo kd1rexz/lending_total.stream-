@@ -14,17 +14,18 @@ interface Props {
   homepage?: boolean;
 }
 const {
-  title = 'Total Stream — видеотрансляции под ключ',
-  description = 'Видеотрансляции мероприятий для государства и бизнеса по всей России. Обсудите формат события с Total Stream.',
+  title = 'Видеотрансляции мероприятий под ключ — Total Stream',
+  description = site.description,
   noindex = false,
   homepage = false,
 } = Astro.props;
 const context = resolveBuildContext();
 const { isPreview, siteUrl } = context;
-const canonical = siteUrl ? new URL(Astro.url.pathname, siteUrl).href : undefined;
+const canonical = siteUrl ? new URL(homepage ? '/' : Astro.url.pathname, siteUrl).href : undefined;
 const socialImage = siteUrl ? new URL('/og.png', siteUrl).href : undefined;
 const schema = homepage && !noindex ? createSiteSchema(context, {
   name: site.name, description, logo: logo.src,
+  contacts: site.contacts, requisites: site.requisites,
 }) : undefined;
 ---
 
@@ -36,7 +37,7 @@ const schema = homepage && !noindex ? createSiteSchema(context, {
     <meta name="theme-color" content="#141517" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {(isPreview || noindex) && <meta name="robots" content="noindex,nofollow" />}
+    <meta name="robots" content={isPreview || noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large'} />
     {canonical && !noindex && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
@@ -45,6 +46,8 @@ const schema = homepage && !noindex ? createSiteSchema(context, {
     <meta property="og:description" content={description} />
     {canonical && !noindex && <meta property="og:url" content={canonical} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta property="og:image:width" content="1200" />}
+    {socialImage && <meta property="og:image:height" content="630" />}
     {socialImage && <meta property="og:image:alt" content="Total Stream — видеотрансляции под ключ" />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

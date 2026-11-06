@@ -12,17 +12,35 @@ export function createSitemap(context = resolveBuildContext()) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>\n`;
 }
 
-export function createSiteSchema(context, { name, description, logo }) {
+/**
+ * @param {{ isPreview: boolean, siteUrl?: string }} context
+ * @param {{ name: string, description: string, logo: string,
+ *   contacts?: Array<{ kind: string, href: string }>,
+ *   requisites?: { name: string, inn: string } }} details
+ */
+export function createSiteSchema(context, { name, description, logo, contacts = [], requisites }) {
   const { isPreview, siteUrl } = context;
   if (isPreview || !siteUrl) return undefined;
   const url = `${siteUrl}/`;
+  const telephone = contacts.find((contact) => contact.kind === 'phone')?.href.slice(4);
+  const email = contacts.find((contact) => contact.kind === 'email')?.href.slice(7);
+  const profiles = contacts.filter((contact) => contact.kind === 'messenger').map((contact) => contact.href);
   return {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'Organization', '@id': `${url}#organization`, name, url,
-        description, logo: new URL(logo, siteUrl).href },
+        description, logo: new URL(logo, siteUrl).href,
+        ...(telephone && { telephone }),
+        ...(email && { email }),
+        ...(profiles.length > 0 && { sameAs: profiles }),
+        ...(requisites && { legalName: requisites.name, taxID: requisites.inn }),
+      },
       { '@type': 'WebSite', '@id': `${url}#website`, name, url, inLanguage: 'ru-RU',
         publisher: { '@id': `${url}#organization` } },
+      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name,
+        description, inLanguage: 'ru-RU',
+        isPartOf: { '@id': `${url}#website` },
+        about: { '@id': `${url}#organization` } },
     ],
   };
 }

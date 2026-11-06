@@ -16,9 +16,8 @@ const images: Record<string, ImageMetadata> = {
 import type { ServiceWithExamples } from '../../types/content';
 interface Props {
   items: ServiceWithExamples[];
-  isPreview: boolean;
 }
-const { items, isPreview } = Astro.props;
+const { items } = Astro.props;
 ---
 
 <section id="services" class="section services" aria-labelledby="services-title">
@@ -27,11 +26,10 @@ const { items, isPreview } = Astro.props;
     <div class="service-grid">
       {items.map((service, index) => (
         <article
-          class:list={['service-card', { 'service-card--preview': isPreview }]}
+          class="service-card service-card--preview"
           aria-labelledby={`service-title-${service.id}`}
         >
-          {isPreview && (
-            <div class="service-card__image" aria-hidden="true">
+          <div class="service-card__image" aria-hidden="true">
               <Image
                 src={images[service.id]}
                 alt=""
@@ -40,8 +38,7 @@ const { items, isPreview } = Astro.props;
                 format="webp"
                 loading="lazy"
               />
-            </div>
-          )}
+          </div>
           <div class="service-card__shade" aria-hidden="true"></div>
           <div class="service-card__intro">
             <svg

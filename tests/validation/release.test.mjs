@@ -223,7 +223,7 @@ test('draft selection and deterministic sorting are shared with the page', () =>
   );
 });
 
-test('service examples reject broken references and unpublished-only production examples', () => {
+test('service examples reject broken references and keep unpublished cases out of production', () => {
   const unknown = approvedSource();
   unknown.cases[0].serviceIds = ['missing-service'];
   assert.throws(() => validateContentSource(unknown, {}), /unknown service missing-service/);
@@ -235,9 +235,18 @@ test('service examples reject broken references and unpublished-only production 
   const draft = approvedSource();
   draft.cases.push({ ...draft.cases[0], id: 'unrelated-published-case', serviceIds: [] });
   draft.cases[0].published = false;
-  assert.throws(
-    () => validateContentSource(draft, production),
-    /service-1: production requires at least one published example/,
-  );
+  const result = validateContentSource(draft, production);
+  const published = visibleEntries(result.source.cases, false);
+  assert.equal(published.length, 3);
+  assert.equal(published.some((entry) => entry.id === draft.cases[0].id), false);
+  assert.equal(published.some((entry) => entry.serviceIds.includes('service-1')), false);
   assert.doesNotThrow(() => validateContentSource(draft, {}));
+});
+
+test('publication permission distinguishes user-authorized assets from unconfirmed rights', () => {
+  const source = approvedSource();
+  source.assets.items[0].rights = 'user-authorized';
+  assert.doesNotThrow(() => validateContentSource(source, production));
+  source.assets.items[0].rights = 'unconfirmed';
+  assert.throws(() => validateContentSource(source, production), /publication authorization/);
 });

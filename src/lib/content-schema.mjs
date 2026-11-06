@@ -118,7 +118,7 @@ export const assetsSchema = z
               'Asset paths cannot escape the repository.',
             ),
           source: text,
-          rights: z.enum(['unconfirmed', 'cleared']),
+          rights: z.enum(['unconfirmed', 'cleared', 'user-authorized']),
           status: z.enum(['reference', 'approved']),
           scope: z.enum(['preview', 'production']),
           note: text,

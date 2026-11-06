@@ -32,3 +32,22 @@ test('organization markup uses supplied brand data without invented business fac
   assert.equal(graph['@graph'][1].publisher['@id'], organization['@id']);
   assert.doesNotMatch(serializeSchema({ name: '</script><script>alert(1)</script>' }), /</);
 });
+
+test('public company markup uses the published contact details and legal name', () => {
+  const schema = createSiteSchema({ isPreview: false, siteUrl: 'https://totalstream.test' }, {
+    name: 'Total Stream', description: 'Видеотрансляции под ключ', logo: '/logo.png',
+    contacts: [
+      { kind: 'phone', href: 'tel:+79053845903' },
+      { kind: 'messenger', href: 'https://t.me/URY_TTS' },
+    ],
+    requisites: { name: 'ИП Минеева Ольга Игоревна', inn: '645110750800' },
+  });
+  const organization = schema['@graph'][0];
+  assert.equal(organization.telephone, '+79053845903');
+  assert.deepEqual(organization.sameAs, ['https://t.me/URY_TTS']);
+  assert.equal(organization.legalName, 'ИП Минеева Ольга Игоревна');
+  assert.equal(organization.taxID, '645110750800');
+  assert.equal(organization.address, undefined);
+  assert.equal(organization.aggregateRating, undefined);
+  assert.equal(schema['@graph'][2].isPartOf['@id'], 'https://totalstream.test/#website');
+});

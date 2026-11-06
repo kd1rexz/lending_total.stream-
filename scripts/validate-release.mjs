@@ -11,7 +11,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     console.log(
       build.isPreview
         ? `Preview content valid: ${source.services.length} draft services; ${source.cases.length} cases. Publication is disabled.`
-        : 'Production content valid: contacts, approvals, published cases and asset rights are present.',
+        : 'Production content valid: contacts, approvals, published cases and asset publication authorizations are present.',
     );
   } catch (error) {
     console.error(error.message);

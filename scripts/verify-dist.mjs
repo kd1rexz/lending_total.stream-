@@ -10,6 +10,8 @@ if (sitemap !== createSitemap({ isPreview, siteUrl }))
 const robots = await readFile('dist/robots.txt', 'utf8');
 if (isPreview && (!robots.includes('Disallow: /') || /Sitemap:/i.test(robots)))
   throw new Error('Preview robots must block crawling and must not advertise a sitemap.');
+if (!isPreview && (!robots.includes('Allow: /') || !robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`) || /^Disallow:\s*\/\s*$/m.test(robots)))
+  throw new Error('Production robots must allow crawling and advertise the canonical sitemap.');
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -37,4 +39,11 @@ if (isPreview && !/name="robots" content="noindex,nofollow"/.test(home))
   throw new Error('Preview must be noindex.');
 if (!isPreview && /noindex|COMPONENT_FIXTURE_ONLY/.test(home))
   throw new Error('Preview metadata in production homepage.');
+if (!isPreview) {
+  const canonical = `${siteUrl}/`;
+  if (!home.includes(`<link rel="canonical" href="${canonical}">`))
+    throw new Error('Production homepage must use the canonical public domain.');
+  if (!home.includes('application/ld+json'))
+    throw new Error('Production homepage must contain organization markup.');
+}
 console.log(`Verified ${files.length} public files; isolated fixtures are absent.`);
