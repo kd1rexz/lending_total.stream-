@@ -6,7 +6,7 @@
 
 ### T127 — техническое SEO без изменения внешнего вида
 
-Владелец root. Статус in_progress. Основа T126. Пути записи — SEO и данные публикации в `src/`, соответствующие проверки `scripts/` и `tests/validation/`, выбранные изображения с сохранением пикселей, конфигурация домена и релиз на Timeweb, `README.md`, `docs/{contracts,content-register,technical-spec}.md`, `output/qa/T127/`, доска и `docs/reports/T127.md`. Цель — индексация основного домена, canonical, sitemap, robots и разметка организации с сохранением согласованной вёрстки.
+Владелец root. Статус done. [Отчёт T127](reports/T127.md). Основа T126. Пути записи — SEO и данные публикации в `src/`, соответствующие проверки `scripts/` и `tests/validation/`, выбранные изображения с сохранением пикселей, конфигурация домена и релиз на Timeweb, `README.md`, `docs/{contracts,content-register,technical-spec}.md`, `output/qa/T127/`, доска и отчёт T127. Production-релиз `20261106T114123Z-2d72f84` опубликован. Проверены canonical, индексация, sitemap, robots, JSON-LD, все файлы и ошибки HTTP. Скриншоты 390 и 1440 px совпали с прежней версией по каждому пикселю.
 
 ### T126 — подключение собственного домена к Nginx
 
