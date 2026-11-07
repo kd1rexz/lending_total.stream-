@@ -12,6 +12,7 @@ const caseImages = import.meta.glob<{ default: ImageMetadata }>([
   '../assets/images/*.{avif,jpg,jpeg,png,webp}',
   '!../assets/images/brand-reference-*',
   '!../assets/images/case-preview-*',
+  '!../assets/images/preparation.jpg',
   '!../assets/images/yuri-mineev.*',
 ]);
 

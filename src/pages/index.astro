@@ -14,12 +14,10 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
 import { getPageContent } from '../lib/content';
 import { resolveBuildContext } from '../lib/build-context.mjs';
 import heroPoster from '../assets/images/hero-broadcast.jpg';
+import preparationPoster from '../assets/images/preparation.jpg';
 
 const { isPreview } = resolveBuildContext();
 const content = await getPageContent();
-const preparationPoster = import.meta.env.TOTAL_STREAM_PREVIEW
-  ? (await import('../assets/images/preview/preparation.jpg')).default
-  : undefined;
 ---
 
 <BaseLayout description={content.site.description} homepage>

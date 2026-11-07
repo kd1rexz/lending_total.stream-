@@ -117,7 +117,7 @@ test('empty production reports all missing content and media approvals', () => {
         'contentApproved',
         'brandApproved',
         'productionReady',
-        '3–6',
+        '3–7',
         '3–4',
       ])
         assert.match(error.message, new RegExp(fragment));
@@ -154,14 +154,16 @@ test('duplicate ids and contact links are rejected instead of silently replacing
   assert.throws(() => validateContentSource(second, production), /must be unique/);
 });
 
-test('production counts only published cases and rejects too many', () => {
+test('production accepts seven published cases, rejects eight, and counts only published cases', () => {
   const source = approvedSource();
   source.cases[0].published = false;
-  assert.throws(() => validateContentSource(source, production), /3–6/);
+  assert.throws(() => validateContentSource(source, production), /3–7/);
   for (let index = 4; index <= 7; index++)
     source.cases.push({ ...source.cases[1], id: `case-${index}` });
   source.cases[0].published = true;
-  assert.throws(() => validateContentSource(source, production), /3–6/);
+  assert.doesNotThrow(() => validateContentSource(source, production));
+  source.cases.push({ ...source.cases[1], id: 'case-8' });
+  assert.throws(() => validateContentSource(source, production), /3–7/);
 });
 
 test('reference media cannot become public just by checking overall approvals', () => {

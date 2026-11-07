@@ -110,8 +110,8 @@ export function validateContentSource(rawSource, env = process.env) {
       issues.push('assets.productionReady must be true after image, logo, font and rights review.');
 
     const cases = visibleEntries(source.cases, false);
-    if (cases.length < 3 || cases.length > 6)
-      issues.push('Production requires 3–6 approved, published cases.');
+    if (cases.length < 3 || cases.length > 7)
+      issues.push('Production requires 3–7 approved, published cases.');
     const services = visibleEntries(source.services, false);
     if (services.length < 3 || services.length > 4)
       issues.push('Production requires 3–4 approved, published services.');
