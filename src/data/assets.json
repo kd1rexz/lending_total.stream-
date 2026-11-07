@@ -160,6 +160,46 @@
       "status": "approved",
       "scope": "production",
       "note": "Текущий фон уже опубликован пользователем. 6 ноября 2026 поручено открыть SEO без визуальных изменений. Файл сохранён с теми же пикселями, это декоративный фон, не обложка клиентского кейса."
+    },
+    {
+      "path": "src/assets/images/case-preview-crypto-summit.jpg",
+      "source": "Выгрузка downloader bot от 7 ноября 2026, кадр на 1,5 с из 0000000100.mp4.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Обложка кейса Crypto Summit 2026 для локального просмотра."
+    },
+    {
+      "path": "src/assets/images/case-preview-power-up.jpg",
+      "source": "Выгрузка downloader bot от 7 ноября 2026, 0000000102.jpg.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Обложка кейса Power Up 2026 для локального просмотра."
+    },
+    {
+      "path": "src/assets/images/case-preview-soul-of-russia.jpg",
+      "source": "Выгрузка downloader bot от 7 ноября 2026, 0000000098.jpg.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Обложка кейса «Душа России» для локального просмотра. Рабочее название по заставке Soul of Russia в кадре."
+    },
+    {
+      "path": "src/assets/images/case-preview-abashevskie-uzory.jpg",
+      "source": "Выгрузка downloader bot от 7 ноября 2026, 0000000192.jpg.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Обложка кейса «Абашевские узоры» для локального просмотра."
+    },
+    {
+      "path": "src/assets/images/preview/preparation.jpg",
+      "source": "Выгрузка downloader bot от 7 ноября 2026, 0000000050.jpg.",
+      "rights": "unconfirmed",
+      "status": "reference",
+      "scope": "preview",
+      "note": "Пробный декоративный фон блока подготовки эфира."
     }
   ]
 }

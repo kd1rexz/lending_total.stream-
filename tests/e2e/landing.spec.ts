@@ -107,6 +107,8 @@ test('only honest preview content and contact links', async ({ page }) => {
   await expect(page.locator('#contacts .contacts__placeholder-note')).toHaveCount(0);
   await expect(page.locator('#cases h3')).toHaveText([
     'Meet Global MICE Congress', 'Dobrofest 2026', 'Премия «Студент года»',
+    'Crypto Summit 2026', 'Power Up 2026 · Groupe SEB', 'Деловая сессия «Душа России»',
+    'Фестиваль «Абашевские узоры»',
   ]);
   await expect(page.locator('#top video, #cases video')).toHaveCount(0);
   const html = await page.content();

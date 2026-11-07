@@ -17,6 +17,9 @@ import heroPoster from '../assets/images/hero-broadcast.jpg';
 
 const { isPreview } = resolveBuildContext();
 const content = await getPageContent();
+const preparationPoster = import.meta.env.TOTAL_STREAM_PREVIEW
+  ? (await import('../assets/images/preview/preparation.jpg')).default
+  : undefined;
 ---
 
 <BaseLayout description={content.site.description} homepage>
@@ -26,7 +29,7 @@ const content = await getPageContent();
     <ServiceFlip items={content.services} />
     <Cases items={content.cases} isPreview={isPreview} />
     <Trust items={content.clients} />
-    <Reliability items={content.reliability} />
+    <Reliability items={content.reliability} poster={preparationPoster} />
     <TeamVariants profile={content.team} />
     <Reviews items={content.reviews} />
     <FAQ items={content.faq} />

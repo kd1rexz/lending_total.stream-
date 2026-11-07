@@ -1,11 +1,14 @@
 import { defineConfig } from 'astro/config';
 import { resolveBuildContext } from './src/lib/build-context.mjs';
 
-const { siteUrl } = resolveBuildContext();
+const { isPreview, siteUrl } = resolveBuildContext();
 export default defineConfig({
   output: 'static',
   site: siteUrl,
   devToolbar: { enabled: false },
   build: { format: 'file' },
-  vite: { build: { sourcemap: false } },
+  vite: {
+    build: { sourcemap: false },
+    define: { 'import.meta.env.TOTAL_STREAM_PREVIEW': JSON.stringify(isPreview) },
+  },
 });

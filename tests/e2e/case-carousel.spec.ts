@@ -1,25 +1,33 @@
 import { test, expect } from '@playwright/test';
+import cases from '../../src/content/cases.json' with { type: 'json' };
+
+const total = cases.length;
+
 for (const width of [390, 1366]) {
   test(`cases show photo, title and description and can be browsed at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     const root = page.locator('#cases');
     await root.scrollIntoViewIfNeeded();
-    await expect(root.locator('.case-slide')).toHaveCount(3);
+    await expect(root.locator('.case-slide')).toHaveCount(total);
     await expect(root.locator('dl,.case__meta,.case__type,.case__video')).toHaveCount(0);
-    await expect(root.locator('.case-slide img')).toHaveCount(3);
+    await expect(root.locator('.case-slide img')).toHaveCount(total);
     await expect(root.locator('[data-case-prev]')).toBeDisabled();
     await root.locator('[data-case-next]').click();
-    await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
+    await expect(root.locator('[data-case-count]')).toHaveText(`2 / ${total}`);
     await root.locator('[data-case-track]').focus();
-    await page.keyboard.press('ArrowRight');
-    await expect(root.locator('[data-case-count]')).toHaveText('3 / 3');
+    for (let index = 3; index <= total; index++) {
+      await page.keyboard.press('ArrowRight');
+      await expect(root.locator('[data-case-count]')).toHaveText(`${index} / ${total}`);
+    }
     await expect(root.locator('[data-case-next]')).toBeDisabled();
-    await page.keyboard.press('ArrowLeft');
-    await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
+    for (let index = total - 1; index >= 2; index--) {
+      await page.keyboard.press('ArrowLeft');
+      await expect(root.locator('[data-case-count]')).toHaveText(`${index} / ${total}`);
+    }
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await root.locator('[data-case-prev]').click();
-    await expect(root.locator('[data-case-count]')).toHaveText('1 / 3');
+    await expect(root.locator('[data-case-count]')).toHaveText(`1 / ${total}`);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   });
 }
@@ -36,7 +44,7 @@ test('case strip remains horizontally scrollable without JavaScript', async ({ b
   await context.close();
 });
 
-test('phone readers can expand each case and desktop always shows the complete story', async ({ page }) => {
+test('phone readers can expand the longer case descriptions and desktop shows the complete story', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/#cases');
@@ -122,18 +130,18 @@ test('case content crossfades in place and rapid navigation settles cleanly', as
   await root.scrollIntoViewIfNeeded();
   const before = (await track.boundingBox())!;
   await root.locator('[data-case-next]').click();
-  await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
+  await expect(root.locator('[data-case-count]')).toHaveText(`2 / ${total}`);
   expect(await track.evaluate(e => e.scrollLeft)).toBe(0);
   await expect(root.locator('[data-case-slide][data-active]')).toHaveCount(1);
   await expect(root.locator('[data-case-slide][data-active] h3')).toHaveText('Dobrofest 2026');
   await root.locator('[data-case-next]').click();
   await root.locator('[data-case-prev]').click();
-  await expect(root.locator('[data-case-count]')).toHaveText('2 / 3');
+  await expect(root.locator('[data-case-count]')).toHaveText(`2 / ${total}`);
   await expect(root.locator('[data-case-slide][data-active]')).toHaveCount(1);
   const after = (await track.boundingBox())!;
   expect(after.height).toBeCloseTo(before.height, 0);
   expect(after.x).toBe(before.x);
-  await expect(root.locator('[data-case-slide][aria-hidden="true"]')).toHaveCount(2);
+  await expect(root.locator('[data-case-slide][aria-hidden="true"]')).toHaveCount(total - 1);
 });
 
 test('photo preview moves once in view and respects the reader’s motion preference', async ({ page }) => {
@@ -153,10 +161,10 @@ test('photo preview moves once in view and respects the reader’s motion prefer
   await expect.poll(() => active.evaluate(el => el.getAnimations()[0]?.playState), { timeout: 8000 }).toBe('finished');
   await track.focus();
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('[data-case-count]')).toHaveText('2 / 3');
+  await expect(page.locator('[data-case-count]')).toHaveText(`2 / ${total}`);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(active).toHaveCSS('animation-name', 'none');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('[data-case-count]')).toHaveText('3 / 3');
+  await expect(page.locator('[data-case-count]')).toHaveText(`3 / ${total}`);
   expect(videoRequests).toEqual([]);
 });

@@ -4,6 +4,22 @@
 
 ## Состояние задач
 
+### T132 — отправка локальных кейсов и фотофона в GitHub
+
+Владелец root. Статус done. Пути записи — `tests/e2e/{case-carousel,interaction-options,mobile-interactions,landing}.spec.ts`, доска и `docs/reports/T132.md`. Проверки карусели и состава preview согласованы с четырьмя новыми кейсами. Изменения T129–T132 подготовлены к отправке в текущую ветку. [Отчёт T132](reports/T132.md).
+
+### T131 — пробный фотофон блока подготовки
+
+Владелец root. Статус done для локального просмотра. Пути записи — `src/components/sections/Reliability.astro`, `src/pages/index.astro`, `src/assets/images/preview/preparation.jpg`, `src/data/assets.json`, доска, `docs/reports/T131.md`. Пробный монохромный фон с мягким затемнением. Проверены загрузка и контраст на двух ширинах, а также отсутствие пробного фото в production. [Отчёт T131](reports/T131.md).
+
+### T130 — замена кейса «Земля спорта»
+
+Владелец root. Статус done. Пути записи — `src/content/cases.json`, `src/data/assets.json`, обложки `case-preview-{zemlya-sporta,soul-of-russia}.jpg`, доска, `docs/reports/T130.md`, рабочая подборка на рабочем столе и её резервная папка. Шестая карточка заменена на «Душу России». Обложка загружается на двух ширинах. [Отчёт T130](reports/T130.md).
+
+### T129 — новые кейсы для локального просмотра
+
+Владелец root. Статус done для локального просмотра. Пути записи — `src/content/cases.json`, `src/data/assets.json`, `src/assets/images/case-preview-*.jpg`, `src/lib/content.ts`, `astro.config.mjs`, `docs/reports/T129.md`, доска, папка `Total Stream — новые кейсы 7 ноября` на рабочем столе. Четыре события из выгрузки 7 ноября добавлены с рабочими подписями и обложками. Четырнадцать оригиналов сгруппированы по событиям. Проверены карусель на двух ширинах и отсутствие черновиков с обложками в локальной production-сборке. [Отчёт T129](reports/T129.md).
+
 ### T127 — техническое SEO без изменения внешнего вида
 
 Владелец root. Статус done. [Отчёт T127](reports/T127.md). Основа T126. Пути записи — SEO и данные публикации в `src/`, соответствующие проверки `scripts/` и `tests/validation/`, выбранные изображения с сохранением пикселей, конфигурация домена и релиз на Timeweb, `README.md`, `docs/{contracts,content-register,technical-spec}.md`, `output/qa/T127/`, доска и отчёт T127. Production-релиз `20261106T114123Z-2d72f84` опубликован. Проверены canonical, индексация, sitemap, robots, JSON-LD, все файлы и ошибки HTTP. Скриншоты 390 и 1440 px совпали с прежней версией по каждому пикселю.

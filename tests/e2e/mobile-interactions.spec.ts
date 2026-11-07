@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import cases from '../../src/content/cases.json' with { type: 'json' };
 
 for (const width of [360, 390, 768]) {
   test(`touch menu is anchored to the button without shifting the logo at ${width}px`, async ({ browser }) => {
@@ -76,7 +77,7 @@ test('touch services stay brighter with no purple response and case buttons reta
   await expect(card.locator('img')).toHaveCSS('transform', 'none');
   const next = page.locator('[data-case-next]');
   await next.tap();
-  await expect(page.locator('[data-case-count]')).toHaveText('2 / 3');
+  await expect(page.locator('[data-case-count]')).toHaveText(`2 / ${cases.length}`);
   await expect(next).toHaveAttribute('data-pressed', '');
   await expect(next).toHaveCSS('background-color', 'rgb(75, 13, 248)');
   await context.close();

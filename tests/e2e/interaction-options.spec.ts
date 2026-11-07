@@ -1,4 +1,5 @@
 import { test, expect, type Locator } from '@playwright/test';
+import cases from '../../src/content/cases.json' with { type: 'json' };
 
 async function expectPress(element: Locator, gentle = false) {
   await expect.poll(() => element.evaluate(e => e.getAnimations().some(a => a.playState === 'finished' && a.effect?.getTiming().fill === 'forwards'))).toBe(true);
@@ -53,7 +54,7 @@ test('case arrows and explore cue retain the original visible press', async ({ p
   await page.mouse.down();
   await expectPress(next);
   await page.mouse.up();
-  await expect(page.locator('[data-case-count]')).toHaveText('2 / 3');
+  await expect(page.locator('[data-case-count]')).toHaveText(`2 / ${cases.length}`);
 });
 
 test('all FAQ alternatives open, close and recover from rapid reversal', async ({ page }) => {

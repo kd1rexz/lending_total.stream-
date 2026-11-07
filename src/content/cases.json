@@ -43,5 +43,57 @@
     "result": "Церемонию показывали на экранах в зале и во ВКонтакте.",
     "order": 3,
     "published": true
+  },
+  {
+    "id": "crypto-summit",
+    "serviceIds": [],
+    "title": "Crypto Summit 2026",
+    "eventType": "Отраслевой саммит",
+    "cover": "../assets/images/case-preview-crypto-summit.jpg",
+    "coverAlt": "Панельная дискуссия на сцене Crypto Summit 2026 с крупными планами спикера на боковых экранах",
+    "task": "Задача уточняется.",
+    "solution": "Панельная дискуссия на сцене саммита. Выступающего показывают крупным планом на боковых экранах.",
+    "result": "Результат уточняется.",
+    "order": 4,
+    "published": false
+  },
+  {
+    "id": "power-up",
+    "serviceIds": [],
+    "title": "Power Up 2026 · Groupe SEB",
+    "eventType": "Корпоративное мероприятие",
+    "cover": "../assets/images/case-preview-power-up.jpg",
+    "coverAlt": "Выступающие на сцене Power Up 2026 и зрители в зале перед тремя экранами с презентацией",
+    "task": "Задача уточняется.",
+    "solution": "Выступление перед полным залом. Слайды презентации видны на центральном и боковых экранах.",
+    "result": "Результат уточняется.",
+    "order": 5,
+    "published": false
+  },
+  {
+    "id": "soul-of-russia",
+    "serviceIds": [],
+    "title": "Деловая сессия «Душа России»",
+    "eventType": "Деловая сессия",
+    "cover": "../assets/images/case-preview-soul-of-russia.jpg",
+    "coverAlt": "Видеопульт и мониторы с крупным планом выступающего, видами зала и заставкой Soul of Russia",
+    "task": "Задача уточняется.",
+    "solution": "Режиссёрская деловой сессии. На мониторах видны крупные планы спикера, общий план зала и графика события.",
+    "result": "Результат уточняется.",
+    "order": 6,
+    "published": false
+  },
+  {
+    "id": "abashevskie-uzory",
+    "serviceIds": [],
+    "title": "Фестиваль «Абашевские узоры»",
+    "eventType": "Фестиваль народного творчества",
+    "cover": "../assets/images/case-preview-abashevskie-uzory.jpg",
+    "coverAlt": "Оператор с камерой и гарнитурой наблюдает за сценой фестиваля «Абашевские узоры»",
+    "task": "Задача уточняется.",
+    "solution": "Операторская точка с видом на сцену и зрителей. На площадке выступления показывают на больших экранах.",
+    "result": "Результат уточняется.",
+    "order": 7,
+    "published": false
   }
 ]
